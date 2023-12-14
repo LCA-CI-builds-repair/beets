@@ -242,6 +242,47 @@ class SmartPlaylistTest(_common.TestCase):
         )
 
 
+    def test_playlist_update_uri_template(self):
+        spl = SmartPlaylistPlugin()
+
+        i = MagicMock()
+        type(i).id = PropertyMock(return_value=3)
+        type(i).path = PropertyMock(return_value=b"/tagada.mp3")
+        i.evaluate_template.side_effect = lambda pl, _: pl.replace(
+            b"$title", b"ta:ga:da"
+        ).decode()
+
+        lib = Mock()
+        lib.replacements = CHAR_REPLACE
+        lib.items.return_value = [i]
+        lib.albums.return_value = []
+
+        q = Mock()
+        a_q = Mock()
+        pl = b"$title-my<playlist>.m3u", (q, None), (a_q, None)
+        spl._matched_playlists = [pl]
+
+        dir = bytestring_path(mkdtemp())
+        config["smartplaylist"]["uri_template"] = "http://beets:8337/item/$id/file"
+        config["smartplaylist"]["playlist_dir"] = py3_path(dir)
+        try:
+            spl.update_playlists(lib)
+        except Exception:
+            rmtree(syspath(dir))
+            raise
+
+        lib.items.assert_called_once_with(q, None)
+        lib.albums.assert_called_once_with(a_q, None)
+
+        m3u_filepath = path.join(dir, b"ta_ga_da-my_playlist_.m3u")
+        self.assertExists(m3u_filepath)
+        with open(syspath(m3u_filepath), "rb") as f:
+            content = f.read()
+        rmtree(syspath(dir))
+
+        self.assertEqual(content, b"http://beets:8337/item/3/file\n")
+
+
 class SmartPlaylistCLITest(_common.TestCase, TestHelper):
     def setUp(self):
         self.setup_beets()

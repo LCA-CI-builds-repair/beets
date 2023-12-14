@@ -45,6 +45,7 @@ class SmartPlaylistPlugin(BeetsPlugin):
                 "playlist_dir": ".",
                 "auto": True,
                 "playlists": [],
+                "uri_template": None,
                 "forward_slash": False,
                 "prefix": "",
                 "urlencode": False,
@@ -71,6 +72,13 @@ class SmartPlaylistPlugin(BeetsPlugin):
             "--pretend",
             action="store_true",
             help="display query results but don't write playlist files.",
+        )
+        spl_update.parser.add_option(
+            "--uri-template",
+            dest="uri_template",
+            metavar="TPL",
+            type="string",
+            help="playlist item URI template with `$id` placeholder, e.g. http://beets:8337/item/$id/file.",
         )
         spl_update.parser.add_option(
             "--extm3u",
@@ -208,6 +216,7 @@ class SmartPlaylistPlugin(BeetsPlugin):
                 "Updating {0} smart playlists...", len(self._matched_playlists)
             )
 
+        tpl = self.config["uri_template"].get()
         playlist_dir = self.config["playlist_dir"].as_filename()
         playlist_dir = bytestring_path(playlist_dir)
         relative_to = self.config["relative_to"].get()
@@ -238,13 +247,22 @@ class SmartPlaylistPlugin(BeetsPlugin):
                 m3u_name = sanitize_path(m3u_name, lib.replacements)
                 if m3u_name not in m3us:
                     m3us[m3u_name] = []
-                item_path = item.path
-                if relative_to:
-                    item_path = os.path.relpath(item.path, relative_to)
-                if item_path not in m3us[m3u_name]:
-                    m3us[m3u_name].append({"item": item, "path": item_path})
+                item_uri = item.path
+                if tpl:
+                    item_uri = tpl.replace("$id", str(item.id)).encode("utf-8")
+                else:
+                    if relative_to:
+                        item_uri = os.path.relpath(item_uri, relative_to)
+                    if self.config["forward_slash"].get():
+                        item_uri = path_as_posix(item_uri)
+                    if self.config["urlencode"]:
+                        item_uri = bytestring_path(pathname2url(item_uri))
+                    item_uri = prefix + item_uri
+
+                if item_uri not in m3us[m3u_name]:
+                    m3us[m3u_name].append({"item": item, "uri": item_uri})
                     if pretend and self.config["pretend_paths"]:
-                        print(displayable_path(item_path))
+                        print(displayable_path(item_uri))
                     elif pretend:
                         print(item)
 
@@ -261,18 +279,13 @@ class SmartPlaylistPlugin(BeetsPlugin):
                     if extm3u:
                         f.write(b"#EXTM3U\n")
                     for entry in m3us[m3u]:
-                        path = entry["path"]
                         item = entry["item"]
-                        if self.config["forward_slash"].get():
-                            path = path_as_posix(path)
-                        if self.config["urlencode"]:
-                            path = bytestring_path(pathname2url(path))
                         comment = ""
                         if extm3u:
                             comment = "#EXTINF:{},{} - {}\n".format(
                                 int(item.length), item.artist, item.title
                             )
-                        f.write(comment.encode("utf-8") + prefix + path + b"\n")
+                        f.write(comment.encode("utf-8") + entry["uri"] + b"\n")
             # Send an event when playlists were updated.
             send_event("smartplaylist_update")
 

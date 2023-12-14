@@ -119,3 +119,7 @@ other configuration options are:
 - **pretend_paths**: When running with ``--pretend``, show the actual file
   paths that will be written to the m3u file. Default: ``false``.
 - **extm3u**: Generate extm3u/m3u8 playlists. Default ``ǹo``.
+- **uri_template**: Template with an ``$id`` placeholder used generate a
+  playlist item URI, e.g. ``http://beets/item/$id/file``.
+  When this option is specified, the local path-related options ``prefix``,
+  ``relative_to``, ``forward_slash`` and ``urlencode`` are ignored.
