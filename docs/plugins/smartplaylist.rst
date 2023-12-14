@@ -118,9 +118,13 @@ other configuration options are:
 - **urlencode**: URL-encode all paths. Default: ``no``.
 - **pretend_paths**: When running with ``--pretend``, show the actual file
   paths that will be written to the m3u file. Default: ``false``.
+- **uri_format**: Template with an ``$id`` placeholder used generate a
+  playlist item URI, e.g. ``http://beets:8337/item/$id/file``.
+  When this option is specified, the local path-related options ``prefix``,
+  ``relative_to``, ``forward_slash`` and ``urlencode`` are ignored.
 - **extm3u**: Generate extm3u/m3u8 playlists. Default ``ǹo``.
 
 For many configuration options, there is a corresponding CLI option, e.g.
 ``--playlist-dir``, ``--relative-to``, ``--prefix``, ``--forward-slash``,
-``--urlencode``, ``--extm3u``, ``--pretend-paths``.
+``--urlencode``, ``--format``, ``--extm3u``, ``--pretend-paths``.
 CLI options take precedence over those specified within the configuration file.
