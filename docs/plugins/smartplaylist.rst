@@ -126,5 +126,5 @@ other configuration options are:
 
 For many configuration options, there is a corresponding CLI option, e.g.
 ``--playlist-dir``, ``--relative-to``, ``--prefix``, ``--forward-slash``,
-``--urlencode``, ``--format``, ``--extm3u``, ``--pretend-paths``.
+``--urlencode``, ``--uri-format``, ``--extm3u``, ``--pretend-paths``.
 CLI options take precedence over those specified within the configuration file.
