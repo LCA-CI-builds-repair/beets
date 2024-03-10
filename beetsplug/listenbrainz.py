@@ -15,6 +15,11 @@ class ListenBrainzPlugin(BeetsPlugin):
     ROOT = "http://api.listenbrainz.org/1/"
 
     def __init__(self):
+        super().__init__()
+        self.config = config['listenbrainz']
+        self.ui = ui
+
+    def __init__(self):
         """Initialize the plugin."""
         super().__init__()
         self.token = self.config["token"].get()
