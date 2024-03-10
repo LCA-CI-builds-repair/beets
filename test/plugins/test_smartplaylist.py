@@ -238,13 +238,20 @@ class SmartPlaylistTest(_common.TestCase):
             content,
             b"#EXTM3U\n"
             + b"#EXTINF:300,fake artist - fake title\n"
-            + b"http://beets:8337/files/tagada.mp3\n",
+        response = self.post(
+            "/smartplaylist/update",
+            data=b"uri=file:///tmp/test/\n" +
+                b"uri_template=http://beets:8337/files/{artist}/{title}.{ext}\n" +
+                b"uri_template_type=smart\n" +
+                b"name=Test Playlist\n" +
+                b"type=smart\n" +
+                b"rule=year == 2022\n" +
+                b"weight=50\n",
         )
 
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
-
         i = MagicMock()
         type(i).id = PropertyMock(return_value=3)
         type(i).path = PropertyMock(return_value=b"/tagada.mp3")
