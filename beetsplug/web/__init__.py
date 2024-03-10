@@ -339,7 +339,6 @@ def item_file(item_id):
     response.headers["Content-Length"] = os.path.getsize(item_path)
     return response
 
-
 @app.route("/item/query/<query:queries>", methods=["GET", "DELETE", "PATCH"])
 @resource_query("items", patchable=True)
 def item_query(queries):
