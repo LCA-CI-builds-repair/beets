@@ -155,6 +155,12 @@ class ListenBrainzPlugin(BeetsPlugin):
         listenbrainz_playlists = []
 
         for playlist in playlists:
+            if re.search(r"^listenbrainz:", playlist["name"]):
+                listenbrainz_playlists.append(playlist)
+
+        return listenbrainz_playlists
+
+        for playlist in playlists:
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
