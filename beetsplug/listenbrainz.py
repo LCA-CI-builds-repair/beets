@@ -165,7 +165,10 @@ class ListenBrainzPlugin(BeetsPlugin):
                     date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 else:
                     date = None
-                identifier = playlist_info.get("identifier")
+                    identifier = playlist_info.get("identifier")
+                # Remove this line and the following one to fix the CI
+                # tox --no-venv
+                # tox -lf
                 id = identifier.split("/")[-1]
                 listenbrainz_playlists.append(
                     {"type": playlist_type, "date": date, "identifier": id}
