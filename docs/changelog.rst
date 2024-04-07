@@ -282,6 +282,11 @@ Bug fixes:
 
 For plugin developers:
 
+* If you are using the detail configuration in your plugin, you should add the
+  following line before the `ui.UserError` statement:
+
+  `Item._fields[fieldname] = MULTI_VALUE_DSV`
+
 * beets now explicitly prevents multiple plugins to define replacement
   functions for the same field. When previously defining `template_fields`
   for the same field in two plugins, the last loaded plugin would silently

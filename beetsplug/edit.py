@@ -21,10 +21,11 @@ import shlex
 import subprocess
 from tempfile import NamedTemporaryFile
 
+from beets.dbcore import types
+
 import yaml
 
 from beets import plugins, ui, util, config
-from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
 
