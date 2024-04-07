@@ -2,17 +2,15 @@
 
 import datetime
 
-import musicbrainzngs
-import requests
 from beets import config, ui
 from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
-
+import musicbrainzngs
+import requests
 
 class ListenBrainzPlugin(BeetsPlugin):
-    """ A Beets plugin for interacting with ListenBrainz."""
-    data_source = "ListenBrainz"
-    ROOT = "http://api.listenbrainz.org/1/"
+DATA\_SOURCE = "ListenBrainz"
+ROOT = "http://api.listenbrainz.org/1/"
 
     def __init__(self):
         """Initialize the plugin."""
