@@ -147,12 +147,20 @@ class ListenBrainzPlugin(BeetsPlugin):
         url = f"{self.ROOT}/user/{username}/playlists/createdfor"
         return self._make_request(url)
 
-    def get_listenbrainz_playlists(self):
-        """Returns a list of playlists created by ListenBrainz."""
-        import re
+def get_listenbrainz_playlists(self):
+    """Returns a list of playlists created by ListenBrainz."""
+    import re
+    try:
         resp = self.get_playlists_createdfor(self.username)
         playlists = resp.get("playlists")
-        listenbrainz_playlists = []
+    except Exception as e:
+        print("Error in beetsplug/ listenbrainz.py:", e)
+        return []
+    listenbrainz_playlists = []
+    for playlist in playlists:
+        if playlist.get("name").startswith("ListenBrainz"):
+            listenbrainz_playlists.append(playlist)
+    return listenbrainz_playlists
 
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
