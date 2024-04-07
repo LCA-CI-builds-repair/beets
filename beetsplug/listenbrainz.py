@@ -153,6 +153,11 @@ class ListenBrainzPlugin(BeetsPlugin):
         resp = self.get_playlists_createdfor(self.username)
         playlists = resp.get("playlists")
         listenbrainz_playlists = []
+        for playlist in playlists:
+            match = re.search(r"listenbrainz", playlist)
+            if match:
+                listenbrainz_playlists.append(playlist)
+        return listenbrainz_playlists
 
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
