@@ -244,6 +244,9 @@ class SmartPlaylistTest(_common.TestCase):
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
+        assert spl.update_uri_template() == [
+            "http://beets:8337/files/tagada.mp3"
+        ]
 
         i = MagicMock()
         type(i).id = PropertyMock(return_value=3)
