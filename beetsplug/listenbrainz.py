@@ -166,6 +166,8 @@ class ListenBrainzPlugin(BeetsPlugin):
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
+
+                self._output_cache[str(year)][str(week)] = identifier  # Added this line to cache the identifier
                 id = identifier.split("/")[-1]
                 listenbrainz_playlists.append(
                     {"type": playlist_type, "date": date, "identifier": id}
