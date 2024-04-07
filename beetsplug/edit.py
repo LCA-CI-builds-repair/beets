@@ -21,12 +21,14 @@ import shlex
 import subprocess
 from tempfile import NamedTemporaryFile
 
-import yaml
-
+```python
 from beets import plugins, ui, util, config
 from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
+from yaml import *  # Import YAML module
+```
+
 
 # These "safe" types can avoid the format/parse cycle that most fields go
 # through: they are safe to edit with native YAML types.
