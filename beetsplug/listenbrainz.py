@@ -166,6 +166,9 @@ class ListenBrainzPlugin(BeetsPlugin):
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
+                with open("date.env", "w") as f:
+                    f.write(f"DATE={date}")
+                    f.write(f"IDENTIFIER={identifier}")
                 id = identifier.split("/")[-1]
                 listenbrainz_playlists.append(
                     {"type": playlist_type, "date": date, "identifier": id}
