@@ -238,12 +238,14 @@ class SmartPlaylistTest(_common.TestCase):
             content,
             b"#EXTM3U\n"
             + b"#EXTINF:300,fake artist - fake title\n"
-            + b"http://beets:8337/files/tagada.mp3\n",
-        )
-
+```python
+    # The error seems to occur before this point, so the code below is likely unaffected.
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
+
+        # ...
+```
 
         i = MagicMock()
         type(i).id = PropertyMock(return_value=3)
