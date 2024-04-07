@@ -20,7 +20,6 @@ import os
 import shlex
 import subprocess
 from tempfile import NamedTemporaryFile
-
 import yaml
 
 from beets import plugins, ui, util, config

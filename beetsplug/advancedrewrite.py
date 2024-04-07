@@ -165,6 +165,8 @@ class AdvancedRewritePlugin(BeetsPlugin):
                     else:
                         raise UserError(
                             f"Invalid type of replacement {replacement} "
+                            "Error: /home/runner/work/beets/beets/beetsplug/edit.py Imports are incorrectly sorted and/or formatted.
+"
                             f"for field {fieldname}"
                         )
 
