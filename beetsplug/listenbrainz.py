@@ -2,17 +2,25 @@
 
 import datetime
 
+```python
 import musicbrainzngs
 import requests
 from beets import config, ui
 from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
 
+# Import statements in alphabetical order
+import musicbrainzngs
+import requests
+from beets import config, ui
+from beets.plugins import BeetsPlugin
+from beetsplug.lastimport import process_tracks
 
 class ListenBrainzPlugin(BeetsPlugin):
     """ A Beets plugin for interacting with ListenBrainz."""
     data_source = "ListenBrainz"
     ROOT = "http://api.listenbrainz.org/1/"
+```
 
     def __init__(self):
         """Initialize the plugin."""
