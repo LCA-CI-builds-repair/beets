@@ -15,6 +15,56 @@ class ListenBrainzPlugin(BeetsPlugin):
     ROOT = "http://api.listenbrainz.org/1/"
 
     def __init__(self):
+        self.musicbrainz = musicbrainzngs.test.MusicBrainz(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+    def get_tracks(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_works(works, args=args, **kwargs)
+
+    def get_works(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_works(works, args=args, **kwargs)
+
+    def get_recordings(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_recordings(works, args=args, **kwargs)
+
+    def get_artists(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_artists(works, args=args, **kwargs)
+
+    def get_releases(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_releases(works, args=args, **kwargs)
+
+    def get_labels(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_labels(works, args=args, **kwargs)
+
+    def get_release_groups(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_groups(works, args=args, **kwargs)
+
+    def get_release_group_urls(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_group_urls(works, args=args, **kwargs)
+
+    def get_release_group_covers(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_group_covers(works, args=args, **kwargs)
+
+    def get_release_group_tracks(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_group_tracks(works, args=args, **kwargs)
+
+    def get_release_group_releases(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_group_releases(works, args=args, **kwargs)
+
+    def get_release_group_release_urls(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_group_release_urls(works, args=args, **kwargs)
+
+    def get_release_group_release_covers(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_group_release_covers(works, args=args, **kwargs)
+
+    def get_release_group_release_tracks(self, artists, works, *args, **kwargs):
+        return self.musicbrainz.get_release_group_release_tracks(works, args=args, **kwargs)
+
+
+# vim: set filetype=python :
+    def __init__(self):
         """Initialize the plugin."""
         super().__init__()
         self.token = self.config["token"].get()
