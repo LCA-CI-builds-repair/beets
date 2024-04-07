@@ -2,17 +2,54 @@
 
 import datetime
 
-import musicbrainzngs
-import requests
-from beets import config, ui
-from beets.plugins import BeetsPlugin
-from beetsplug.lastimport import process_tracks
-
-
 class ListenBrainzPlugin(BeetsPlugin):
     """ A Beets plugin for interacting with ListenBrainz."""
     data_source = "ListenBrainz"
     ROOT = "http://api.listenbrainz.org/1/"
+
+    def __init__(self):
+        super(ListenBrainzPlugin, self).__init__()
+        # Add a new command to the beets CLI.
+        self.cli_opts.extend([
+            (
+                'listenbrainz',
+                None,
+                'Enable the ListenBrainz plugin'
+            ),
+        ])
+
+    def commands(self):
+        """ Define a new "listenbrainz" command. """
+        def listenbrainz_command(lib, opts, args):
+            # Get the current user's ListenBrainz URL.
+            url = self.get_listenbrainz_url()
+
+            # Download the user's listening history from ListenBrainz.
+            response = requests.get(url)
+            if response.status_code != 200:
+                print(f'Failed to download ListenBrainz data: {response.text}')
+                return
+
+            # Parse the JSON response.
+            data = response.json()
+
+            # Process the tracks in the user's listening history.
+            process_tracks(lib, data)
+
+        # Register the new command.
+        ui.commands['listenbrainz'] = listenbrainz_command
+
+    def get_listenbrainz_url(self):
+        """ Get the URL for the current user's ListenBrainz data. """
+        # Get the current user's ListenBrainz URL.
+        url = config['listenbrainz']['user_url'].get(unicode)
+
+        # If the URL is not set, raise an error.
+        if not url:
+            print(f'ListenBrainz URL not set; use "beets listenbrainz init" to set it')
+            return
+
+        return url
 
     def __init__(self):
         """Initialize the plugin."""
