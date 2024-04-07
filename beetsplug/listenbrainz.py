@@ -7,7 +7,10 @@ import requests
 from beets import config, ui
 from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
+import isort
 
+def format_check():
+    isort.check_imports(config, ui)
 
 class ListenBrainzPlugin(BeetsPlugin):
     """ A Beets plugin for interacting with ListenBrainz."""
