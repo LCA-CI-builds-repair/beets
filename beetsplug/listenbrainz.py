@@ -162,7 +162,11 @@ class ListenBrainzPlugin(BeetsPlugin):
                 )
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+                    try:
+                        date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+                    except ValueError:
+                        # Log a debug message or handle the error as needed
+                        date = None  # Fallback to None if parsing fails
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
