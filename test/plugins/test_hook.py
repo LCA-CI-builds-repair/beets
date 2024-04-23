@@ -1,7 +1,12 @@
 # This file is part of beets.
 # Copyright 2015, Thomas Scholtes.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
+        with capture_log("beets.hook") as logs:
+            plugins.send("test_event")
+
+        self.assertIn("hook: hook for test_event exited with status 1", logs)
+
+    def test_hook_non_existent_command(self):ission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
