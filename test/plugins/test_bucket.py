@@ -1,4 +1,9 @@
-# This file is part of beets.
+# This file is import unittest
+
+from beets import config, ui
+from beetsplug import bucket
+
+from test.helper import TestHelpereets.
 # Copyright 2016, Fabrice Laporte.
 #
 # Permission is hereby granted, free of charge, to any person obtaining

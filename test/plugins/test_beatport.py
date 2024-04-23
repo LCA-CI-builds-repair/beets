@@ -1,4 +1,10 @@
-# This file is part of beets.
+# This file is import unittest
+from datetime import timedelta
+
+from beets import library
+from beetsplug import beatport
+from test import _common
+from test.helper import TestHelperts.
 # Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining

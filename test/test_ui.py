@@ -49,7 +49,9 @@ class ListTest(unittest.TestCase):
         return stdout
 
     def test_list_outputs_item(self):
-        stdout = self._run_list()
+        sfrom unittest.mock import patch
+
+from beets import ui = self._run_list()
         self.assertIn("the title", stdout.getvalue())
 
     def test_list_unicode_query(self):

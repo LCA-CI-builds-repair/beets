@@ -1,4 +1,5 @@
-"""Stupid tests that ensure logging works as expected"""
+"""Stupid tfrom beets import plugins, ui
+import beetsplug that ensure logging works as expected"""
 
 import logging as log
 import sys

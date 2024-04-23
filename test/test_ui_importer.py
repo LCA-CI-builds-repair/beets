@@ -1,4 +1,4 @@
-# This file is part of beets.
+# This file is import unittestf beets.
 # Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
