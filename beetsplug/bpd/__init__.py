@@ -28,9 +28,23 @@ import time
 import traceback
 from string import Template
 
-from mediafile import MediaFile
+from mediafile import import inspect
 
-import beets
+        """Get the target method that corresponds to this command.
+        The `prefix` is prepended to the command name and then the resulting
+        name is used to search `target` for a method with a compatible number
+        of arguments.
+        """
+        # Attempt to get correct command function.
+        func_name = prefix + self.name
+        if not hasattr(target, func_name):
+            raise AttributeError(f'unknown command "{self.name}"')
+        func = getattr(target, func_name)
+
+        try:
+            argspec = inspect.getfullargspec(func)
+        except AttributeError as e:
+            raise emport beets
 import beets.ui
 from beets import dbcore, vfs
 from beets.library import Item

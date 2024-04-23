@@ -27,8 +27,24 @@ import sys
 import tempfile
 import traceback
 from collections import Counter, namedtuple
-from enum import Enum
-from logging import Logger
+from enum import import subprocess
+
+    ``subprocess.CalledProcessError`` is raised. May also raise
+    ``OSError``.
+
+    This replaces `subprocess.check_output` which can have problems if lots of
+    output is sent to stderr.
+    """
+    cmd = convert_command_args(cmd)
+
+    devnull = subprocess.DEVNULL
+
+    try:
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=None, check=True, shell=shell, close_fds=platform.system() != "Windows", text=True)
+    except (subprocess.CalledProcessError, OSError) as e:
+        raise e
+
+    return CommandOutput(result.stdout, result.stderr)ogger
 from multiprocessing.pool import ThreadPool
 from typing import (
     Any,

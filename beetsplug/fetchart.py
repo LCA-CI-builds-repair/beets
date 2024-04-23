@@ -27,7 +27,27 @@ from mediafile import image_mime_type
 
 from beets import config, importer, plugins, ui, util
 from beets.util import bytestring_path, py3_path, sorted_walk, syspath
-from beets.util.artresizer import ArtResizer
+from beets.util.ar            data = response.json()
+
+            if "error" in data:
+                if data["error"] == 6:
+                    self._log.debug(
+                        "lastfm: no results for {}", album.mb_albumid
+                    )
+                else:
+                    self._log.error(
+                        "lastfm: failed to get album info: {} ({})",
+                        data.get("message", "Unknown error"),
+                        data.get("error", "Unknown error"),
+                    )
+            else:
+                if "album" in data and "image" in data["album"]:
+                    images = {
+                        image["size"]: image["#text"]
+                        for image in data["album"]["image"]
+                    }
+                else:
+                    self._log.error("lastfm: no album images found in the response")tResizer
 
 try:
     from bs4 import BeautifulSoup
