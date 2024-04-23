@@ -1,8 +1,31 @@
 # This file is part of beets.
 # Copyright 2015-2016, Ohm Patel.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
+# Permission is hereby granted, free of charge, to any person obtain        if not self.base_url:
+            raise ui.UserError(
+                "This plugin is deprecated since AcousticBrainz has shut down. See the base_url configuration option."
+            )
+        data = {}
+        for url in _generate_urls(self.base_url, mbid):
+            self._log.debug("fetching URL: {}", url)
+
+            try:
+                res = requests.get(url)
+            except requests.RequestException as exc:
+                self._log.info("request error: {}", exc)
+                continue
+
+            if res.status_code == 404:
+                self._log.info("recording ID {} not found", mbid)
+                continue
+
+            try:
+                data.update(res.json())
+            except ValueError:
+                self._log.debug("Invalid Response: {}", res.text)
+                continue
+
+        return dataare and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
