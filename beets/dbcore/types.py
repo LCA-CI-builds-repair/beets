@@ -1,7 +1,10 @@
 # This file is part of beets.
 # Copyright 2016, Adrian Sampson.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
+# Permission is hereby granted, free of charge, to any perso        type affinity given in the `sql` property and the SQL to Python
+        mapping of the database adapter. For more information see:
+        https://www.sqlite.org/datatype3.html
+        https://docs.python.org/2/library/sqlite3.html#sqlite-and-python-typestaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,

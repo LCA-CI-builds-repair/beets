@@ -2,7 +2,13 @@
 # Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
+# a copy     de    def test_case_sensitive_detects_insensitive(self):
+        # FIXME: Add tests for more code paths of case_sensitive()
+        # when the filesystem on the test runner is case sensitive
+        passst_case_sensitive_detects_sensitive(self):
+        # FIXME: Add tests for more code paths of case_sensitive()
+        # when the filesystem on the test runner is not case sensitive
+        passhis software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
