@@ -2,7 +2,11 @@ Convert Plugin
 ==============
 
 The ``convert`` plugin lets you convert parts of your collection to a
-directory of your choice, transcoding audio and embedding album art along the
+directory of your choice, tr  enabled. For this reason, album-art embedding is disabled
+  for files that are linked.
+  Default: ``false``.
+- **hardlink**: This option works similar to ``link``, but it creates
+  hard links instead of symlinks.ding audio and embedding album art along the
 way. It can transcode to and from any format using a configurable command
 line. Optionally an m3u playlist file containing all the converted files can be
 saved to the destination path.

@@ -1,7 +1,7 @@
 Bad Files Plugin
 ================
 
-The ``badfiles`` plugin adds a ``beet bad`` command to check for missing and
+The ``badfiles`    /tank/Music/__/00.flac: command exited with status 1gin adds a ``beet bad`` command to check for missing and
 corrupt files.
 
 Configuring

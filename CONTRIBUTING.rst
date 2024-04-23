@@ -8,7 +8,14 @@ Contributing
 Thank you!
 ==========
 
-First off, thank you for considering contributing to beets! It’s people
+First off, thank you for considering contributing to beets! I6. Add a changelog entry to ``docs/changelog.rst`` near the top of the
+   document.
+7. Run the tests and style checker. The easiest way to run the tests is
+   to use `tox`_. For more information onthe network call and can be run under normal circumstances by our CI and
+others. See `unittest.mock`_ for more info.
+
+-  **AVOID** using the ``start()`` and ``stop()`` methods ofning tests, see :ref:`testing`.
+8. Push to your fork and open a pull request! We’ll be in touch shortly.ople
 like you that make beets continue to succeed.
 
 These guidelines describe how you can help most effectively. By

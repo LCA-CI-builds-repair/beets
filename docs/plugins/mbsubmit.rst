@@ -1,7 +1,10 @@
 MusicBrainz Submit Plugin
 =========================
 
-The ``mbsubmit`` plugin provides extra prompt choices when an import session
+The ``mbsubmit`` plugin prrequire other beets command line switches to be enabled in order to work as
+intended. In particular, setting a threshold of ``strong`` will only display
+the prompt if ``timid`` mode is enabled. You can find more information about
+how the recommendation system works at :ref:`match-config`.es extra prompt choices when an import session
 fails to find a good enough match for a release. Additionally, it provides an
 ``mbsubmit`` command that prints the tracks of the current album in a format
 that is parseable by MusicBrainz's `track parser`_. The prompt choices are:
