@@ -27,8 +27,38 @@ import sys
 import tempfile
 import traceback
 from collections import Counter, namedtuple
-from enum import Enum
-from logging import Logger
+from enum import import subprocess
+import platform
+
+def run_command(cmd, shell=False):
+    """
+    Run the command and return the CommandOutput instance unless a
+    ``subprocess.CalledProcessError`` is raised. May also raise
+    ``OSError``.
+
+    This replaces `subprocess.check_output` which can have problems if lots of
+    output is sent to stderr.
+    """
+    cmd = convert_command_args(cmd)
+
+    devnull = subprocess.DEVNULL
+
+    proc = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        stdin=devnull,
+        close_fds=platform.system() != "Windows",
+        shell=shell,
+    )
+    stdout, stderr = proc.communicate()
+    if proc.returncode:
+        raise subprocess.CalledProcessError(
+            returncode=proc.returncode,
+            cmd=" ".join(cmd),
+            output=stdout + stderr,
+        )
+    return CommandOutput(stdout, stderr)ogger
 from multiprocessing.pool import ThreadPool
 from typing import (
     Any,
