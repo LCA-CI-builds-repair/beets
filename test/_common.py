@@ -1,5 +1,37 @@
 # This file is part of beets.
-# Copyright 2016, Adrian Sampson.
+import os  # noqa: E402
+import beetsplug  # noqa: E402
+from beets import util  # noqa: E402
+from beets import importer, logging  # noqa: E402
+from beets.ui import commands  # noqa: E402
+from beets.util import bytestring_path, syspath  # noqa: E402
+
+beetsplug.__path__ = [
+    os.path.abspath(os.path.join(__file__, "..", "..", "beetsplug"))
+]
+
+# Test resources path.
+RSRC = util.bytestring_path(os.path.join(os.path.dirname(__file__), "rsrc"))
+PLUGINPATH = os.path.join(os.path.dirname(__file__), "rsrc", "beetsplug")
+
+# Propagate to root logger so the test runner can capture it
+log = logging.getLogger("beets")
+log.propagate = True
+log.setLevel(logging.DEBUG)
+
+# Dummy item creation.
+_item_ident = 0
+
+# OS feature test.
+HAVE_SYMLINK = sys.platform != "win32"
+HAVE_HARDLINK = sys.platform != "win32"
+
+try:
+    import reflink
+
+    HAVE_REFLINK = reflink.supported_at(tempfile.gettempdir())
+except ImportError:
+    HAVE_REFLINK = False.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the

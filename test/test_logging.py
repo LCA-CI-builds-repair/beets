@@ -1,4 +1,13 @@
-"""Stupid tests that ensure logging works as expected"""
+"import logging as log
+import sys
+import threading
+import unittest
+from io import StringIO
+from test import _common, helper
+from test._common import TestCase
+
+from beets import logging as blog
+from beets import plugins, uithat ensure logging works as expected"""
 
 import logging as log
 import sys
