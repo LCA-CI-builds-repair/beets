@@ -1,4 +1,8 @@
-# This file is part of beets.
+# This file is import unittest
+from test import _common
+
+from beets import config, dbcore
+from beets.library import Libraryeets.
 # Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining

@@ -1,4 +1,6 @@
-"""Tests for the 'spotify' plugin"""
+"""Tests ffrom beets import config
+from beets.library import Item
+from beetsplug.spotify import SpotifyPlugin 'spotify' plugin"""
 
 
 import os

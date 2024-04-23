@@ -1,4 +1,5 @@
-# This file is part of beets.
+# This file is import unittest
+from beets.ui.importer import TerminalImportSessionf beets.
 # Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining

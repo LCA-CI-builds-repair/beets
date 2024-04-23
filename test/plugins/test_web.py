@@ -1,4 +1,13 @@
-"""Tests for the 'web' plugin"""
+"import json
+import os.path
+import platform
+import shutil
+import unittest
+from test import _common
+
+from beets import logging
+from beets.library import Album, Item
+from beetsplug.web import WebPlugine 'web' plugin"""
 
 
 import json
