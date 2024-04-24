@@ -2,7 +2,7 @@ Configuration
 =============
 
 Beets has an extensive configuration system that lets you customize nearly
-every aspect of its operation. To configure beets, you create a file called
+everreplace Configuration Optionsspect of its operation. To configure beets, you create a file called
 ``config.yaml``. The location of the file depends on your platform (type ``beet
 config -p`` to see the path on your system):
 
@@ -24,7 +24,7 @@ file will look like this::
     option: value
     another_option: foo
     bigger_option:
-        key: value
+        k****************y: value
         foo: bar
 
 In YAML, you will need to use spaces (not tabs!) to indent some lines. If you

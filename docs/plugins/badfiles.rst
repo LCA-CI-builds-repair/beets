@@ -1,7 +1,8 @@
 Bad Files Plugin
 ================
 
-The ``badfiles`` plugin adds a ``beet bad`` command to check for missing and
+The ``badfiles`    /tank/Music/__/00.flac: command exited with status 1
+      00.flac: Error Code 2 - FLAC__STREAM_DECODER_ERROR_STATUS_FRAME_CRC_MISMATCHplugin adds a ``beet bad`` command to check for missing and
 corrupt files.
 
 Configuring

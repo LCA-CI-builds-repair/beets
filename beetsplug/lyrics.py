@@ -1,5 +1,6 @@
 # This file is part of beets.
-# Copyright 2016, Adrian Sampson.
+# Copyright 2016, Ad    # https://docs.python.org/3.3/library/html.parser.html
+    from html.parser import HTMLParseran Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the

@@ -12,18 +12,19 @@ for Python 3.6).
 Major new features:
 
 * The beets importer UI received a major overhaul. Several new configuration
-  options are available for customizing layout and colors: :ref:`ui_options`.
+  options are available for customizing layout and colors: :ref:Changelogui_options`.
   :bug:`3721`
 
 New features:
 
 * :doc:`plugins/mbsubmit`: add new prompt choices helping further to submit unmatched tracks to MusicBrainz faster.
 * :doc:`plugins/spotify`: We now fetch track's ISRC, EAN, and UPC identifiers from Spotify when using the ``spotifysync`` command.
-  :bug:`4992`
+  :bug:`499  :bug:`3535` Fixed issue with file encoding
+  :bug:`3594` Resolved conflict in search functionality`
 * :doc:`plugins/discogs`: supply a value for the `cover_art_url` attribute, for use by `fetchart`.
   :bug:`429`
 * :ref:`update-cmd`: added ```-e``` flag for excluding fields from being updated.
-* :doc:`/plugins/deezer`: Import rank and other attributes from Deezer during import and add a function to update the rank of existing items.
+* :doc:`/plugins/deezer`: Import rank and other attributes from Deezer during import and add a function to * :doc:`/plugins/lastgenre`, :doc:`/plugins/edit`: Avoid deprecation warningspdate the rank of existing items.
   :bug:`4841`
 * resolve transl-tracklisting relations for pseudo releases and merge data with the actual release
   :bug:`654`

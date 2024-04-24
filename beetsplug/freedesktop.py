@@ -1,4 +1,6 @@
-# This file is part of beets.
+# This file is part of     def commands(self):
+        deprecated = ui.cli.Subcommand(
+            "freedesktop",ts.
 # Copyright 2016, Matt Lichtenberg.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
