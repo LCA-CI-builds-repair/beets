@@ -1,5 +1,14 @@
 # This file is part of beets.
-# Copyright 2016, Adrian Sampson.
+import os
+import beetsplug  # noqa: E402
+from beets import util  # noqa: E402
+from beets import importer, logging  # noqa: E402
+from beets.ui import commands  # noqa: E402
+from beets.util import bytestring_path, syspath  # noqa: E402
+
+beetsplug.__path__ = [
+    os.path.abspath(os.path.join(__file__, "..", "..", "beetsplug"))
+]t 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the

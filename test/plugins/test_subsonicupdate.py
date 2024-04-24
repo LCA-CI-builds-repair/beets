@@ -1,4 +1,4 @@
-"""Tests for the 'subsonic' plugin."""
+"from beetsplug.subsonicupdate import <necessary_module_name> the 'subsonic' plugin."""
 
 
 import unittest

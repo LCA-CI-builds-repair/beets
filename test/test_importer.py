@@ -66,8 +66,8 @@ class AutotagStub:
         self.mb_track_for_id = autotag.mb.track_for_id
 
         autotag.mb.match_album = self.match_album
-        autotag.mb.match_track = self.match_track
-        autotag.mb.album_for_id = self.album_for_id
+        autotag.mb.match_track = self.ma    def test_import_album_pretend(self):
+        logs = self.__run(self.import_paths, singletons=False)tag.mb.album_for_id = self.album_for_id
         autotag.mb.track_for_id = self.track_for_id
 
         return self

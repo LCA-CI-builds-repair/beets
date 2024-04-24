@@ -1,4 +1,4 @@
-"""Tests for the 'spotify' plugin"""
+"from beetsplug.spotify import <necessary_module_name>he 'spotify' plugin"""
 
 
 import os

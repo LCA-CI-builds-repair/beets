@@ -6,11 +6,37 @@
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to
-# the following conditions:
-#
-# The above copyright notice and this permission notice shall be
-# included in all copies or substantial portions of the Software.
+# permit p            try:
+                response = self.request(
+                    self.API_ALBUMS + album.mb_releasegroupid,
+                    headers={
+                        "api-key": self.PROJECT_KEY,
+                     try:
+                wikipedia_response = self.request(
+                    self.WIKIPEDIA_URL,
+                    params={
+                        "format": "json",
+                        "action": "query",
+                        "continue": "",
+                        "prop": "images",
+                        "pageids": page_id,
+                    },
+                    headers={"content-type": "application/json"},
+                )
+            except requests.RequestException:
+                self._log.debug("wikipedia: error receiving response") "client-key": self.client_key,
+                    },
+                )
+            except requests.RequestException:
+                self._log.debug("fanart.tv: error receiving response")
+                return
+
+            try:
+                data = response.json()
+            except ValueError:
+                self._log.debug(
+                    "fanart.tv: error loading response: {}", response.text
+                ) the Software.
 
 """Fetches album art.
 """
