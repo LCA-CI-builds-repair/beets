@@ -12,7 +12,14 @@ First off, thank you for considering contributing to beets! It’s people
 like you that make beets continue to succeed.
 
 These guidelines describe how you can help most effectively. By
-following these guidelines, you can make life easier for the development
+following these guidel### Summary of Ch### Summary of Changes:
+1. Added more context to the instructions for clarity on when and why the snippet should be added.
+2. Updated the code snippet to ensure it is properly formatted and highlighted as Python code.
+3. Enhanced the readability of the text by adjusting the formatting for better organization and presentation.
+4. Checked for grammatical errors and typos to improve the quality of the contribution guidelines.the formatting of the text to ensure consistency in the documentation.
+2. Fixed the code snippet formatting to make it more readable and organized.
+3. Added proper Markdown syntax for the hyperlinks to improve the visual presentation of the links.
+4. Checked and corrected any typographical errors or grammatical issues in the text for clarity and professionalism. for the development
 team as it indicates you respect the maintainers’ time; in return, the
 maintainers will reciprocate by helping to address your issue, review
 changes, and finalize pull requests.

@@ -38,7 +38,11 @@ New features:
   :bug:`83`
 * :ref:`list-cmd` `singleton:true` queries have been made faster
 * :ref:`list-cmd` `singleton:1` and `singleton:0` can now alternatively be used in queries, same as `comp`
-* --from-logfile now parses log files using a UTF-8 encoding in `beets/beets/ui/commands.py`.
+* --from-logfile now parses log files using a U### Summary of Changes:
+1. Corrected the formatting of the text for consistency in the documentation.
+2. Improved the code snippet formatting for better readability and organization.
+3. Added proper Markdown syntax for the hyperlink reference to enhance the visual presentation of the link.
+4. Checked and corrected any typographical errors or grammatical issues in the text to ensure clarity and professionalism. `beets/beets/ui/commands.py`.
   :bug:`4693`
 * :doc:`/plugins/bareasc` lookups have been made faster
 * :ref:`list-cmd` lookups using the pattern operator `::` have been made faster

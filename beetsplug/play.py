@@ -1,7 +1,29 @@
-# This file is part of beets.
-# Copyright 2016, David Hamp-Gonsalves
-#
-# Permission is hereby granted, free of charge, to any person obtaining
+# This file is part of beetsimport ui
+import log
+import util
+import subprocess
+import shlex
+
+from beets.ui import commands
+from beets.ui import BeetsPlugin, Subcommand
+
+class PlayPlugin(BeetsPlugin):
+    def __init__(self):
+        self.register_listener('before_choose_candidate', before_choose_candidate_listener)
+
+    def before_choose_candidate_listener(self, session, task):
+        # Implementation of before_choose_candidate_listener
+        pass
+
+    def commands(self):
+        play_command = Subcommand('play', help='Play a specific track.')
+        play_command.parser.add_option('-f', '--file', dest='file', help='Specify the file to play.')
+        play_command.func = self.play_command_func
+        return [play_command]
+
+    def play_command_func(self, lib, opts, args):
+        # Implementation of play_command_func
+        passon is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,

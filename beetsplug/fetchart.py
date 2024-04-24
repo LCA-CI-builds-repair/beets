@@ -23,11 +23,21 @@ from tempfile import NamedTemporaryFile
 
 import confuse
 import requests
-from mediafile import image_mime_type
+from mediaimport re
+
+# Your existing code herege_mime_type
 
 from beets import config, importer, plugins, ui, util
-from beets.util import bytestring_path, py3_path, sorted_walk, syspath
-from beets.util.artresizer import ArtResizer
+from beets.util import bytestring_path, py3_path, sortedtry:
+    # Accessing keys in the data dictionary with exception handling
+    value = data.get('key')
+    if value is None:
+        raise KeyError('Key not found in data dictionary.')
+    print(value)
+except KeyError as e:
+    print(f'Error: {e}')
+    # Handle the KeyError exception appropriately
+    # Additional error handling code can be added herem beets.util.artresizer import ArtResizer
 
 try:
     from bs4 import BeautifulSoup

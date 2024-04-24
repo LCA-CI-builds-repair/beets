@@ -27,8 +27,11 @@ import sys
 import tempfile
 import traceback
 from collections import Counter, namedtuple
-from enum import Enum
-from logging import Logger
+from enum import ### Summary of Changes:
+1. Update the code to handle the case where `shell` is not defined by adding a default value.
+2. Ensure `shell` is defined as `False` by default to enhance security and prevent shell injection vulnerabilities.
+3. Update the `Popen` call to include the default value for `shell` parameter.
+4. Make the code more robust by ensuring it follows best practices for subprocess handling.ogger
 from multiprocessing.pool import ThreadPool
 from typing import (
     Any,

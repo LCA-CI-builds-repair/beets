@@ -25,7 +25,7 @@ from test import _common, helper
 import beets.library
 from beets import dbcore, util
 from beets.dbcore import types
-from beets.dbcore.query import (
+from from dbcore.query import NumericQuery, NotQueryrt (
     InvalidQueryArgumentValueError,
     NoneQuery,
     ParsingError,

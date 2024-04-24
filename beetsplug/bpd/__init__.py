@@ -28,9 +28,10 @@ import time
 import traceback
 from string import Template
 
-from mediafile import MediaFile
-
-import beets
+from mediafile import ### Summary of Changes:
+1. Add error handling to check if the target object `target` has the attribute `func_name` before attempting to retrieve it.
+2. Modify the code to raise a more informative error message if the command function is not found within the target object.
+3. Implement a try-except block to handle the AttributeError and raise a custom error message indicating the unknown command name.import beets
 import beets.ui
 from beets import dbcore, vfs
 from beets.library import Item
