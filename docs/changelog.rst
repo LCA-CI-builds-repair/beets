@@ -95,7 +95,27 @@ New features:
   what a new or changed smart playlist saved in the config is actually
   returning.
   :bug:`4573`
-* :doc:`/plugins/fromfilename`:  Add debug log messages that inform when the
+* :doc:* The installation of the beets core is now 100% pure Python. To use BPD,
+  though, you'll need to set `plugins: bpd` in your .beetsconfig.
+
+* The `import` command can now remove original files when it copies items into
+  your library. (This might be useful if you're low on disk space.) Set the
+  `import_delete` option in your .beetsconfig to `yes`.
+
+* Importing without autotagging (`beet import -A`) now prints out album names
+  as it imports them to indicate progress.
+
+* The new :doc:`/plugins/mpdupdate` will automatically update your MPD server's
+  index whenever your beets library changes.
+
+* Efficiency tweak should reduce the number of MusicBrainz queries per
+  autotagged album.
+
+* A new `-v` command line switch enables debugging output.
+
+* Fixed bug that completely broke non-autotagged imports (`import -A`).
+
+* Fixed bug that logged the wrong paths when using `import -l`.e`:  Add debug log messages that inform when the
   plugin replaced bad (missing) artist, title or tracknumber metadata.
   :bug:`4561` :bug:`4600`
 * :ref:`musicbrainz-config`: MusicBrainz release pages often link to related

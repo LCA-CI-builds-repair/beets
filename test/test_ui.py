@@ -42,8 +42,30 @@ class ListTest(unittest.TestCase):
         self.item.path = "xxx/yyy"
         self.lib.add(self.item)
         self.lib.add_album([self.item])
+import os
+import subprocess
 
-    def _run_list(self, query="", album=False, path=False, fmt=""):
+# Assuming has_program function is defined elsewhere
+
+env = dict(os.environ)
+env["BASH_COMPLETION_DIR"] = os.devnull
+env["BASH_COMPLETION_COMPAT_DIR"] = os.devnull
+
+# Open a `bash` process to run the tests in. We'll pipe in bash
+# commands via stdin.
+cmd = os.environ.get("BEETS_TEST_SHELL", "/bin/bash --norc").split()
+if not has_program(cmd[0]):
+    self.skipTest("bash not available")
+
+# Run tests using subprocess.run for better control and readability
+tester = subprocess.run(
+    cmd,
+    stdin=subprocess.PIPE,
+    stdout=subprocess.PIPE,
+    env=env,
+    text=True,  # Ensure text mode for input/output
+    input=b'commands to pass to bash process\n',  # Input commands via stdin
+)n_list(self, query="", album=False, path=False, fmt=""):
         with capture_stdout() as stdout:
             commands.list_items(self.lib, query, album, fmt)
         return stdout

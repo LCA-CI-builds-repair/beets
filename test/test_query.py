@@ -12,7 +12,21 @@
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 
-"""Various tests for querying the library database.
+"        self.assert_albums_matched(results, ["album with backslash"])
+
+    def test_case_sensitivity(self):
+        self.add_album(path=b"/A/B/C2.mp3", title="caps path")
+
+        makeq = partial(beets.library.PathQuery, "path", "/A/B")
+
+        results = self.lib.items(makeq(case_sensitive=True))
+        self.assert_items_matched(results, ["caps path"])
+
+        results = self.lib.items(makeq(case_sensitive=False))
+        self.assert_items_matched(results, ["path item", "caps path"])
+
+    # Create a variant of this test for Windows to cover os.sep and os.altsep
+    @unittest.skipIf(sys.platform == "win32", "Test for Windows path behavior")for querying the library database.
 """
 
 import os

@@ -11,8 +11,48 @@ Thank you!
 First off, thank you for considering contributing to beets! It’s people
 like you that make beets continue to succeed.
 
-These guidelines describe how you can help most effectively. By
-following these guidelines, you can make life easier for the development
+These guidelines describe how you can help most effesome ``.vimrc`` lines that might Note, if you are on Windows and are seeing errors running tox, it may be related to `this issue`_,
+in which case you may have to install tox v3.8.3 e.g. ``python -m pip install tox==3.8.3``
+
+.. _this issue: https://github.com/tox-dev/tox/issues/1550
+
+Coverage
+^^^^^^^^
+
+``tox -e cov`` will add coverage info for tests: Coverage is pretty low
+still -- see the current status on `Codecov`_.
+
+Red Flags
+^^^^^^^^^
+
+The `pytest-random`_ plugin makes it easy to randomize the order of
+tests. ``py.test test --random`` will occasionally turn up failing tests
+that reveal ordering dependencies—which are bad news!pliant Python
+coding::
+
+    filetype indent on
+    autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab shiftround autoindent
+
+Consider installing `this alternative Python indentation
+plugin <https://github.com/mitsuhiko/vim-python-combined>`__. I also
+like `neomake <https://github.com/neomake/neomake>`__ with its flake8
+checker.
+
+.. _testing:
+
+Testing
+=======
+
+Running the Tests
+-----------------
+
+To run the tests for multiple Python versions, compile the docs, and
+check style, use `tox`_. Just type ``tox`` or use something like
+``tox -e py27`` to test a specific configuration. You can use the
+``--parallel`` flag to make this go faster.
+
+You can disable a hand-selected set of "slow" tests by setting the
+environment variable SKIP_SLOW_TESTS before running them. guidelines, you can make life easier for the development
 team as it indicates you respect the maintainers’ time; in return, the
 maintainers will reciprocate by helping to address your issue, review
 changes, and finalize pull requests.

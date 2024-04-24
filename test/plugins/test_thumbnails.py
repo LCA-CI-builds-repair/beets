@@ -3,7 +3,33 @@
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
-# "Software"), to deal in the Software without restriction, including
+# "Software"), to d# Import necessary modules or functions
+from unittest.mock import call
+
+# Assuming plugin, make_dolphin, make_cover, get_size, album are defined elsewhere
+
+# Test plugin processing with different album conditions
+plugin.config["dolphin"] = False
+plugin.process_album(album)
+self.assertEqual(make_dolphin.call_count, 0)
+
+plugin.config["dolphin"] = True
+plugin.process_album(album)
+make_dolphin.assert_called_once_with(album)
+
+# Test processing based on album art size
+get_size.return_value = 200, 200
+plugin.process_album(album)
+make_cover.assert_called_once_with(album, 128, NORMAL_DIR)
+
+# Reset mock and test for larger album art
+make_cover.reset_mock()
+get_size.return_value = 500, 500
+plugin.process_album(album)
+make_cover.assert_has_calls(
+    [call(album, 128, NORMAL_DIR), call(album, 256, LARGE_DIR)],
+    any_order=True,
+)ithout restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to

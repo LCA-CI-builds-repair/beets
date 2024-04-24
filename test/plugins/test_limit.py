@@ -1,6 +1,26 @@
-# This file is part of beets.
-#
-# Permission is hereby granted, free of charge, to any person obtaining
+# This file is part of bee        self.setup_beets()
+        self.load_plugins("limit")
+
+        # Ensure the number of test items is even
+        self.num_test_items = 10
+        assert self.num_test_items % 2 == 0
+
+        # Create an even number of tracks in the library for testing
+        for item_no, item in enumerate(self.add_item_fixtures(count=self.num_test_items)):
+            item.track = item_no + 1
+            item.store()
+
+        # Define variables for limit tests
+        self.num_limit = self.num_test_items // 2
+        self.num_limit_prefix = "".join(["'", "<", str(self.num_limit), "'"])
+
+        # Define range filters for track numbers
+        self.track_head_range = "track:.." + str(self.num_limit)
+        self.track_tail_range = "track:" + str(self.num_limit + 1) + ".."
+
+    def tearDown(self):
+        self.unload_plugins()
+        self.teardown_beets()reby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,

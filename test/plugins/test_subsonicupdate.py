@@ -4,7 +4,38 @@
 import unittest
 from test import _common
 from test.helper import TestHelper
-from urllib.parse import parse_qs, urlparse
+fro    @responses.activate
+    def test_start_scan_failed_not_found(self):
+        """Tests failed path based on resource not found."""
+        responses.add(
+            responses.GET,
+            "http://localhost:4040/rest/startScan",
+            status=404,
+            body=self.ERROR_BODY,
+        )
+
+        self.subsonicupdate.start_scan()
+        # Add assertions for failure scenario based on resource not found
+
+    def test_start_scan_failed_unreachable(self):
+        """Tests failed path based on service not available."""
+        self.subsonicupdate.start_scan()
+        # Add assertions for failure scenario based on service not available
+
+    @responses.activate
+    def test_url_with_context_path(self):
+        """Tests success for included with contextPath."""
+        config["subsonic"]["url"] = "http://localhost:4040/contextPath/"
+
+        responses.add(
+            responses.GET,
+            "http://localhost:4040/contextPath/rest/startScan",
+            status=200,
+            body=self.SUCCESS_BODY,
+        )
+
+        self.subsonicupdate.start_scan()
+        # Add assertions for successful scenario with contextPath, urlparse
 
 import responses
 

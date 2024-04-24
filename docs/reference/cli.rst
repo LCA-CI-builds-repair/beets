@@ -1,9 +1,27 @@
-Command-Line Interface
-======================
+Command-Line Interfa    commands. If you ever need a quick list of what's available, just
+    type ``beet help`` or ``beet help COMMAND`` for help with a specific
+    command.
 
-.. only:: man
+    Beets also offers shell completion. For bash, see the `completion`_
+    command; for zsh, see the accompanying `completion script`_ for the
+    ``beet`` command.
 
-    SYNOPSIS
+Commands
+--------
+
+.. only:: html
+
+    Here are the built-in commands available in beets:
+
+    .. contents::
+        :local:
+        :depth: 1
+
+    Also be sure to see the :ref:`global flags <global-flags>`.
+
+.. _import-cmd:
+
+import    SYNOPSIS
     --------
 
     | **beet** [*args*...] *command* [*args*...]

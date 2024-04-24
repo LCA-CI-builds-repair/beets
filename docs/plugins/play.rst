@@ -1,7 +1,21 @@
 Play Plugin
 ===========
 
-The ``play`` plugin allows you to pass the results of a query to a music
+T        command: /usr/bin/command --option1 --option2 some_other_option
+
+While playing you'll be able to interact with the player if it is a
+command-line oriented, and you'll get its output in real time.
+
+Interactive Usage
+-----------------
+
+The ``play`` plugin can also be invoked during an import. If enabled, the plugin
+adds a ``plaY`` option to the prompt, so pressing ``y`` will execute the configured
+command and play the items currently being imported.
+
+Once the configured command exits, you will be returned to the import
+decision prompt. If your player is configured to run in the background (in a
+client/server setup), the music will play until you choose to stop it, and the playback will continue seamlessly.gin allows you to pass the results of a query to a music
 player in the form of an m3u playlist or paths on the command line.
 
 Command Line Usage

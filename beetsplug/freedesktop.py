@@ -1,5 +1,24 @@
-# This file is part of beets.
-# Copyright 2016, Matt Lichtenberg.
+# This file is partfrom beets.plugins import BeetsPlugin
+from beets.ui import print_
+
+class FreedesktopPlugin(BeetsPlugin):
+    def commands(self):
+        deprecated = ui.Subcommand(
+            "freedesktop",
+            help="Print a message to redirect to thumbnails --dolphin",
+        )
+        deprecated.func = self.deprecation_message
+        return [deprecated]
+
+    def deprecation_message(self, lib, opts, args):
+        self._log.info(
+            "This plugin is deprecated. Its functionality is "
+            "superseded by the 'thumbnails' plugin"
+        )
+        self._log.info(
+            "'thumbnails --dolphin' replaces freedesktop. See doc & "
+            "changelog for more information"
+        )t 2016, Matt Lichtenberg.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the

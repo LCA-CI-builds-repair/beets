@@ -1,7 +1,24 @@
 Convert Plugin
-==============
+===Usage
+-----
 
-The ``convert`` plugin lets you convert parts of your collection to a
+To convert a part of your collection, run ``beet convert QUERY``. The
+command will transcode all the files matching the query to the
+destination directory given by the ``-d`` (``--dest``) option or the
+``dest`` configuration. The path layout mirrors that of your library,
+but it may be customized through the ``paths`` configuration. Files
+that have been previously converted---and thus already exist in the
+destination directory---will be skipped.
+
+The plugin uses a command-line program to transcode the audio. With the
+``-f`` (``--format``) option you can choose the transcoding command
+and customize the available commands
+:ref:`through the configuration <convert-format-config>`.
+
+Unless the ``-y`` (``--yes``) flag is set, the command will list all
+the items to be converted and ask for your confirmation.
+
+The ``-a`` (or ``--album``) option causes the command to convert entire albums instead of individual tracks.vert`` plugin lets you convert parts of your collection to a
 directory of your choice, transcoding audio and embedding album art along the
 way. It can transcode to and from any format using a configurable command
 line. Optionally an m3u playlist file containing all the converted files can be
