@@ -1,7 +1,74 @@
-# This file is part of beets.
-# Copyright 2019, Carl Suster
-#
-# Permission is hereby granted, free of charge, to any person obtaining
+# This file is part of beetimport json
+import re
+from xml.etree import ElementTree
+from xml.etree.ElementTree import Element
+
+    def setUp(self):
+        self.setup_beets()
+        self.load_plugins("export")
+        self.test_values = {"title": "xtitle", "album": "xalbum"}
+
+    def tearDown(self):
+        self.unload_plugins()
+        self.teardown_beets()
+
+    def execute_command(self, format_type, artist):
+        query = ",".join(self.test_values.keys())
+        out = self.run_with_output(
+            "export", "-f", format_type, "-i", query, artist
+        )
+        return out
+
+    def create_item(self):
+        (item,) = self.add_item_fixtures()
+        item.artist = "xartist"
+        item.title = self.test_values["title"]
+        item.album = self.test_values["album"]
+        item.write()
+        item.store()
+        return item
+
+    def test_json_output(self):
+        # Test JSON output format
+        item1 = self.create_item()
+        out = self.execute_command(format_type="json", artist=item1.artist)
+        json_data = json.loads(out)[0]
+        for key, val in self.test_values.items():
+            self.assertTrue(key in json_data, msg=f"Key '{key}' not found in JSON data")
+            self.assertEqual(val, json_data[key], msg=f"Value mismatch for key '{key}'")
+
+    def test_jsonlines_output(self):
+        # Test JSON Lines output format
+        item1 = self.create_item()
+        out = self.execute_command(format_type="jsonlines", artist=item1.artist)
+        json_data = json.loads(out)
+        for key, val in self.test_values.items():
+            self.assertTrue(key in json_data, msg=f"Key '{key}' not found in JSON data")
+            self.assertEqual(val, json_data[key], msg=f"Value mismatch for key '{key}'")
+
+    def test_csv_output(self):
+        # Test CSV output format
+        item1 = self.create_item()
+        out = self.execute_command(format_type="csv", artist=item1.artist)
+        csv_list = re.split("\r", re.sub("\n", "", out))
+        head = re.split(",", csv_list[0])
+        vals = re.split(",|\r", csv_list[1])
+        for index, column in enumerate(head):
+            self.assertTrue(self.test_values.get(column, None) is not None, msg=f"Column '{column}' not in test values")
+            self.assertEqual(vals[index], self.test_values[column], msg=f"Value mismatch for column '{column}'")
+
+    def test_xml_output(self):
+        # Test XML output format
+        item1 = self.create_item()
+        out = self.execute_command(format_type="xml", artist=item1.artist)
+        library = ElementTree.fromstring(out)
+        self.assertIsInstance(library, Element, msg="Invalid XML structure")
+        for track in library[0]:
+            for details in track:
+                tag = details.tag
+                txt = details.text
+                self.assertTrue(tag in self.test_values, msg=f"Tag '{tag}' not found in test values")
+                self.assertEqual(self.test_values[tag], txt, msg=f"Value mismatch for tag '{tag}'")ted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,

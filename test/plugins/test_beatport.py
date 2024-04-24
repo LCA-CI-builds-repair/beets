@@ -1,7 +1,202 @@
-# This file is part of beets.
-# Copyright 2016, Adrian Sampson.
+## Copyright 2016, Adrian Sampson.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
+# Permission is hereby granted, free o        https://oauth-api.beatport.com/catalog/3/tracks?releaseId=1742984
+        The list of elements on the returned list is incomplete, including just
+        those required for the tests on this class.
+        """
+        results = [
+            {
+                "id": 7817567,
+                "type": "track",
+                "sku": "track-7817567",
+                "name": "Mirage a Trois",
+                "trackNumber": 1,
+                "mixName": "Original Mix",
+                "title": "Mirage a Trois (Original Mix)",
+                "slug": "mirage-a-trois-original-mix",
+                "releaseDate": "2016-04-11",
+                "publishDate": "2016-04-11",
+                "currentStatus": "General Content",
+                "length": "7:05",
+                "lengthMs": 425421,
+                "bpm": 90,
+                "key": {
+                    "standard": {
+                        "letter": "G",
+                        "sharp": False,
+                        "flat": False,
+                        "chord": "minor",
+                    },
+                    "shortName": "Gmin",
+                },
+                "artists": [
+                    {
+                        "id": 326158,
+                        "name": "Supersillyus",
+                        "slug": "supersillyus",
+                        "type": "artist",
+                    }
+                ],
+                "genres": [
+                    {
+                        "id": 9,
+                        "name": "Breaks",
+                        "slug": "breaks",
+                        "type": "genre",
+                    }
+                ],
+                "subGenres": [
+                    {
+                        "id": 209,
+                        "name": "Glitch Hop",
+                        "slug": "glitch-hop",
+                        "type": "subgenre",
+                    }
+                ],
+                "release": {
+                    "id": 1742984,
+                    "name": "Charade",
+                    "type": "release",
+                    "slug": "charade",
+                },
+                "label": {
+                    "id": 24539,
+                    "name": "Gravitas Recordings",
+                    "type": "label",
+                    "slug": "gravitas-recordings",
+                    "status": True,
+                },
+            },
+            {
+                "id": 7817568,
+                "type": "track",
+                "sku": "track-7817568",
+                "name": "Aeon Bahamut",
+                "trackNumber": 2,
+                "mixName": "Original Mix",
+                "title": "Aeon Bahamut (Original Mix)",
+                "slug": "aeon-bahamut-original-mix",
+                "releaseDate": "2016-04-11",
+                "publishDate": "2016-04-11",
+                "currentStatus": "General Content",
+                "length": "7:38",
+                "lengthMs": 458000,
+                "bpm": 100,
+                "key": {
+                    "standard": {
+                        "letter": "G",
+                        "sharp": False,
+                        "flat": False,
+                        "chord": "major",
+                    },
+                    "shortName": "Gmaj",
+                },
+                "artists": [
+                    {
+                        "id": 326158,
+                        "name": "Supersillyus",
+                        "slug": "supersillyus",
+                        "type": "artist",
+                    }
+                ],
+                "genres": [
+                    {
+                        "id": 9,
+                        "name": "Breaks",
+                        "slug": "breaks",
+                        "type": "genre",
+                    }
+                ],
+                "subGenres": [
+                    {
+                        "id": 209,
+                        "name": "Glitch Hop",
+                        "slug": "glitch-hop",
+                        "type": "subgenre",
+                    }
+                ],
+                "release": {
+                    "id": 1742984,
+                    "name": "Charade",
+                    "type": "release",
+                    "slug": "charade",
+                },
+                "label": {
+                    "id": 24539,
+                    "name": "Gravitas Recordings",
+                    "type": "label",
+                    "slug": "gravitas-recordings",
+                    "status": True,
+                },
+            },
+        ]Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+
+"""Tests for the 'beatport' plugin.
+"""
+
+import unittest
+from datetime import timedelta
+import os # Add missing import statement
+from test import _common
+from test.helper import TestHelper
+
+from beets import library
+from beetsplug import beatport
+
+
+class BeatportTest(_common.TestCase, TestHelper):
+    def _make_release_response(self):
+        """Returns a dict that mimics a response from the beatport API.
+
+        The results were retrieved from:
+        https://oauth-api.beatport.com/catalog/3/releases?id=1742984
+        The list of elements on the returned dict is incomplete, including just
+        those required for the tests on this class.
+        """
+        results = {
+            "id": 1742984,
+            "type": "release",
+            "name": "Charade",
+            "slug": "charade",
+            "releaseDate": "2016-04-11",
+            "publishDate": "2016-04-11",
+            "audioFormat": "",
+            "category": "Release",
+            "currentStatus": "General Content",
+            "catalogNumber": "GR089",
+            "description": "",
+            "label": {
+                "id": 24539,
+                "name": "Gravitas Recordings",
+                "type": "label",
+                "slug": "gravitas-recordings",
+            },
+            "artists": [
+                {
+                    "id": 326158,
+                    "name": "Supersillyus",
+                    "slug": "supersillyus",
+                    "type": "artist",
+                }
+            ],
+            "genres": [
+                {"id": 9, "name": "Breaks", "slug": "breaks", "type": "genre"}
+            ],
+        }
+        return results
+
+    def _make_tracks_response(self):
+        """Return a list that mimics a response from the beatport API.
+        Implement the method to return a list of tracks response.
+        """
+        # Add implementation for _make_tracks_response methodermission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
