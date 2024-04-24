@@ -8,7 +8,7 @@ Contributing
 Thank you!
 ==========
 
-First off, thank you for considering contributing to beets! It’s people
+First off, thank you for considering contributing to beets! It’7. Run the tests, style checker, and ensure compliance. To run the tests and style checker, follow the guidelines provided in the documentation. people
 like you that make beets continue to succeed.
 
 These guidelines describe how you can help most effectively. By
