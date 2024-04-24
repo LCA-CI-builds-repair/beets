@@ -36,8 +36,32 @@ New features:
 * Added option to use `cover_art_url` as an album art source in the `fetchart` plugin.
   :bug:`4707`
 * :doc:`/plugins/fetchart`: The plugin can now get album art from `spotify`.
-* Added option to specify a URL in the `embedart` plugin.
-  :bug:`83`
+* Added option to specify a URL in the `emb:ref:`append_prompt_choices`), you can now provid  multiple field arguments in the form ``-k title -k albumartist -k awhen you typed ``beet version``. This has been corrected.
+
+.. _six: https://pypi.org/project/six/
+
+
+1.3.19 (June 25, 2016)
+----------------------
+
+Version 1.3.19 primarily focuses on bug fixes to address regressions from the previous release. Additionally, it marks the return of the :doc:`/plugins/beatport` plugin and the modernization of :doc:`/plugins/bpd`.
+
+Notably, this release marks a milestone as beets successfully passes all tests on Windows, indicating improved cross-platform reliability for beets.
+
+New features:rgument must be prefixed with ``-k``.
+* The old top-level ``colors`` configuration option has been removed and is now located under ``ui``.
+* The deprecated configuration options ``list_format_album`` and ``list_format_item`` have been removed. Refer to :ref:`format_album` and :ref:`format_item` for the updated formats.ndidates for the user
+to consider. For example, you might provide an alternative strategy for
+picking between the available alternatives or for looking up a release on
+MusicBrainz.
+
+
+1.4.2 (December 16, 2016)
+-------------------------
+
+This release focuses on bug fixes and improvements. With version 1.4.2, we encourage users to explore Python 3 compatibility. While there may still be some bugs, we believe it is safe for widespread adoption. We recommend installing beets using ``pip3`` instead of ``pip2`` to test the compatibility and provide feedback on the experience.
+
+Here are the fixes: :bug:`83`
 * :ref:`list-cmd` `singleton:true` queries have been made faster
 * :ref:`list-cmd` `singleton:1` and `singleton:0` can now alternatively be used in queries, same as `comp`
 * --from-logfile now parses log files using a UTF-8 encoding in `beets/beets/ui/commands.py`.
@@ -67,7 +91,9 @@ New features:
 * :doc:`/plugins/kodiupdate`: Now supports multiple kodi instances
   :bug:`4101`
 * Add the item fields ``bitrate_mode``, ``encoder_info`` and ``encoder_settings``.
-* Add query prefixes ``=`` and ``~``.
+* Add que  command-line interface. The ``bpd`` and ``dadd`` commands have been removed from the beets core and are now implemented as plugins; BPD is loaded by default. To load plugins that are not default, utilize the configuration options ``plugins`` (a space-separated list of plugin names) and ``pluginpath`` (a colon-separated list of directories to search beyond ``sys.path``). Plugins are Python modules under the ``beetsplug`` namespace package containing subclasses of ``beets.plugins.BeetsPlugin``.
+
+For examples of plugins, refer to `the beetsplug directory`_. Detailed instructions on managing plugins can be found in the :doc:`/plugins/index`.xes ``=`` and ``~``.
 * A new configuration option, :ref:`duplicate_keys`, lets you change which
   fields the beets importer uses to identify duplicates.
   :bug:`1133` :bug:`4199`

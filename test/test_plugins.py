@@ -5,7 +5,40 @@
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
-# distribute, sublicense, and/or sell copies of the Software, and to
+# distribute, simport itertools
+import plugins
+
+def test_listener_params(self, mock_find_plugins):
+    test = self
+
+    class DummyPlugin(plugins.BeetsPlugin):
+        def __init__(self):
+            super().__init__()
+            for i in itertools.count(1):
+                try:
+                    meth = getattr(self, f"dummy{i}")
+                except AttributeError:
+                    break
+                self.register_listener(f"event{i}", meth)
+
+        def dummy1(self, foo):
+            test.assertEqual(foo, 5)
+
+        def dummy2(self, foo=None):
+            test.assertEqual(foo, 5)
+
+        def dummy3(self, bar=None):
+            # Add parameter definition and assertion
+            test.assertIsNone(bar)
+
+        def dummy4(self, bar=None):
+            # Add parameter definition and assertion
+            test.assertIsNone(bar)
+
+        def dummy5(self, bar):
+            test.assertFalse(True)
+
+        # more complex examplesf the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
 #

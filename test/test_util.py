@@ -1,8 +1,27 @@
 # This file is part of beets.
 # Copyright 2016, Adrian Sampson.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
+# Permission is hereby granted, free of charge, to any person o        with self.assertRaises(subprocess.CalledProcessError) as exc_context:
+            util.command_output(["taga", "\xc3\xa9"])
+        self.assertEqual(exc_context.exception.returncode, 1)
+        self.assertEqual(exc_context.exception.cmd, "taga \xc3\xa9")
+
+    def test_case_sensitive_default(self):
+        # Test case to check the default case sensitivity of the system
+        path = util.bytestring_path(
+            util.normpath(
+                "/this/path/does/not/exist",
+            )
+        )
+
+        self.assertEqual(
+            util.case_sensitive(path),
+            platform.system() != "Windows",
+        )
+
+    @unittest.skipIf(sys.platform == "win32", "fs is not case sensitive")
+    def test_case_sensitive_detects_sensitive(self):
+        # Placeholder for future tests to cover more code paths of case_sensitive() this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to

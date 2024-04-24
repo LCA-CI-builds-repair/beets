@@ -8,7 +8,25 @@ Contributing
 Thank you!
 ==========
 
-First off, thank you for considering contributing to beets! It’s people
+First off, thank you for considering contributing t   workspace.
+1. Install pre-commit by following the instructions provided `here <https://pre-commit.com/>`_.
+2. Some lines in your ``.vimrc`The test suitIt is recommended to skip certain tests that should be executed as part of our weekly `integration test` suite. To skip a test under specific conditions, add the following snippet before the applicable test case:
+al dependencies compared to beets itself. These dependencies include testing utilities and dependencies of non-default plugins used in the test suite. You can find the list of dependencies under the 'test' section in the ``extras_require`` of `setup.py`_.
+
+To install the test dependencies, execute ``python -m pip install .[test]``. Alternatively, you can simply run the test suite using ``tox``, which will handle the installation automatically.
+
+For more details, refer to the `setup.py`_ file.
+
+.. _setup.py: https://github.com/beetbox/beets/blob/master/setup.py
+
+## Writing Tests
+
+To write tests, add or modify files in the `test`_ folder. You can refer to the example at `https://github.com/beetbox/beets/blob/master/test/test_template.py#L224`_ to understand how tests are structured. We support writing tests using either `unittest`_ or `pytest`_ frameworks.th PEP 8-compliant Python coding:
+sts. If you’ve fixed a bug, write a test to ensure that you’ve actually fixed it. If there’s a new feature or plugin, please contribute tests that demonstrate the functionality.
+4. Add documentation. For any new command flag or feature, find the appropriate page under ``docs/`` to list it.
+5. Include a changelog entry in ``docs/changelog.rst`` near the top of the document.
+6. Run the tests and style checker. Use `tox` for running tests. Refer to :ref:`testing` for more details on running tests.
+7. Push to your fork and open a pull request. We will review it promptly.eople
 like you that make beets continue to succeed.
 
 These guidelines describe how you can help most effectively. By

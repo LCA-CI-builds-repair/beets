@@ -1,6 +1,33 @@
 # This file is part of beets.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
+# Permission is hereby granted,                 y, sr = load(util.syspath(item.path), res_type="kaiser_fast")
+            except LibsndfileError as exc:
+                self._log.error(
+                    "LibsndfileError: failed to load {0}: {1}",
+                    util.displayable_path(item.path),
+                    exc,
+                )
+                continue
+            except ValueError as exc:
+                self._log.error(
+                    "ValueError: failed to load {0}: {1}",
+                    util.displayable_path(item.path),
+                    exc,
+                )
+                continue
+
+            tempo, _ = beat.beat_track(y=y, sr=sr)
+            bpm = round(tempo)
+            item["bpm"] = bpm
+            self._log.info(
+                "Added computed bpm {0} for {1}",
+                bpm,
+                util.displayable_path(item.path),
+            )
+
+            if write:
+                item.try_write()
+            item.store()n obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,

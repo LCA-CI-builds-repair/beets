@@ -32,8 +32,28 @@ from tempfile import mkdtemp
 import mediafile
 
 from beets import autotag, config, dbcore, library, logging, plugins, util
-from beets.util import (
-    MoveOperation,
+from be        pass
+
+    def save_progress(self):
+        if self.paths is None:
+            # "Done" sentinel.
+            progress_reset(self.toppath)
+        else:
+            # "Directory progress" sentinel for singletons
+            progress_add(self.toppath, *self.paths)
+
+    def skip(self):
+        return True
+
+    def set_choice(self, choice):
+        # Implement the logic to set the user choice during importing
+        pass
+
+    def cleanup(self, **kwargs):
+        pass
+
+    def _emit_imported(self, session):
+        passMoveOperation,
     ancestry,
     displayable_path,
     normpath,

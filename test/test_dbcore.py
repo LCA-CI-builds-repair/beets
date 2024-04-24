@@ -1,8 +1,96 @@
 # This file is part of beets.
 # Copyright 2016, Adrian Sampson.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
+# Perm# Fixture Models for Database Testing
+
+class ModelFixture1(dbcore.Model):
+    _fields = {
+        "id": dbcore.types.PRIMARY_ID,
+        "field_one": dbcore.types.INTEGER,
+    }
+
+
+class ModelFixture2(ModelFixture1):
+    """Fixture model with additional fields."""
+    _fields = {
+        "id": dbcore.types.PRIMARY_ID,
+        "field_one": dbcore.types.INTEGER,
+        "field_two": dbcore.types.INTEGER,
+    }
+
+
+class ModelFixture3(ModelFixture1):
+    """Fixture model with an extra field."""
+    _fields = {
+        "id": dbcore.types.PRIMARY_ID,
+        "field_one": dbcore.types.INTEGER,
+        "field_two": dbcore.types.INTEGER,
+        "field_three": dbcore.types.INTEGER,
+    }
+
+
+class ModelFixture4(ModelFixture1):
+    """Fixture model with multiple added fields."""
+    _fields = {
+        "id": dbcore.types.PRIMARY_ID,
+        "field_one": dbcore.types.INTEGER,
+        "field_two": dbcore.types.INTEGER,
+        "field_three": dbcore.types.INTEGER,
+        "field_four": dbcore.types.INTEGER,
+    }
+
+
+class AnotherModelFixture(ModelFixture1):
+    """Another fixture model with a custom table name."""
+    _table = "another"
+    _flex_table = "anotherflex"
+    _fields = {
+        "id": dbcore.types.PRIMARY_ID,
+        "foo": dbcore.types.INTEGER,
+    }
+
+
+class ModelFixture5(ModelFixture1):
+    """Fixture model with various field types."""
+    _fields = {
+        "some_string_field": dbcore.types.STRING,
+        "some_float_field": dbcore.types.FLOAT,
+        "some_boolean_field": dbcore.types.BOOLEAN,
+    }
+
+
+# Fixture Databases for Database Testing
+
+class DatabaseFixture2(dbcore.Database):
+    """Database fixture with ModelFixture2."""
+    _models = (ModelFixture2,)
+
+
+class DatabaseFixture3(dbcore.Database):
+    """Database fixture with ModelFixture3."""
+    _models = (ModelFixture3,)
+
+
+class DatabaseFixture4(dbcore.Database):
+    """Database fixture with ModelFixture4."""
+    _models = (ModelFixture4,)
+
+
+class DatabaseFixture5(dbcore.Database):
+    """Database fixture with ModelFixture5."""
+    _models = (ModelFixture5,)
+
+
+class DatabaseFixtureTwoModels(dbcore.Database):
+    """Database fixture with multiple models."""
+    _models = (ModelFixture2, AnotherModelFixture)
+
+
+# Test Class for Database Migrations
+
+@_common.slow_test()
+class MigrationTest(unittest.TestCase):
+    """Tests the ability to change the database schema between versions."""ware and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to

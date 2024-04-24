@@ -13,7 +13,8 @@ Using Plugins
 -------------
 
 To use one of the plugins included with beets (see the rest of this page for a
-list), just use the ``plugins`` option in your :doc:`config.yaml </reference/config>` file, like so::
+list), just use the ``pl- `beets-yearfixer`_: Attempts to fix all missing ``original_year`` and ``year`` fields.
+- `beets-youtube`_: Adds YouTube Music as a tagger data source. option in your :doc:`config.yaml </reference/config>` file, like so::
 
     plugins: inline convert web
 

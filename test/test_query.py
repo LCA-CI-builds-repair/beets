@@ -25,7 +25,27 @@ from test import _common, helper
 import beets.library
 from beets import dbcore, util
 from beets.dbcore import types
-from beets.dbcore.query import (
+from         q = dbcore.query.NumericQuery("bitrate", "100000..")
+        dbcore.query.NotQuery(q)
+
+
+class NotQueryTest(DummyDataTestCase):
+    """Test `query.NotQuery` against the dummy data:
+    - `test_negation_type`: test the negation of a specific query type.
+    - `test_query_strings`: test query strings behavior similar to `GetTest`.
+    """
+
+    def assertNegationProperties(self, q):
+        """Given a Query `q`, assert the properties of negation:
+        - q OR not(q) should match all items.
+        - q AND not(q) should match no items.
+        - not(not(q)) should be equivalent to q.
+        """
+        not_q = dbcore.query.NotQuery(q)
+        q_or = dbcore.query.OrQuery([q, not_q])
+        q_and = dbcore.query.AndQuery([q, not_q])
+        self.assert_items_matched_all(self.lib.items(q_or))
+        self.assert_items_matched(self.lib.items(q_and), [])ort (
     InvalidQueryArgumentValueError,
     NoneQuery,
     ParsingError,

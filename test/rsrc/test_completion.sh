@@ -5,8 +5,14 @@ initcli() {
   COMP_WORDS=( "beet" "$@" )
   let COMP_CWORD=${#COMP_WORDS[@]}-1
   COMP_LINE="${COMP_WORDS[@]}"
-  let COMP_POINT=${#COMP_LINE}
-  _beet
+  let COMP_POINT=${#COMP_    tests="$@"
+  fi
+
+  fail=0
+  for t in $tests; do
+    $t || { fail=1 && echo "$t failed" >&2; }
+  done
+  exit $fail _beet
 }
 
 completes() {

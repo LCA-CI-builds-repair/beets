@@ -46,7 +46,36 @@ from typing import (
 from confuse import ConfigView
 
 from beets import ui
-from beets.importer import ImportSession, ImportTask
+from beets.impor        # Set the 'force_on_import' flag based on the configuration option 'overwrite'
+        self.force_on_import = cast(bool, self.config["overwrite"].get(bool))
+
+        # Remember the selected backend for CLI feedback
+        self.backend_name = self.config["backend"].as_str()
+
+        # Validate the selected backend
+        if self.backend_name not in BACKENDS:
+            raise ui.UserError(
+                f"Selected ReplayGain backend '{self.backend_name}' is not supported. "
+                f"Please select one of: {', '.join(BACKENDS.keys())}"
+            )
+
+        # FIXME: Consider renaming the configuration option 'peak' to 'peak_method'
+        peak_method = self.config["peak"].as_str()
+        if peak_method not in PeakMethod.__members__:
+            raise ui.UserError(
+                f"Selected ReplayGain peak method '{peak_method}' is not supported. "
+                f"Please select one of: {', '.join(PeakMethod.__members__)}"
+            )
+        self.peak_method = PeakMethod[peak_method]
+
+        # Set up on-import analysis if 'auto' is enabled
+        if self.config["auto"]:
+            self.register_listener("import_begin", self.import_begin)
+            self.register_listener("import", self.import_end)
+            self.import_stages = [self.imported]
+
+        # Define formats to use R128
+        self.r128_whitelist = self.config["r128"].as_str_seq()
 from beets.library import Album, Item, Library
 from beets.plugins import BeetsPlugin
 from beets.util import (
