@@ -1,12 +1,53 @@
-""" Adds Listenbrainz support to Beets. """
+""" Adds Listenbrainz spport to Beets. """
 
 import datetime
 
 import musicbrainzngs
 import requests
 from beets import config, ui
-from beets.plugins import BeetsPlugin
-from beetsplug.lastimport import process_tracks
+from beimport datetime
+
+class ListenBrainzAPI:
+    def _parse_track_data(self, track):
+        """Parse the data from ListenBrainz API response for a track."""
+        release = track["track_metadata"].get("release_name")
+        strict = True
+        # Make request to get recording id
+        resp = self._make_request(url)
+        if resp.get("recording-count") == "1":
+            return resp.get("recording-list")[0].get("id")
+        else:
+            return None
+
+    def get_playlists_createdfor(self, username):
+        """Returns a list of playlists created by a user."""
+        url = f"{self.ROOT}/user/{username}/playlists/createdfor"
+        return self._make_request(url)
+
+    def get_listenbrainz_playlists(self):
+        """Returns a list of playlists created by ListenBrainz."""
+        resp = self.get_playlists_createdfor(self.username)
+        playlists = resp.get("playlists")
+        listenbrainz_playlists = []
+
+        for playlist in playlists:
+            playlist_info = playlist.get("playlist")
+            if playlist_info.get("creator") == "listenbrainz":
+                title = playlist_info.get("title")
+                playlist_type = (
+                    "Exploration" if "Exploration" in title else "Jams"
+                )
+                date_str = title.split("week of ")[1].split(" ")[0]
+                try:
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+                except ValueError:
+                    date = None  # Handle error in date parsing
+                identifier = playlist_info.get("identifier")
+                id = identifier.split("/")[-1]
+                listenbrainz_playlists.append(
+                    {"type": playlist_type, "date": date, "identifier": id}
+                )
+        return listenbrainz_playlistsm beetsplug.lastimport import process_tracks
 
 
 class ListenBrainzPlugin(BeetsPlugin):

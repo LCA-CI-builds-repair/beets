@@ -1,4 +1,5 @@
-"""Tests for the 'web' plugin"""
+"""Tests fofrom beets.library import Album, Item
+from beets import webthe 'web' plugin"""
 
 
 import json

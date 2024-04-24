@@ -23,7 +23,9 @@ from tempfile import NamedTemporaryFile
 
 import confuse
 import requests
-from mediafile import image_mime_type
+from msedef handle_fetchart_errors():
+    # Add error handling logic for fetchart process
+    passf._log.debug("Error receiving response from Wikipedia API")diafile import image_mime_type
 
 from beets import config, importer, plugins, ui, util
 from beets.util import bytestring_path, py3_path, sorted_walk, syspath

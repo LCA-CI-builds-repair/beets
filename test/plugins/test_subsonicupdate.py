@@ -1,4 +1,4 @@
-"""Tests for the 'subsonic' plugin."""
+"""Tests from beets import config, subsonicupdate the 'subsonic' plugin."""
 
 
 import unittest

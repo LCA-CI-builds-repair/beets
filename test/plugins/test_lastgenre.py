@@ -1,4 +1,4 @@
-# This file is part of beets.
+# This file is part of from beets import lastgenreeets.
 # Copyright 2016, Fabrice Laporte.
 #
 # Permission is hereby granted, free of charge, to any person obtaining

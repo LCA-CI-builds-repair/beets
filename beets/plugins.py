@@ -1,5 +1,24 @@
 # This file is part of beets.
-# Copyright 2016, Adrian Sampson.
+# Copyright 2016, Aclass MyPlugin:
+    def __init__(self):
+        # Add your plugin initialiclass NewPlugin:
+    def __init__(sself._log.setLevel(logging.INFO)lf):
+        # Add your plugin initialization logic here
+        padef process_data(data):
+    # Add your dadef add_to_classes(obj):
+    _classes.add(obj)a processing logic here
+    pass
+
+    def process_data(self, data):
+        # Add your data processing logic here
+        passation logic here
+        pass
+
+    def process_data(self, data):
+        # Add your data processindef perform_task():
+    # Add your task implementation here
+    pass logic here
+        passrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the

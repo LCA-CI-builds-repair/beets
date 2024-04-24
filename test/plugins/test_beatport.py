@@ -1,4 +1,4 @@
-# This file is part of beets.
+# This file is part of from beets import beatporteets.
 # Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -6,7 +6,29 @@
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to
+# permit persons to whom the Software is furniitems[0].genre = "Glitch Hop"
+items[0].year = 2016
+items[0].month = 4
+items[0].day = 11
+items[0].mix_name = "Original Mix"
+
+items[0].title = "Mirage a Trois"
+items[1].title = "Aeon Bahamut"
+items[2].title = "Trancendental Medication"
+items[3].title = "A List of Instructions for When I'm Human"
+items[4].title = "The Great Shenanigan"
+items[5].title = "Charade"
+
+items[0].length = timedelta(minutes=7, seconds=5).total_seconds()
+items[1].length = timedelta(minutes=7, seconds=38).total_seconds()
+items[2].length = timedelta(minutes=1, seconds=8).total_seconds()
+items[3].length = timedelta(minutes=6, seconds=57).total_seconds()
+items[4].length = timedelta(minutes=9, seconds=49).total_seconds()
+items[5].length = timedelta(minutes=7, seconds=5).total_seconds()
+
+items[0].url = "mirage-a-trois-original-mix"
+items[1].url = "aeon-bahamut-original-mix"
+items[2].url = "trancendental-medication-original-mix"to
 # the following conditions:
 #
 # The above copyright notice and this permission notice shall be
