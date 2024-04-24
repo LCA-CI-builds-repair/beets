@@ -20,7 +20,30 @@ New features:
 * :doc:`/plugins/listenbrainz`: Add initial support for importing history and playlists from `ListenBrainz`
   :bug:`1719`
 * :doc:`plugins/mbsubmit`: add new prompt choices helping further to submit unmatched tracks to MusicBrainz faster.
-* :doc:`plugins/spotify`: We now fetch track's ISRC, EAN, and UPC identifiers from Spotify when using the ``spotifysync`` command.
+* :doc:`plugins/spotify`: We n* :doc:`/plugins/lyrics`: Fix a crash when writing ReST files for a query without results or fetched lyrics.
+  :bug:`2805`
+* :doc:`/plugins/fetchart`: Attempt to fetch pre-resized thumbnails from Cover Art Archive if the ``maxwidth`` option matches one of the sizes supported by the Cover Art Archive API.
+  Thanks to :user:`trolley`.
+  :bug:`3637`
+* :doc:`/plugins/ipfs`: Fix Python 3 compatibility.
+  Thanks to :user:`musoke`.
+  :bug:`2554`
+* Fix a bug that caused metadata starting with something resembling a drive letter to be incorrectly split into an extra directory after the colon.
+  :bug:`3685`
+* :doc:`/plugins/mpdstats`: Don't record a skip when stopping MPD, as MPD keeps the current track in the queue.
+  Thanks to :user:`aereaux`.
+  :bug:`3722`
+* String-typed fields are now normalized to string values, avoiding an occasional crash when using both the :doc:`/plugins/fetchart` and the :doc:`/plugins/discogs` together.
+  :bug:`3773` :bug:`3774`
+* Fix a bug causing PIL to generate poor quality JPEGs when resizing * The deprecated ``list_format_album`` and ``list_format_item``rtwork.
+  :bug:`3743`
+* :doc:`plugins/keyfinder`: Catch output from ``keyfinder-cli`` that is missing key.
+  :bug:`2242`
+* :doc:`plugins/replaygain`: Disable parallel analysis on import by default.
+  :bug:`3819`
+* :doc:`/plugins/mpdstats`: Fix Python 2/3 compatibility
+  :bug:`3798`
+* :doc:`/plugins/discogs`: Replace the deprecated official `discogs-client`UPC identifiers from Spotify when using the ``spotifysync`` command.
   :bug:`4992`
 * :doc:`plugins/discogs`: supply a value for the `cover_art_url` attribute, for use by `fetchart`.
   :bug:`429`

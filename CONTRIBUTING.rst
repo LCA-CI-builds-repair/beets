@@ -12,7 +12,7 @@ First off, thank you for considering contributing to beets! It’s people
 like you that make beets continue to succeed.
 
 These guidelines describe how you can help most effectively. By
-following these guidelines, you can make life easier for the development
+following these guidelinePlease refer to the CONTRIBUTING guidelines for information on how to contribute to this project., you can make life easier for the development
 team as it indicates you respect the maintainers’ time; in return, the
 maintainers will reciprocate by helping to address your issue, review
 changes, and finalize pull requests.

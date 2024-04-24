@@ -2,7 +2,9 @@
 # Copyright 2016, Jakob Schnitzer.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
+# a copy of this sof            action="store_true",
+            help="Show actions without performing any conversion",
+        )re and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
