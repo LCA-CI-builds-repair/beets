@@ -38,7 +38,7 @@ from beets.util import MoveOperation, syspath
 class ListTest(unittest.TestCase):
     def setUp(self):
         self.lib = library.Library(":memory:")
-        self.item = _common.item()
+        self.item = _common.i        txt = ui.split_into_lines(colored_text, [5, 5, 5])em()
         self.item.path = "xxx/yyy"
         self.lib.add(self.item)
         self.lib.add_album([self.item])

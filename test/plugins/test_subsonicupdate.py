@@ -1,8 +1,82 @@
-"""Tests for the 'subsonic' plugin."""
+"""Tests from beets import config
+from beetsplug.subsonicupdate import SubsonicUpdatePlugin
 
+subsonic_update_import responses
 
-import unittest
-from test import _common
+class TestSubsonicUpdate:
+
+    def setUp(self):
+        self.subsonicupdate = SubsonicUpdatePlugin()
+        self.FAILED_BODY = "Failed response body"
+        self.ERROR_BODY = "Error response body"
+        self.SUCCESS_BODY = "Success response body"
+
+    @responses.activate
+    def test_start_scan_failed_bad_credentials(self):
+        responses.add(
+            responses.GET,
+            "http://localhost:4040/rest/startScan",
+            status=200,
+            body=self.FAILED_BODY,
+        )
+        self.subsonicupdate.start_scan()
+
+    @responses.activate
+    def test_start_scan_failed_not_found(self):
+        responses.add(
+            responses.GET,
+            "http://localhost:4040/rest/startScan",
+            status=404,
+            body=self.ERROR_BODY,
+        )
+        self.subsonicupdate.start_scan()
+
+    def test_start_scan_failed_unreachable(self):
+        self.subsonicupdate.start_scan()
+
+    @responses.activate
+    def test_url_with_context_path(self):
+        config["subsonic"]["url"] = "http://localhost:4040/contextPath/"
+        responses.add(
+            responses.GET,
+            "http://localhost:4040/contextPath/rest/startScan",
+            status=200,
+            body=self.SUCCESS_BODY,
+        )
+        self.subsonicupdate.start_scan()
+
+    @responses.activate
+    def test_url_with_trailing_forward_slash_url(self):
+        config["subsonic"]["url"] = "http://localhost:4040/"
+        responses.add(
+            responses.GET,
+            "http://localhost:4040/rest/startScan",
+            status=200,
+            body=self.SUCCESS_BODY,
+        )
+        self.subsonicupdate.start_scan()
+
+    @responses.activate
+    def test_url_with_missing_port(self):
+        config["subsonic"]["url"] = "http://localhost/airsonic"
+        responses.add(
+            responses.GET,
+            "http://localhost/airsonic/rest/startScan",
+            status=200,
+            body=self.SUCCESS_BODY,
+        )
+        self.subsonicupdate.start_scan()
+
+    @responses.activate
+    def test_url_with_missing_schema(self):
+        config["subsonic"]["url"] = "localhost:4040/airsonic"
+        responses.add(
+            responses.GET,
+            "http://localhost:4040/rest/startScan",
+            status=200,
+            body=self.SUCCESS_BODY,
+        )
+        self.subsonicupdate.start_scan()t import _common
 from test.helper import TestHelper
 from urllib.parse import parse_qs, urlparse
 

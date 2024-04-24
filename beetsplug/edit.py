@@ -4,8 +4,15 @@
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
-# without limitation the rights to use, copy, modify, merge, publish,
-# distribute, sublicense, and/or sell copies of the Software, and to
+# without limitation the rights to use, copy, modify, merge, publi        The objects are not written back to the database, so the changes
+        are temporary.
+        """
+        if len(old_data) != len(new_data):
+            self._log.warning(
+                "number of objects changed from {} to {}",
+                len(old_data),
+                len(new_data),
+            )ribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
 #

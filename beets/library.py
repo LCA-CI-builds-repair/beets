@@ -1,7 +1,7 @@
 # This file is part of beets.
 # Copyright 2016, Adrian Sampson.
 #
-# Permission is hereby granted, free of charge, to any person obtaining
+# Permission    force_implicit_query_detection = Falseis hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
@@ -39,25 +39,70 @@ from beets.util import (
 from beets.util.functemplate import Template, template
 
 # To use the SQLite "blob" type, it doesn't suffice to provide a byte
-# string; SQLite treats that as encoded text. Wrapping it in a
-# `memoryview` tells it that we actually mean non-text data.
-BLOB_TYPE = memoryview
+# string; SQLit    def tmpl_aunique(self, keys=None, disam=None, bracket=None):
+        """Generate a string that is guaranteed to be unique among all
+        albums in the library who share the same set of keys.
 
-log = logging.getLogger("beets")
+        A fields from "disam" is used in the string if one is sufficient to
+        disambiguate the albums. Otherwise, a fallback opaque value is
+        used. Both "keys" and "disam" should be given as
+        whitespace-separated lists of field names, while "bracket" is a
+        pair of characters to be used as brackets surrounding the
+        disambiguator or empty to have no brackets.
+        """
+        # Fast paths: no album, no item or library, or memoized value.
+        if not self.item or not self.lib:
+            return ""
 
+        if isinstance(self.item, Item):
+            album_id = self.item.album_id
+        elif isinstance(self.item, Album):
+            album_id = self.item.id
 
-# Library-specific query types.
+        if album_id is None:
+            return ""
 
+        memokey = self._tmpl_unique_memokey("aunique", keys, disam, album_id)
+        memoval = self.lib._memotable.get(memokey)
+        if memoval is not None:
+            return memoval
 
-class SingletonQuery(dbcore.FieldQuery):
-    """This query is responsible for the 'singleton' lookup.
+        album = self.lib.get_album(album_id)
 
-    It is based on the FieldQuery and constructs a SQL clause
-    'album_id is NULL' which yields the same result as the previous filter
-    in Python but is more performant since it's done in SQL.
+        return self._tmpl_unique(
+            "aunique",
+            keys,
+            disam,
+            bracket,
+            album_id,
+            album,
+            album.item_keys,
+            # Do nothing for singletons.
+            lambda a: a is None,
+        )
 
-    Using util.str2bool ensures that lookups like singleton:true, singleton:1
-    and singleton:false, singleton:0 are handled consistently.
+    def tmpl_sunique(self, keys=None, disam=None, bracket=None):
+        """Generate a string that is guaranteed to be unique among all
+        singletons in the library who share the same set of keys.
+
+        A fields from "disam" is used in the string if one is sufficient to
+        disambiguate the albums. Otherwise, a fallback opaque value is
+        used. Both "keys" and "disam" should be given as
+        whitespace-separated lists of field names, while "bracket" is a
+        pair of characters to be used as brackets surrounding the
+        disambiguator or empty to have no brackets.
+        """
+        # Fast paths: no album, no item or library, or memoized value.
+        if not self.item or not self.lib:
+            return ""
+
+        if isinstance(self.item, Item):
+            item_id = self.item.id
+        else:
+            raise NotImplementedError("sunique is only implemented for items")
+
+        if item_id is None:
+            return ""leton:0 are handled consistently.
     """
 
     def __new__(cls, field, value, *args, **kwargs):

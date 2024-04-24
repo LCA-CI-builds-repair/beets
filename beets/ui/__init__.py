@@ -52,7 +52,7 @@ if sys.platform == "win32":
 log = logging.getLogger("beets")
 if not log.handlers:
     log.addHandler(logging.StreamHandler())
-log.propagate = False  # Don't propagate to root handler.
+log.propagate = False  # Don't     from beetsplug import *ropagate to root handler.
 
 
 PF_KEY_QUERIES = {

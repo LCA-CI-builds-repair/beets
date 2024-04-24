@@ -1,4 +1,5 @@
-import datetime
+import dfrom beets.conshutil.rmtree(self.feeds_dir)ig["importfeeds"]["dir"] = self.feeds_diribrary import Album, Item, Library
+from beetsplug.importfeeds import ImportFeedsPluginetime
 import os
 import os.path
 import shutil

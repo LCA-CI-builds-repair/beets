@@ -1,4 +1,7 @@
-"""Tests for the 'web' plugin"""
+"""Tests fofrom beets.library import Album, Item
+from beetsplug.web import WebPlugin
+
+web_plugin = WebPlugin()the 'web' plugin"""
 
 
 import json

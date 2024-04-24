@@ -82,7 +82,8 @@ New features:
   disabled at startup.
 * :ref:`import-options`: Add support for re-running the importer on paths in
   log files that were created with the ``-l`` (or ``--logfile``) argument.
-  :bug:`4379` :bug:`4387`
+  :bug:`4379`* :doc:`plugins/bpd`: Listings are now sorted (thanks once again to Matteo
+  Mecucci).bug:`4387`
 * Preserve mtimes from archives
   :bug:`4392`
 * Add :ref:`%sunique{} <sunique>` template to disambiguate between singletons.

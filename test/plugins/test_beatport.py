@@ -1,4 +1,4 @@
-# This file is part of beets.
+# This file is part of from beetsplug.beatport import BeatportPlugineets.
 # Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -7,10 +7,99 @@
 # without limitation the rights to use, copy, modify, merge, publish,
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
-# the following conditions:
-#
-# The above copyright notice and this permission notice shall be
-# included in all copies or substantial portions of the Software.
+# the foimport unittest
+from test import _common
+from beets import library
+from beetsplug import beaimport unittest
+from test import _common
+from beets import library
+from beetsplug import beatport
+
+class TestBeatportPlugin(_common.TestCase, _common.TestHelper):
+    def setUp(self):
+        self.setup_beets()
+        self.load_plugins("beatport")
+        self.lib = library.Library(":memory:")
+
+        # Set up test data
+
+    def tearDown(self):
+        self.unload_plugins()
+        self.teardown_beets()
+
+    def test_beatport_plugin_functionality(self):
+        # Add test cases to check the functionality of BeatportPlugin
+        passport
+
+class BeatportTest(_common.TestCase, _common.TestHelper):
+    def setUp(self):
+        self.setup_beets()
+        self.load_plugins("beatport")
+        self.lib = library.Library(":memory:")
+
+        # Set up album and tracks data
+        self.test_album = {"album": "Charade", "catalognum": "BP1234", "label": "Label"}
+        self.album = beatport.BeatportRelease(self.test_album)
+
+        self.response_tracks = self._make_tracks_response()
+        self.tracks = [beatport.BeatportTrack(t) for t in self.response_tracks]
+        self.test_tracks = self.response_tracks
+
+    def tearDown(self):
+        self.unload_plugins()
+        self.teardown_beets()
+
+    def test_album_name_applied(self):
+        self.assertEqual(self.album.name, self.test_album["album"])
+
+    def test_catalog_number_applied(self):
+        self.assertEqual(self.album.catalog_number, self.test_album["catalognum"])
+
+    # Add other test methods as per the original code snippet
+
+class BeatportResponseEmptyTest(_common.TestCase, _common.TestHelper):
+    def _make_tracks_response(self):
+        results = [
+            {
+                "id": 7817567,
+                "name": "Mirage a Trois",
+                "genres": [
+                    {
+                        "id": 9,
+                        "name": "Breaks",
+                        "slug": "breaks",
+                        "type": "genre",
+                    }
+                ],
+                "subGenres": [
+                    {
+                        "id": 209,
+                        "name": "Glitch Hop",
+                        "slug": "glitch-hop",
+                        "type": "subgenre",
+                    }
+                ],
+            }
+        ]
+        return results
+
+    def setUp(self):
+        self.setup_beets()
+        self.load_plugins("beatport")
+        self.lib = library.Library(":memory:")
+
+        self.response_tracks = self._make_tracks_response()
+        self.tracks = [beatport.BeatportTrack(t) for t in self.response_tracks]
+        self.test_tracks = self.response_tracks
+
+    def tearDown(self):
+        self.unload_plugins()
+        self.teardown_beets()
+
+    def test_response_tracks_empty(self):
+        response_tracks = []
+        tracks = [beatport.BeatportTrack(t) for t in response_tracks]
+        self.assertEqual(tracks, [])or substantial portions of the Software.
 
 """Tests for the 'beatport' plugin.
 """

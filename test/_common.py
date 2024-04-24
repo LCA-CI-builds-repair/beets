@@ -1,7 +1,13 @@
 # This file is part of beets.
-# Copyright 2016, Adrian Sampson.
-#
-# Permission is hereby granted, free of charge, to any person obtaining
+#from beets import util
+from beets import importer, loggingopyright        self.assertEqual(
+            util.normpath(a),
+            util.normpath(b),
+            f"paths not equal: {a!r} vs {b!r}",
+        )
+
+# Add missing import for commands
+from beets.ui import commands any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
