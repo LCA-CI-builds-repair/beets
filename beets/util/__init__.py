@@ -915,11 +915,11 @@ def command_output(
     If ``shell`` is true, ``cmd`` is assumed to be a string and passed to a
     shell to execute.
 
-    If the process exits with a non-zero return code
-    ``subprocess.CalledProcessError`` is raised. May also raise
+    If the process exits with a non-zero return code,
+    ``subprocess.CalledProcessError`` is raised. This function may also raise
     ``OSError``.
 
-    This replaces `subprocess.check_output` which can have problems if lots of
+    This function serves as a replacement for `subprocess.check_output` which can have problems if lots of
     output is sent to stderr.
     """
     cmd = convert_command_args(cmd)

@@ -129,7 +129,9 @@ class Type(ABC, Generic[T, N]):
         https://www.sqlite.org/datatype3.html
         https://docs.python.org/2/library/sqlite3.html#sqlite-and-python-types
 
-        Flexible fields have the type affinity `TEXT`. This means the
+        Flexible fields have the type affinity `TEXT`. This means the fields
+        are stored as text values in the database, allowing for flexibility in
+        the content that can be stored.
         `sql_value` is either a `memoryview` or a `unicode` object`
         and the method must handle these in addition.
         """

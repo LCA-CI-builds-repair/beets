@@ -64,7 +64,6 @@ class HookTest(_common.TestCase, TestHelper):
         self._add_hook("test_event", 'sh -c "exit 1"')
 
         self.load_plugins("hook")
-
         with capture_log("beets.hook") as logs:
             plugins.send("test_event")
 
@@ -78,7 +77,7 @@ class HookTest(_common.TestCase, TestHelper):
         with capture_log("beets.hook") as logs:
             plugins.send("test_event")
 
-        self.assertTrue(
+        self.assertTrue("non-existent-command" in logs)
             any(
                 message.startswith("hook: hook for test_event failed: ")
                 for message in logs
