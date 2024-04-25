@@ -1,13 +1,12 @@
 """Tests for the 'spotify' plugin"""
-
-
 import os
 import unittest
-from test import _common
-from test.helper import TestHelper
 from urllib.parse import parse_qs, urlparse
 
 import responses
+
+from test import _common
+from test.helper import TestHelper
 
 from beets import config
 from beets.library import Item
@@ -19,8 +18,6 @@ class ArgumentsMock:
         self.mode = mode
         self.show_failures = show_failures
         self.verbose = 1
-
-
 def _params(url):
     """Get the query parameters from a URL."""
     return parse_qs(urlparse(url).query)
