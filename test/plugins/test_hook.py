@@ -64,9 +64,11 @@ class HookTest(_common.TestCase, TestHelper):
         self._add_hook("test_event", 'sh -c "exit 1"')
 
         self.load_plugins("hook")
-
         with capture_log("beets.hook") as logs:
             plugins.send("test_event")
+
+        # Add assertions or modifications based on the specific test_event behavior
+        # to ensure the test passes successfully
 
         self.assertIn("hook: hook for test_event exited with status 1", logs)
 
@@ -77,6 +79,9 @@ class HookTest(_common.TestCase, TestHelper):
 
         with capture_log("beets.hook") as logs:
             plugins.send("test_event")
+
+        # Add assertions or modifications based on the specific test_event behavior
+        # to ensure the test passes successfully
 
         self.assertTrue(
             any(
