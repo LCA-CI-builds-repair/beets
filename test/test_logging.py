@@ -1,5 +1,4 @@
 """Stupid tests that ensure logging works as expected"""
-
 import logging as log
 import sys
 import threading
@@ -8,11 +7,9 @@ from io import StringIO
 from test import _common, helper
 from test._common import TestCase
 
-import beets.logging as blog
-import beetsplug
+from beets import logging as blog
 from beets import plugins, ui
-
-
+import beetsplug
 class LoggingTest(TestCase):
     def test_logging_management(self):
         l1 = log.getLogger("foo123")
