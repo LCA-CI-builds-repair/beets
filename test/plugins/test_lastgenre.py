@@ -13,8 +13,6 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'lastgenre' plugin."""
-
-
 import unittest
 from test import _common
 from test.helper import TestHelper
@@ -32,7 +30,8 @@ class LastGenrePluginTest(unittest.TestCase, TestHelper):
     def tearDown(self):
         self.teardown_beets()
 
-    def _setup_config(
+    def _setup_config():
+        pass
         self, whitelist=False, canonical=False, count=1, prefer_specific=False
     ):
         config["lastgenre"]["canonical"] = canonical

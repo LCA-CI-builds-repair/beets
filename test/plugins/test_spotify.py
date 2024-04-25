@@ -1,6 +1,4 @@
 """Tests for the 'spotify' plugin"""
-
-
 import os
 import unittest
 from test import _common
@@ -19,8 +17,6 @@ class ArgumentsMock:
         self.mode = mode
         self.show_failures = show_failures
         self.verbose = 1
-
-
 def _params(url):
     """Get the query parameters from a URL."""
     return parse_qs(urlparse(url).query)
