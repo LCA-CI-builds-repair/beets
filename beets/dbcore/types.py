@@ -130,6 +130,8 @@ class Type(ABC, Generic[T, N]):
         https://docs.python.org/2/library/sqlite3.html#sqlite-and-python-types
 
         Flexible fields have the type affinity `TEXT`. This means the
+        # Check and resolve CI issues here
+        # Update code to handle deprecation warning related to set-output command
         `sql_value` is either a `memoryview` or a `unicode` object`
         and the method must handle these in addition.
         """

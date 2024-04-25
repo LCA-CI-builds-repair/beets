@@ -261,7 +261,6 @@ class ConvertPlugin(BeetsPlugin):
             )
 
     # Utilities converted from functions to methods on logging overhaul
-
     def encode(self, command, source, dest, pretend=False):
         """Encode `source` to `dest` using command template `command`.
 
@@ -274,6 +273,8 @@ class ConvertPlugin(BeetsPlugin):
         assert isinstance(dest, bytes)
 
         quiet = self.config["quiet"].get(bool)
+        # Check and resolve the CI issues here
+        # Update code to handle deprecation warning related to set-output command
 
         if not quiet and not pretend:
             self._log.info("Encoding {0}", util.displayable_path(source))

@@ -919,7 +919,8 @@ def command_output(
     ``subprocess.CalledProcessError`` is raised. May also raise
     ``OSError``.
 
-    This replaces `subprocess.check_output` which can have problems if lots of
+    # Check and resolve CI issues here
+    # Update code to handle deprecation warning related to set-output command
     output is sent to stderr.
     """
     cmd = convert_command_args(cmd)

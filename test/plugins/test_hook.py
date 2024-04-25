@@ -64,7 +64,6 @@ class HookTest(_common.TestCase, TestHelper):
         self._add_hook("test_event", 'sh -c "exit 1"')
 
         self.load_plugins("hook")
-
         with capture_log("beets.hook") as logs:
             plugins.send("test_event")
 
@@ -79,6 +78,8 @@ class HookTest(_common.TestCase, TestHelper):
             plugins.send("test_event")
 
         self.assertTrue(
+        # Check and resolve CI issues here
+        # Update code to handle deprecation warning related to set-output command
             any(
                 message.startswith("hook: hook for test_event failed: ")
                 for message in logs
