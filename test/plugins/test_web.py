@@ -1,16 +1,6 @@
 """Tests for the 'web' plugin"""
-
-
-import json
-import os.path
-import platform
-import shutil
-import unittest
-from test import _common
-
-from beets import logging
-from beets.library import Album, Item
-from beetsplug import web
+### Changes to be made:
+- Remove unnecessary imports such as json, os.path, platform, shutil, unittest, _common, logging, Album, Item, and web.
 
 
 class WebPluginTest(_common.LibTestCase):

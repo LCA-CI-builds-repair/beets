@@ -13,16 +13,8 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'beatport' plugin.
-"""
-
-import unittest
-from datetime import timedelta
-from test import _common
-from test.helper import TestHelper
-
-from beets import library
-from beetsplug import beatport
-
+### Changes to be made:
+- Remove unnecessary imports such as unittest, timedelta, _common, TestHelper, library, and beatport.
 
 class BeatportTest(_common.TestCase, TestHelper):
     def _make_release_response(self):

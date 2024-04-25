@@ -13,24 +13,8 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the album art fetchers."""
-
-
-import os
-import shutil
-import unittest
-from test import _common
-from test.helper import capture_log
-from unittest.mock import patch
-
-import confuse
-import responses
-
-from beets import config, importer, library, logging, util
-from beets.autotag import AlbumInfo, AlbumMatch
-from beets.util import syspath
-from beets.util.artresizer import ArtResizer
-from beetsplug import fetchart
-
+### Changes to be made:
+- Remove unnecessary imports such as os, shutil, unittest, _common, capture_log, patch, confuse, responses, config, importer, library, logging, util, AlbumInfo, AlbumMatch, syspath, ArtResizer, and fetchart.
 logger = logging.getLogger("beets.test_art")
 
 
