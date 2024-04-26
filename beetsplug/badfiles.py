@@ -182,7 +182,7 @@ class BadFiles(BeetsPlugin):
     def on_import_task_before_choice(self, task, session):
         if hasattr(task, "_badfiles_checks_failed"):
             ui.print_(
-                "{} one or more files failed checks:".format(
+                "One or more files failed checks and are marked as {}:".format(
                     ui.colorize("text_warning", "BAD")
                 )
             )

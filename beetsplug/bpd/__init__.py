@@ -982,11 +982,11 @@ class Command:
 
     def delegate(self, prefix, target, extra_args=0):
         """Get the target method that corresponds to this command.
-        The `prefix` is prepended to the command name and then the resulting
-        name is used to search `target` for a method with a compatible number
-        of arguments.
+        The `prefix` is prepended to the command name to form the function name.
+        This function searches for a method in `target` with a compatible number
+        of arguments using the constructed function name.
         """
-        # Attempt to get correct command function.
+        # Attempt to retrieve the appropriate command function.
         func_name = prefix + self.name
         if not hasattr(target, func_name):
             raise AttributeError(f'unknown command "{self.name}"')

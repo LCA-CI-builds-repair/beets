@@ -89,6 +89,7 @@ class SubsonicUpdate(BeetsPlugin):
 
         :return: Endpoint for updating Subsonic
         """
+        """
 
         url = config["subsonic"]["url"].as_str()
         if url and url.endswith("/"):

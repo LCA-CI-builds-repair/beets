@@ -15,20 +15,13 @@
 
 
 # Completion for the `beet` command
-# =================================
+# This script facilitates the completion of beets subcommands, options, and queries.
 #
-# Load this script to complete beets subcommands, options, and
-# queries.
+# If a beets command is detected in the command line, it completes filenames and the subcommand's options.
+# Otherwise, it completes global options and subcommands. If the previous option on the command line expects an argument,
+# it also completes filenames or directories. Options are only completed if '-' has already been typed on the command line.
 #
-# If a beets command is found on the command line it completes filenames and
-# the subcommand's options. Otherwise it will complete global options and
-# subcommands. If the previous option on the command line expects an argument,
-# it also completes filenames or directories.  Options are only
-# completed if '-' has already been typed on the command line.
-#
-# Note that completion of plugin commands only works for those plugins
-# that were enabled when running `beet completion`. It does not check
-# plugins dynamically
+# Note: Completion of plugin commands is limited to enabled plugins at the time of running `beet completion`. It does not check plugins dynamically.
 #
 # Currently, only Bash 3.2 and newer is supported and the
 # `bash-completion` package is required.

@@ -14,6 +14,11 @@
 
 """Creates freedesktop.org-compliant .directory files on an album level.
 """
+Defines a Freedesktop plugin for Beets.
+
+This plugin provides a command to print a message redirecting to thumbnails --dolphin.
+
+"""
 
 
 from beets import ui
@@ -24,7 +29,7 @@ class FreedesktopPlugin(BeetsPlugin):
     def commands(self):
         deprecated = ui.Subcommand(
             "freedesktop",
-            help="Print a message to redirect to thumbnails --dolphin",
+            help="Print a message to redirect to thumbnails in Dolphin file manager.",
         )
         deprecated.func = self.deprecation_message
         return [deprecated]

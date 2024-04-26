@@ -131,16 +131,14 @@ only files which would be processed",
         return [cmd]
 
     def command(self, lib, opts, args):
+        # Check if the url is not set
         if not self.url:
             raise ui.UserError(
-                "This plugin is deprecated since AcousticBrainz no longer "
-                "accepts new submissions. See the base_url configuration "
-                "option."
+                "This plugin is deprecated as AcousticBrainz no longer accepts new submissions. Please configure the base_url option."
             )
         else:
             # Get items from arguments
             items = lib.items(ui.decargs(args))
-            self.opts = opts
             util.par_map(self.analyze_submit, items)
 
     def analyze_submit(self, item):

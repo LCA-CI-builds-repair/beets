@@ -48,6 +48,7 @@ def play(
     log.debug("executing command: {} {!r}", command_str, open_args)
 
     try:
+        # Play the query if keep_open is set, otherwise open interactively
         if keep_open:
             command = shlex.split(command_str)
             command = command + open_args
@@ -55,12 +56,7 @@ def play(
         else:
             util.interactive_open(open_args, command_str)
     except OSError as exc:
-        raise ui.UserError(f"Could not play the query: {exc}")
-
-
-class PlayPlugin(BeetsPlugin):
-    def __init__(self):
-        super().__init__()
+        raise ui.UserError(f"Failed to play the query. Error: {exc}")
 
         config["play"].add(
             {

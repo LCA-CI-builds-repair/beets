@@ -39,6 +39,7 @@ except ImportError:
     HAS_BEAUTIFUL_SOUP = False
 
 try:
+    # Import necessary modules and define constants for dependencies
     import langdetect
 
     HAS_LANGDETECT = True
@@ -46,15 +47,12 @@ except ImportError:
     HAS_LANGDETECT = False
 
 try:
-    # PY3: HTMLParseError was removed in 3.5 as strict mode
-    # was deprecated in 3.3.
-    # https://docs.python.org/3.3/library/html.parser.html
+    # Handle the absence of HTMLParseError in Python 3.5+
     from html.parser import HTMLParseError
 except ImportError:
 
     class HTMLParseError(Exception):
         pass
-
 
 import beets
 from beets import plugins, ui
