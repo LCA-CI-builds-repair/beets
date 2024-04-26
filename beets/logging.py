@@ -66,10 +66,6 @@ class StrFormatLogger(logging.Logger):
             self.kwargs = kwargs
 
         def __str__(self):
-            args = [logsafe(a) for a in self.args]
-            kwargs = {k: logsafe(v) for (k, v) in self.kwargs.items()}
-            return self.msg.format(*args, **kwargs)
-
     def _log(
         self,
         level,
@@ -78,7 +74,7 @@ class StrFormatLogger(logging.Logger):
         exc_info=None,
         extra=None,
         stack_info=False,
-        **kwargs,
+        **kwargs
     ):
         """Log msg.format(*args, **kwargs)"""
         m = self._LogMessage(msg, args, kwargs)
@@ -92,14 +88,14 @@ class StrFormatLogger(logging.Logger):
             stacklevel = {}
 
         return super()._log(
+            # Can be dropped when we remove support for Python 3.7.
+            stacklevel = {}
+
+        return super()._log(
             level,
             m,
             (),
             exc_info=exc_info,
-            extra=extra,
-            stack_info=stack_info,
-            **stacklevel,
-        )
 
 
 class ThreadLocalLevelLogger(logging.Logger):

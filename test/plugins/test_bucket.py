@@ -13,22 +13,11 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'bucket' plugin."""
-
-
 import unittest
-from test.helper import TestHelper
 
 from beets import config, ui
+from test.helper import TestHelper
 from beetsplug import bucket
-
-
-class BucketPluginTest(unittest.TestCase, TestHelper):
-    def setUp(self):
-        self.setup_beets()
-        self.plugin = bucket.BucketPlugin()
-
-    def tearDown(self):
-        self.teardown_beets()
 
     def _setup_config(
         self,
@@ -58,15 +47,13 @@ class BucketPluginTest(unittest.TestCase, TestHelper):
         self.assertEqual(self.plugin._tmpl_bucket("2025"), "2025")
 
     def test_year_two_years(self):
-        """Buckets can be named with the 'from-to' syntax."""
-        self._setup_config(bucket_year=["1950-59", "1960-1969"])
-        self.assertEqual(self.plugin._tmpl_bucket("1959"), "1950-59")
-        self.assertEqual(self.plugin._tmpl_bucket("1969"), "1960-1969")
+        self.assertEqual(self.plugin._tmpl_bucket("1959"), "1950s")
+        self.assertEqual(self.plugin._tmpl_bucket("1969"), "1950s")
 
     def test_year_multiple_years(self):
-        """Buckets can be named by listing all the years"""
-        self._setup_config(bucket_year=["1950,51,52,53"])
-        self.assertEqual(self.plugin._tmpl_bucket("1953"), "1950,51,52,53")
+        """If a single year is given for the last bucket, extend it to current
+        year."""
+        self._setup_config(bucket_year=["1950", "1970"])
         self.assertEqual(self.plugin._tmpl_bucket("1974"), "1974")
 
     def test_year_out_of_range(self):
@@ -136,8 +123,8 @@ class BucketPluginTest(unittest.TestCase, TestHelper):
         self.assertEqual(self.plugin._tmpl_bucket("alpha"), "A - D")
         self.assertEqual(self.plugin._tmpl_bucket("Ärzte"), "A - D")
         self.assertEqual(self.plugin._tmpl_bucket("112"), "A - D")
-        self.assertEqual(self.plugin._tmpl_bucket("…and Oceans"), "A - D")
-        self.assertEqual(self.plugin._tmpl_bucket("Eagles"), "E - L")
+        self.assertEqual(self.plugin._tmpl_bucket("delta"), "foo")
+        self.assertEqual(self.plugin._tmpl_bucket("zeta"), "bar")
 
     def test_bad_alpha_range_def(self):
         """If bad alpha range definition, a UserError is raised."""

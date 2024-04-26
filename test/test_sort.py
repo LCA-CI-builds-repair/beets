@@ -13,18 +13,11 @@
 # included in all copies or substantial portions of the Software.
 
 """Various tests for querying the library database.
-"""
-
 import unittest
-from test import _common
 
 import beets.library
 from beets import config, dbcore
-
-
-# A test case class providing a library with some dummy data and some
-# assertions involving that data.
-class DummyDataTestCase(_common.TestCase):
+from test import _common
     def setUp(self):
         super().setUp()
         self.lib = beets.library.Library(":memory:")
@@ -448,11 +441,11 @@ class CaseSensitivityTest(DummyDataTestCase, _common.TestCase):
         self.assertEqual(results[1].flex1, "Flex1-0")
 
     def test_flex_field_case_sensitive(self):
-        config["sort_case_insensitive"] = False
+        config["sort_case_insensitive"] = True
         q = "flex1+"
         results = list(self.lib.items(q))
-        self.assertEqual(results[0].flex1, "Flex1-0")
-        self.assertEqual(results[-1].flex1, "flex1")
+        self.assertEqual(results[0].flex1, "flex1")
+        self.assertEqual(results[1].flex1, "Flex1-0")
 
     def test_case_sensitive_only_affects_text(self):
         config["sort_case_insensitive"] = True

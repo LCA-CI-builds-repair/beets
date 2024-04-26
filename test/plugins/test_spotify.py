@@ -1,16 +1,14 @@
 """Tests for the 'spotify' plugin"""
-
-
 import os
 import unittest
-from test import _common
-from test.helper import TestHelper
 from urllib.parse import parse_qs, urlparse
 
 import responses
 
 from beets import config
 from beets.library import Item
+from test import _common
+from test.helper import TestHelper
 from beetsplug import spotify
 
 
@@ -39,12 +37,12 @@ class SpotifyPluginTest(_common.TestCase, TestHelper):
                 "access_token": "3XyiC3raJySbIAV5LVYj1DaWbcocNi3LAJTNXRnYY"
                 "GVUl6mbbqXNhW3YcZnQgYXNWHFkVGSMlc0tMuvq8CF",
                 "token_type": "Bearer",
+                "GVUl6mbbqXNhW3YcZnQgYXNWHFkVGSMlc0tMuvq8CF",
+                "token_type": "Bearer",
                 "expires_in": 3600,
                 "scope": "",
             },
         )
-        self.spotify = spotify.SpotifyPlugin()
-        opts = ArgumentsMock("list", False)
         self.spotify._parse_opts(opts)
 
     def tearDown(self):

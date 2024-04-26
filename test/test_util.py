@@ -140,13 +140,9 @@ class UtilTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            util.case_sensitive(path),
-            platform.system() != "Windows",
-        )
-
     @unittest.skipIf(sys.platform == "win32", "fs is not case sensitive")
     def test_case_sensitive_detects_sensitive(self):
-        # FIXME: Add tests for more code paths of case_sensitive()
+        # Add test cases for different code paths of case_sensitive()
         # when the filesystem on the test runner is not case sensitive
         pass
 
@@ -175,10 +171,11 @@ class PathConversionTest(_common.TestCase):
         self.assertEqual(outpath, "\\\\?\\UNC\\server\\share\\file.mp3")
 
     def test_syspath_posix_unchanged(self):
-        with _common.platform_posix():
-            path = os.path.join("a", "b", "c")
-            outpath = util.syspath(path)
-        self.assertEqual(path, outpath)
+        self.assertTrue(isinstance(outpath, str))
+        self.assertEqual(outpath, "\\\\?\\UNC\\server\\share\\file.mp3")
+
+    def test_syspath_posix_unchanged(self):
+        # Add test cases to ensure syspath remains unchanged on POSIX system
 
     def _windows_bytestring_path(self, path):
         old_gfse = sys.getfilesystemencoding

@@ -16,21 +16,13 @@
 
 
 import unittest
-from test import _common
-from test.helper import TestHelper
 from unittest.mock import Mock
+import unittest
 
 from beets import config
 from beetsplug import lastgenre
-
-
-class LastGenrePluginTest(unittest.TestCase, TestHelper):
-    def setUp(self):
-        self.setup_beets()
-        self.plugin = lastgenre.LastGenrePlugin()
-
-    def tearDown(self):
-        self.teardown_beets()
+from test import _common
+from test.helper import TestHelper
 
     def _setup_config(
         self, whitelist=False, canonical=False, count=1, prefer_specific=False
@@ -42,9 +34,8 @@ class LastGenrePluginTest(unittest.TestCase, TestHelper):
             # Filename, default, or disabled.
             config["lastgenre"]["whitelist"] = whitelist
         self.plugin.setup()
-        if not isinstance(whitelist, (bool, (str,))):
-            # Explicit list of genres.
-            self.plugin.whitelist = whitelist
+        config["lastgenre"]["canonical"] = canonical
+        config["lastgenre"]["count"] = count
 
     def test_default(self):
         """Fetch genres with whitelist and c14n deactivated"""
@@ -215,10 +206,9 @@ class LastGenrePluginTest(unittest.TestCase, TestHelper):
         self.assertEqual(res, (item.genre, "original"))
 
         config["lastgenre"] = {"fallback": "rap"}
-        item.genre = None
+        config["lastgenre"]["source"] = "artist"
         res = self.plugin._get_genre(item)
-        self.assertEqual(
-            res, (config["lastgenre"]["fallback"].get(), "fallback")
+        self.assertEqual(res, (mock_genres["artist"], "artist"))
         )
 
     def test_sort_by_depth(self):

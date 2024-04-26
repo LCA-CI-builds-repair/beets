@@ -120,8 +120,7 @@ class BeatportClient:
         return access_data["oauth_token"], access_data["oauth_token_secret"]
 
     def search(self, query, release_type="release", details=True):
-        """Perform a search of the Beatport catalogue.
-
+        """Perform a search of the Beatport catalogue."""
         :param query:           Query string
         :param release_type:    Type of releases to search for, can be
                                 'release' or 'track'
@@ -379,14 +378,7 @@ class BeatportPlugin(BeetsPlugin):
             return []
 
     def item_candidates(self, item, artist, title):
-        """Returns a list of TrackInfo objects for beatport search results
-        matching title and artist.
-        """
-        query = f"{artist} {title}"
-        try:
-            return self._get_tracks(query)
-        except BeatportAPIError as e:
-            self._log.debug("API Error: {0} (query: {1})", e, query)
+        query = "{} {}".format(artist, title)
             return []
 
     def album_for_id(self, release_id):

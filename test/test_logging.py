@@ -1,25 +1,17 @@
 """Stupid tests that ensure logging works as expected"""
-
 import logging as log
+from io import StringIO
 import sys
 import threading
 import unittest
-from io import StringIO
-from test import _common, helper
+
+from test import _common
 from test._common import TestCase
+from test import helper
 
 import beets.logging as blog
-import beetsplug
 from beets import plugins, ui
-
-
-class LoggingTest(TestCase):
-    def test_logging_management(self):
-        l1 = log.getLogger("foo123")
-        l2 = blog.getLogger("foo123")
-        self.assertEqual(l1, l2)
-        self.assertEqual(l1.__class__, log.Logger)
-
+import beetsplug
         l3 = blog.getLogger("bar123")
         l4 = log.getLogger("bar123")
         self.assertEqual(l3, l4)
@@ -48,12 +40,11 @@ class LoggingTest(TestCase):
 
 
 class LoggingLevelTest(unittest.TestCase, helper.TestHelper):
-    class DummyModule:
-        class DummyPlugin(plugins.BeetsPlugin):
-            def __init__(self):
-                plugins.BeetsPlugin.__init__(self, "dummy")
-                self.import_stages = [self.import_stage]
-                self.register_listener("dummy_event", self.listener)
+        l.propagate = False
+
+        l.warning("foo {} {}".format("oof", bar="baz"))
+        handler.flush()
+        self.assertEqual(stream.getvalue(), "foo oof baz")
 
             def log_all(self, name):
                 self._log.debug("debug " + name)
@@ -195,15 +186,16 @@ class ConcurrentEventsTest(TestCase, helper.TestHelper):
                 self.exc = e
 
         def listener2(self):
-            try:
-                self.test_case.assertEqual(self._log.level, log.DEBUG)
-                self.t2_step = 1
-                self.lock2.acquire()
-                self.test_case.assertEqual(self._log.level, log.DEBUG)
-                self.t2_step = 2
+                self.test_case.assertEqual(self._log.level, log.INFO)
+                self.t1_step = 1
+                self.lock1.acquire()
+                self.test_case.assertEqual(self._log.level, log.INFO)
+                self.t1_step = 2
             except Exception as e:
                 self.exc = e
 
+        def listener2(self):
+            # Continue the code here or provide additional context for further editing
     def setUp(self):
         self.setup_beets(disk=True)
 

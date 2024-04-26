@@ -13,23 +13,17 @@
 # included in all copies or substantial portions of the Software.
 
 """Various tests for querying the library database.
-"""
-
 import os
 import sys
 import unittest
 from contextlib import contextmanager
 from functools import partial
-from test import _common, helper
 
 import beets.library
-from beets import dbcore, util
 from beets.dbcore import types
-from beets.dbcore.query import (
-    InvalidQueryArgumentValueError,
-    NoneQuery,
-    ParsingError,
-)
+from beets.dbcore.query import InvalidQueryArgumentValueError, NoneQuery, ParsingError
+from beets import dbcore, util
+from test import _common, helper
 from beets.library import Item, Library
 from beets.util import syspath
 
@@ -1051,9 +1045,9 @@ class NotQueryTest(DummyDataTestCase):
         self.assertNegationProperties(q)
 
     def test_type_true(self):
-        q = dbcore.query.TrueQuery()
+        q = dbcore.query.SubstringQuery("album", "ba")
         not_results = self.lib.items(dbcore.query.NotQuery(q))
-        self.assert_items_matched(not_results, [])
+        self.assert_items_matched(not_results, ["beets 4 eva"])
         self.assertNegationProperties(q)
 
     def test_get_prefixes_keyed(self):

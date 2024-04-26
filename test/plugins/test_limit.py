@@ -12,10 +12,8 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'limit' plugin."""
-
 import unittest
 from test.helper import TestHelper
-
 
 class LimitPluginTest(unittest.TestCase, TestHelper):
     """Unit tests for LimitPlugin
@@ -24,6 +22,10 @@ class LimitPluginTest(unittest.TestCase, TestHelper):
     """
 
     def setUp(self):
+        # Add setup code here
+
+    def tearDown(self):
+        # Add teardown code here
         self.setup_beets()
         self.load_plugins("limit")
 
