@@ -912,12 +912,9 @@ def command_output(
 
     ``cmd`` is a list of arguments starting with the command names. The
     arguments are bytes on Unix and strings on Windows.
-    If ``shell`` is true, ``cmd`` is assumed to be a string and passed to a
-    shell to execute.
+    If ``shell`` is set to true, the ``cmd`` parameter is expected to be a string and will be passed to a shell for execution.
 
-    If the process exits with a non-zero return code
-    ``subprocess.CalledProcessError`` is raised. May also raise
-    ``OSError``.
+    In case the subprocess exits with a non-zero return code, a ``subprocess.CalledProcessError`` is raised. Additionally, it may also raise an ``OSError``.
 
     This replaces `subprocess.check_output` which can have problems if lots of
     output is sent to stderr.

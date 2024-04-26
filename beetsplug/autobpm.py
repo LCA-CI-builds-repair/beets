@@ -65,16 +65,18 @@ class AutoBPMPlugin(BeetsPlugin):
                 y, sr = load(util.syspath(item.path), res_type="kaiser_fast")
             except LibsndfileError as exc:
                 self._log.error(
-                    "LibsndfileError: failed to load {0} {1}",
-                    util.displayable_path(item.path),
-                    exc,
+                    "LibsndfileError: failed to load {0} {1}".format(
+                        util.displayable_path(item.path),
+                        exc,
+                    )
                 )
                 continue
             except ValueError as exc:
                 self._log.error(
-                    "ValueError: failed to load {0} {1}",
-                    util.displayable_path(item.path),
-                    exc,
+                    "ValueError: failed to load {0} {1}".format(
+                        util.displayable_path(item.path),
+                        exc,
+                    )
                 )
                 continue
 

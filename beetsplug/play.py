@@ -55,7 +55,7 @@ def play(
         else:
             util.interactive_open(open_args, command_str)
     except OSError as exc:
-        raise ui.UserError(f"Could not play the query: {exc}")
+        raise ui.UserError(f"Could not play the query: {exc}. Please check the command and arguments.")
 
 
 class PlayPlugin(BeetsPlugin):

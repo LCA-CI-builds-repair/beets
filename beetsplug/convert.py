@@ -160,6 +160,7 @@ class ConvertPlugin(BeetsPlugin):
             action="store_true",
             help="show actions but do nothing",
         )
+        )
         cmd.parser.add_option(
             "-t",
             "--threads",

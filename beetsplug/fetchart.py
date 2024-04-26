@@ -854,7 +854,7 @@ class Wikipedia(RemoteArtSource):
                         break
             except (ValueError, KeyError):
                 self._log.debug(
-                    "wikipedia: failed to retrieve a cover_filename"
+                    "Failed to retrieve a cover filename from Wikipedia"
                 )
                 return
 
