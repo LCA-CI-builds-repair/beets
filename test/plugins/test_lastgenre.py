@@ -22,13 +22,12 @@ from unittest.mock import Mock
 
 from beets import config
 from beetsplug import lastgenre
-
+import unittest
 
 class LastGenrePluginTest(unittest.TestCase, TestHelper):
     def setUp(self):
         self.setup_beets()
         self.plugin = lastgenre.LastGenrePlugin()
-
     def tearDown(self):
         self.teardown_beets()
 

@@ -18,17 +18,14 @@ import unittest
 from test import _common
 
 from beets import library, vfs
-
-
 class VFSTest(_common.TestCase):
     def setUp(self):
-        super().setUp()
-        self.lib = library.Library(
-            ":memory:",
-            path_formats=[
-                ("default", "albums/$album/$title"),
-                ("singleton:true", "tracks/$artist/$title"),
-            ],
+        self.library = Library(
+            self.library_name,
+            os.path.join(self.dir_path, 'sample-vfs'),
+            os.path.join(self.dir_path, 'sample-vfs'),
+            os.path.join(self.dir_path, 'sample-vfs'),
+            os.path.join(self.dir_path, 'sample-vfs')
         )
         self.lib.add(_common.item())
         self.lib.add_album([_common.item()])

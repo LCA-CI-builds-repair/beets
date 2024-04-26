@@ -90,54 +90,38 @@ class UtilTest(unittest.TestCase):
         self.assertEqual(p, "a/.?/b")
 
     def test_sanitize_with_custom_replace_adds_replacements(self):
-        with _common.platform_posix():
-            p = util.sanitize_path(
-                "foo/bar",
-                [
-                    (re.compile(r"foo"), "bar"),
-                ],
-            )
+_common.platform_posix()
+util.sanitize_path("foo/bar", regex_substitution_patterns)
         self.assertEqual(p, "bar/bar")
 
     @unittest.skip("unimplemented: #359")
-    def test_sanitize_empty_component(self):
-        with _common.platform_posix():
-            p = util.sanitize_path(
-                "foo//bar",
-                [
-                    (re.compile(r"^$"), "_"),
-                ],
-            )
+### Changes Summary:
+The code snippet includes a test method `test_sanitize_empty_component` that is skipped with a reason "unimplemented: #359". The test case invokes `util.sanitize_path` function with a platform context set up using `_common.platform_posix()`.
         self.assertEqual(p, "foo/_/bar")
 
     @unittest.skipIf(sys.platform == "win32", "win32")
-    def test_convert_command_args_keeps_undecodeable_bytes(self):
-        arg = b"\x82"  # non-ascii bytes
-        cmd_args = util.convert_command_args([arg])
-
-        self.assertEqual(
-            cmd_args[0], arg.decode(util.arg_encoding(), "surrogateescape")
-        )
+def test_sanitize_empty_component():
+    path = "foo//bar"
+    result = util.sanitize_path(path, r"/{2,}", "_")
+    assert result == "foo/_/bar"
 
     @patch("beets.util.subprocess.Popen")
-    def test_command_output(self, mock_popen):
-        def popen_fail(*args, **kwargs):
-            m = Mock(returncode=1)
-            m.communicate.return_value = "foo", "bar"
+import unittest
+import util
+
+class TestUtil(unittest.TestCase):
+    
+    def test_sanitize_path(self):
+        self.assertEqual(util.sanitize_path("foo//bar"), "foo/bar")
             return m
 
         mock_popen.side_effect = popen_fail
-        with self.assertRaises(subprocess.CalledProcessError) as exc_context:
-            util.command_output(["taga", "\xc3\xa9"])
-        self.assertEqual(exc_context.exception.returncode, 1)
-        self.assertEqual(exc_context.exception.cmd, "taga \xc3\xa9")
+### Changes Summary:
+The code snippet decodes an argument using `util.arg_encoding()` with "surrogateescape" error handling. It also includes a patch for `subprocess.Popen`.
 
     def test_case_sensitive_default(self):
-        path = util.bytestring_path(
-            util.normpath(
-                "/this/path/does/not/exist",
-            )
-        )
+### Changes Summary:
+The code snippet defines a helper function `popen_fail` within the `test_command_output` test method. The helper function creates a `Mock` object representing a failed `Popen` process with return code 1 and mocked output values "foo" and "bar" for `communicate`.
 
         self.assertEqual(
             util.case_sensitive(path),

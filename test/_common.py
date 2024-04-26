@@ -41,16 +41,14 @@ beetsplug.__path__ = [
 # Test resources path.
 RSRC = util.bytestring_path(os.path.join(os.path.dirname(__file__), "rsrc"))
 PLUGINPATH = os.path.join(os.path.dirname(__file__), "rsrc", "beetsplug")
+import logging
 
-# Propagate to root logger so the test runner can capture it
-log = logging.getLogger("beets")
-log.propagate = True
+# Set up logging for the "beets" logger
+log = logging.getLogger('beets')
 log.setLevel(logging.DEBUG)
+logging.getLogger().addHandler(logging.StreamHandler())
 
-# Dummy item creation.
-_item_ident = 0
-
-# OS feature test.
+_item_ident = None
 HAVE_SYMLINK = sys.platform != "win32"
 HAVE_HARDLINK = sys.platform != "win32"
 

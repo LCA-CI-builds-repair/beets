@@ -153,10 +153,6 @@ _beet_complete_query() {
 }
 
 # Returns true if the space separated list $1 includes $2
-_list_include_item() {
-  [[ " $1 " == *[[:space:]]$2[[:space:]]* ]]
-}
-
-# This is where beets dynamically adds the _beet function. This
-# function sets the variables $flags, $opts, $commands, and $aliases.
+### Changes Summary:
+The code snippet includes a function `_list_include_item` that checks if a string contains a specified item. It also mentions where beets dynamically adds the `_beet` function to set variables like $flags, $opts, $commands, and $aliases.
 complete -o filenames -F _beet beet

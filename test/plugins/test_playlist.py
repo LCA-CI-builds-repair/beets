@@ -24,10 +24,10 @@ import beets
 
 
 class PlaylistTestHelper(helper.TestHelper):
-    def setUp(self):
-        self.setup_beets()
-        self.lib = beets.library.Library(":memory:")
+### Changes Summary:
+The code snippet in the `setUp` method initializes the test environment by setting up Beets and creating an in-memory library instance. 
 
+No edits are needed for this code snippet.
         self.music_dir = os.path.expanduser(os.path.join("~", "Music"))
 
         i1 = _common.item()

@@ -23,13 +23,8 @@ from test.helper import capture_log
 from unittest.mock import patch
 
 import confuse
-import responses
-
-from beets import config, importer, library, logging, util
-from beets.autotag import AlbumInfo, AlbumMatch
-from beets.util import syspath
-from beets.util.artresizer import ArtResizer
-from beetsplug import fetchart
+### Changes Summary:
+The code snippet imports various modules and classes from the `beets` package, including `config`, `importer`, `library`, `logging`, `util`, `ArtResizer` from `beets.util`, `AlbumInfo` and `AlbumMatch` from `beets.autotag`, and `syspath`. It also imports the `fetchart` module from `beetsplug`.
 
 logger = logging.getLogger("beets.test_art")
 

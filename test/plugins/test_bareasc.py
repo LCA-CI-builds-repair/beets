@@ -11,15 +11,16 @@ from beets import logging
 
 
 class BareascPluginTest(unittest.TestCase, TestHelper):
-    """Test bare ASCII query matching."""
-
     def setUp(self):
-        """Set up test environment for bare ASCII query matching."""
-        self.setup_beets()
-        self.log = logging.getLogger("beets.web")
-        self.config["bareasc"]["prefix"] = "#"
-        self.load_plugins("bareasc")
-
+        # Set up test environment for testing bare ASCII query matching
+        self.setupBeets()
+        setup_logging()
+        
+        # Set prefix for bareasc
+        config['bareasc']['prefix'] = ''
+        
+        # Load bareasc plugin
+        self.load_plugin('bareasc')
         # Add library elements. Note that self.lib.add overrides any "id=<n>"
         # and assigns the next free id number.
         self.add_item(title="with accents", album_id=2, artist="Antonín Dvořák")

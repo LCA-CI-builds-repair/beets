@@ -19,12 +19,31 @@ import unittest
 from test import _common
 
 import beets.library
-from beets import config, dbcore
+from beets import config
+from beets import dbcore
 
-
-# A test case class providing a library with some dummy data and some
-# assertions involving that data.
-class DummyDataTestCase(_common.TestCase):
+class DummyDataTestCase(unittest.TestCase):
+    def setUp(self):
+        self.lib = Library(':memory:')
+        self.lib.add_album(artist='The Beatles', album='Abbey Road', tracks=[
+            {'title': 'Come Together', 'length': 187},
+            {'title': 'Something', 'length': 181},
+            {'title': 'Maxwell\'s Silver Hammer', 'length': 215},
+            {'title': 'Oh! Darling', 'length': 221},
+            {'title': 'Octopus\'s Garden', 'length': 191},
+            {'title': 'I Want You (She\'s So Heavy)', 'length': 467},
+            {'title': 'Here Comes the Sun', 'length': 189},
+            {'title': 'Because', 'length': 166},
+            {'title': 'You Never Give Me Your Money', 'length': 239},
+            {'title': 'Sun King', 'length': 136},
+            {'title': 'Mean Mr. Mustard', 'length': 82},
+            {'title': 'Polythene Pam', 'length': 71},
+            {'title': 'She Came In Through the Bathroom Window', 'length': 114},
+            {'title': 'Golden Slumbers', 'length': 91},
+            {'title': 'Carry That Weight', 'length': 91},
+            {'title': 'The End', 'length': 138},
+            {'title': 'Her Majesty', 'length': 23},
+        ])
     def setUp(self):
         super().setUp()
         self.lib = beets.library.Library(":memory:")
