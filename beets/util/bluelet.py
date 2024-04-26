@@ -68,6 +68,7 @@ class SpawnEvent(Event):
     def __init__(self, coro):
         self.spawned = coro
 
+        # Add missing code or class/function definition here
 
 class JoinEvent(Event):
     """Suspend the thread until the specified child thread has

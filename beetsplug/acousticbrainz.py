@@ -135,7 +135,7 @@ class AcousticPlugin(plugins.BeetsPlugin):
         if not self.base_url:
             raise ui.UserError(
                 "This plugin is deprecated since AcousticBrainz has shut "
-                "down. See the base_url configuration option."
+                "down. Please set the base_url configuration option to continue using the plugin."
             )
         data = {}
         for url in _generate_urls(self.base_url, mbid):

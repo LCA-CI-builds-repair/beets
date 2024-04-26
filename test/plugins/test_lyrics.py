@@ -260,10 +260,7 @@ class LyricsPluginSourcesTest(LyricsGoogleBaseTest, LyricsAssertions):
     """
 
     DEFAULT_SONG = dict(artist="The Beatles", title="Lady Madonna")
-
     DEFAULT_SOURCES = [
-        # dict(artist=u'Santana', title=u'Black magic woman',
-        #      backend=lyrics.MusiXmatch),
         dict(
             DEFAULT_SONG,
             backend=lyrics.Genius,

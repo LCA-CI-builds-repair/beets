@@ -188,10 +188,9 @@ class RgTask:
             # `track_gains` without throwing FatalReplayGainError
             #  => raise non-fatal exception & continue
             raise ReplayGainError(
-                "ReplayGain backend `{}` failed for track {}".format(
-                    self.backend_name, item
+                "ReplayGain backend `{}` failed for track {}. Reason: {}".format(
+                    self.backend_name, item, error_message
                 )
-            )
 
         self._store_track_gain(item, self.track_gains[0])
         if write:
@@ -1237,6 +1236,7 @@ class ReplayGainPlugin(BeetsPlugin):
         )
 
         # FIXME: Consider renaming the configuration option and deprecating the
+        # Consider renaming the configuration option and deprecating the
         # old name 'overwrite'.
         self.force_on_import = cast(bool, self.config["overwrite"].get(bool))
 
@@ -1251,14 +1251,13 @@ class ReplayGainPlugin(BeetsPlugin):
                 )
             )
 
-        # FIXME: Consider renaming the configuration option to 'peak_method'
+        # Consider renaming the configuration option to 'peak_method'
         # and deprecating the old name 'peak'.
         peak_method = self.config["peak"].as_str()
         if peak_method not in PeakMethod.__members__:
             raise ui.UserError(
                 "Selected ReplayGain peak method {} is not supported. "
                 "Please select one of: {}".format(
-                    peak_method, ", ".join(PeakMethod.__members__)
                 )
             )
         # This only applies to plain old rg tags, r128 doesn't store peak
