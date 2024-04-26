@@ -930,14 +930,7 @@ class NotQueryMatchTest(_common.TestCase):
 
     def test_open_range(self):
         q = dbcore.query.NumericQuery("bitrate", "100000..")
-        dbcore.query.NotQuery(q)
-
-
-class NotQueryTest(DummyDataTestCase):
-    """Test `query.NotQuery` against the dummy data:
-    - `test_type_xxx`: tests for the negation of a particular XxxQuery class.
-    - `test_get_yyy`: tests on query strings (similar to `GetTest`)
-    """
+        not_q = dbcore.query.NotQuery(q)
 
     def assertNegationProperties(self, q):  # noqa
         """Given a Query `q`, assert that:

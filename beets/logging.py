@@ -98,7 +98,7 @@ class StrFormatLogger(logging.Logger):
             exc_info=exc_info,
             extra=extra,
             stack_info=stack_info,
-            **stacklevel,
+            stacklevel=stacklevel,
         )
 
 

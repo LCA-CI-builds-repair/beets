@@ -12,7 +12,6 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'limit' plugin."""
-
 import unittest
 from test.helper import TestHelper
 
@@ -44,7 +43,6 @@ class LimitPluginTest(unittest.TestCase, TestHelper):
         # range filter on the track number
         self.track_head_range = "track:.." + str(self.num_limit)
         self.track_tail_range = "track:" + str(self.num_limit + 1) + ".."
-
     def tearDown(self):
         self.unload_plugins()
         self.teardown_beets()

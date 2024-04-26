@@ -297,7 +297,7 @@ class AURADocument:
         return document
 
     def single_resource_document(self, resource_object):
-        """Build document for a specific requested resource.
+"""Build document for a specific requested resource."""
 
         Args:
             resource_object: A dictionary in the form of a JSON:API
