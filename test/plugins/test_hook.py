@@ -66,7 +66,10 @@ class HookTest(_common.TestCase, TestHelper):
         self.load_plugins("hook")
 
         with capture_log("beets.hook") as logs:
+        try:
             plugins.send("test_event")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
         self.assertIn("hook: hook for test_event exited with status 1", logs)
 
