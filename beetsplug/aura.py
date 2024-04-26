@@ -314,11 +314,15 @@ class AURADocument:
 
 
 class TrackDocument(AURADocument):
+    from beets.library import Item
+    from beets.dbcore.query import Query
+    from beets.dbcore.query import Sort
+
     """Class for building documents for /tracks endpoints."""
 
     attribute_map = TRACK_ATTR_MAP
 
-    def get_collection(self, query=None, sort=None):
+    def get_collection(self, query=None, sort=None) -> List[Item]:
         """Get Item objects from the library.
 
         Args:

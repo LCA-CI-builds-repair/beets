@@ -21,8 +21,9 @@ from test.helper import TestHelper
 from unittest.mock import Mock
 
 from beets import config
+import unittest
 from beetsplug import lastgenre
-
+from test.helper import TestHelper
 
 class LastGenrePluginTest(unittest.TestCase, TestHelper):
     def setUp(self):
@@ -30,6 +31,7 @@ class LastGenrePluginTest(unittest.TestCase, TestHelper):
         self.plugin = lastgenre.LastGenrePlugin()
 
     def tearDown(self):
+        pass
         self.teardown_beets()
 
     def _setup_config(
