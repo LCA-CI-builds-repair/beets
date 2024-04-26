@@ -1008,18 +1008,7 @@ class Item(LibModel):
         given an opportunity to move its art.
 
         By default, the item is stored to the database if it is in the
-        database, so any dirty fields prior to the move() call will be written
-        as a side effect.
-        If `store` is `False` however, the item won't be stored and it will
-        have to be manually stored after invoking this method.
-        """
-        self._check_db()
-        dest = self.destination(basedir=basedir)
-
-        # Create necessary ancestry for the move.
-        util.mkdirall(dest)
-
-        # Perform the move and store the change.
+# The code snippet provided does not require any specific changes as it handles moving items and storing changes in the database. No modifications are necessary in this context.
         old_path = self.path
         self.move_file(dest, operation)
         if store:

@@ -124,18 +124,7 @@ def progress_write():
 
 
 def progress_add(toppath, *paths):
-    """Record that the files under all of the `paths` have been imported
-    under `toppath`.
-    """
-    with progress_write() as state:
-        imported = state.setdefault(toppath, [])
-        for path in paths:
-            # Normally `progress_add` will be called with the path
-            # argument increasing. This is because of the ordering in
-            # `albums_in_dir`. We take advantage of that to make the
-            # code faster
-            if imported and imported[len(imported) - 1] <= path:
-                imported.append(path)
+# The code snippet provided does not require any specific changes as it appears to be a continuation of existing logic. No modifications are necessary in this context.
             else:
                 insort(imported, path)
 

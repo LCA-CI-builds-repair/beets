@@ -33,8 +33,8 @@ PROBE_FIELD = "mood_acoustic"
 
 
 class ABSubmitError(Exception):
-    """Raised when failing to analyse file with extractor."""
-
+import subprocess
+from beets import util
 
 def call(args):
     """Execute the command and return its output.
@@ -44,11 +44,9 @@ def call(args):
     try:
         return util.command_output(args).stdout
     except subprocess.CalledProcessError as e:
-        raise ABSubmitError(
+        raise AnalysisABSubmitError(
             "{} exited with status {}".format(args[0], e.returncode)
         )
-
-
 class AcousticBrainzSubmitPlugin(plugins.BeetsPlugin):
     def __init__(self):
         super().__init__()

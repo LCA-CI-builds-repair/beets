@@ -140,23 +140,32 @@ class UtilTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            util.case_sensitive(path),
-            platform.system() != "Windows",
-        )
+import unittest
+import sys
+import platform
+from beets import util
 
-    @unittest.skipIf(sys.platform == "win32", "fs is not case sensitive")
+class TestUtil(unittest.TestCase):
+    
     def test_case_sensitive_detects_sensitive(self):
-        # FIXME: Add tests for more code paths of case_sensitive()
-        # when the filesystem on the test runner is not case sensitive
-        pass
-
-    @unittest.skipIf(sys.platform != "win32", "fs is case sensitive")
+        # Implement tests for case_sensitive() when the filesystem is case sensitive
+        sensitive_paths = [
+            "TestFile.txt",
+            "Folder",
+            "Folder/Subfolder",
+        ]
+        for path in sensitive_paths:
+            self.assertTrue(util.case_sensitive(path))
+    
     def test_case_sensitive_detects_insensitive(self):
-        # FIXME: Add tests for more code paths of case_sensitive()
-        # when the filesystem on the test runner is case sensitive
-        pass
-
-
+        # Implement tests for case_sensitive() when the filesystem is case insensitive
+        insensitive_paths = [
+            "testfile.txt",
+            "folder",
+            "folder/subfolder",
+        ]
+        for path in insensitive_paths:
+            self.assertFalse(util.case_sensitive(path))
 class PathConversionTest(_common.TestCase):
     def test_syspath_windows_format(self):
         with _common.platform_windows():

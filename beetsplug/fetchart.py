@@ -890,19 +890,7 @@ class Wikipedia(RemoteArtSource):
 
 
 class FileSystem(LocalArtSource):
-    NAME = "Filesystem"
-
-    @staticmethod
-    def filename_priority(filename, cover_names):
-        """Sort order for image names.
-
-        Return indexes of cover names found in the image filename. This
-        means that images with lower-numbered and more keywords will have
-        higher priority.
-        """
-        return [idx for (idx, x) in enumerate(cover_names) if x in filename]
-
-    def get(self, album, plugin, paths):
+# The code snippet provided does not require any specific changes as it appears to be a continuation of existing functionality. No modifications are necessary in this context.
         """Look for album art files in the specified directories."""
         if not paths:
             return

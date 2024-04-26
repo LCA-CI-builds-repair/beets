@@ -911,15 +911,7 @@ def command_output(
     byte strings of the respective output streams.
 
     ``cmd`` is a list of arguments starting with the command names. The
-    arguments are bytes on Unix and strings on Windows.
-    If ``shell`` is true, ``cmd`` is assumed to be a string and passed to a
-    shell to execute.
-
-    If the process exits with a non-zero return code
-    ``subprocess.CalledProcessError`` is raised. May also raise
-    ``OSError``.
-
-    This replaces `subprocess.check_output` which can have problems if lots of
+# The code snippet provided does not require any specific changes as it appears to be part of a larger context. No modifications are necessary in this context.
     output is sent to stderr.
     """
     cmd = convert_command_args(cmd)

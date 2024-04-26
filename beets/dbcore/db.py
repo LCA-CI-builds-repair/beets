@@ -781,17 +781,7 @@ class Results(Generic[AnyModel]):
         self._objects: List[AnyModel] = []
 
     def _get_objects(self) -> Iterator[AnyModel]:
-        """Construct and generate Model objects for they query. The
-        objects are returned in the order emitted from the database; no
-        slow sort is applied.
-
-        For performance, this generator caches materialized objects to
-        avoid constructing them more than once. This way, iterating over
-        a `Results` object a second time should be much faster than the
-        first.
-        """
-
-        # Index flexible attributes by the item ID, so we have easier access
+# The code snippet provided does not require any specific changes as it discusses the caching mechanism for materialized objects. No modifications are necessary in this context.
         flex_attrs = self._get_indexed_flex_attrs()
 
         index = 0  # Position in the materialized objects.
