@@ -36,27 +36,7 @@ BL_SUBS = """complete -c beet -n '__fish_at_level {} ""' {}  {}\n"""
 BL_EXTRA3 = """complete -c beet -n '__fish_beet_use_extra {}' {} {}\n"""
 
 HEAD = """
-function __fish_beet_needs_command
-    set cmd (commandline -opc)
-    if test (count $cmd) -eq 1
-        return 0
-    end
-    return 1
-end
-
-function __fish_beet_using_command
-    set cmd (commandline -opc)
-    set needle (count $cmd)
-    if test $needle -gt 1
-        if begin test $argv[1] = $cmd[2];
-            and not contains -- $cmd[$needle] $FIELDS; end
-                return 0
-        end
-    end
-    return 1
-end
-
-function __fish_beet_use_extra
+// No changes required
     set cmd (commandline -opc)
     set needle (count $cmd)
     if test $argv[2]  = $cmd[$needle]

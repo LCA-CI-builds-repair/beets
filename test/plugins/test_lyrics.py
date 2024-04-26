@@ -13,8 +13,6 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'lyrics' plugin."""
-
-
 import itertools
 import os
 import re
@@ -25,8 +23,8 @@ from unittest.mock import MagicMock, patch
 import confuse
 import requests
 
-from beets import logging
 from beets.library import Item
+from beets import logging
 from beets.util import bytestring_path
 from beetsplug import lyrics
 

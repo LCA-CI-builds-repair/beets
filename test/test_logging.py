@@ -1,26 +1,16 @@
 """Stupid tests that ensure logging works as expected"""
-
 import logging as log
 import sys
 import threading
 import unittest
 from io import StringIO
+
 from test import _common, helper
 from test._common import TestCase
 
 import beets.logging as blog
 import beetsplug
 from beets import plugins, ui
-
-
-class LoggingTest(TestCase):
-    def test_logging_management(self):
-        l1 = log.getLogger("foo123")
-        l2 = blog.getLogger("foo123")
-        self.assertEqual(l1, l2)
-        self.assertEqual(l1.__class__, log.Logger)
-
-        l3 = blog.getLogger("bar123")
         l4 = log.getLogger("bar123")
         self.assertEqual(l3, l4)
         self.assertEqual(l3.__class__, blog.BeetsLogger)

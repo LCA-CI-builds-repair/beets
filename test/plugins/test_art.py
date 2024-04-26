@@ -13,8 +13,6 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the album art fetchers."""
-
-
 import os
 import shutil
 import unittest
@@ -32,8 +30,6 @@ from beets.util.artresizer import ArtResizer
 from beetsplug import fetchart
 
 logger = logging.getLogger("beets.test_art")
-
-
 class Settings:
     """Used to pass settings to the ArtSources when the plugin isn't fully
     instantiated.

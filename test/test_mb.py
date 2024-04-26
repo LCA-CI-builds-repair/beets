@@ -13,16 +13,12 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for MusicBrainz API wrapper.
-"""
-
 import unittest
-from test import _common
 from unittest import mock
 
+from test import _common
 from beets import config
 from beets.autotag import mb
-
-
 class MBAlbumInfoTest(_common.TestCase):
     def _make_release(
         self,

@@ -13,9 +13,8 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'bucket' plugin."""
-
-
 import unittest
+
 from test.helper import TestHelper
 
 from beets import config, ui

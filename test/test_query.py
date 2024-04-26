@@ -13,15 +13,13 @@
 # included in all copies or substantial portions of the Software.
 
 """Various tests for querying the library database.
-"""
-
 import os
 import sys
 import unittest
 from contextlib import contextmanager
 from functools import partial
-from test import _common, helper
 
+from test import _common, helper
 import beets.library
 from beets import dbcore, util
 from beets.dbcore import types
@@ -32,8 +30,6 @@ from beets.dbcore.query import (
 )
 from beets.library import Item, Library
 from beets.util import syspath
-
-# Because the absolute path begins with something like C:, we
 # can't disambiguate it from an ordinary query.
 WIN32_NO_IMPLICIT_PATHS = "Implicit paths are not supported on Windows"
 

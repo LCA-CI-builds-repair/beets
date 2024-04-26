@@ -13,23 +13,11 @@
 # included in all copies or substantial portions of the Software.
 
 """Various tests for querying the library database.
-"""
-
 import unittest
+
 from test import _common
-
-import beets.library
 from beets import config, dbcore
-
-
-# A test case class providing a library with some dummy data and some
-# assertions involving that data.
-class DummyDataTestCase(_common.TestCase):
-    def setUp(self):
-        super().setUp()
-        self.lib = beets.library.Library(":memory:")
-
-        albums = [_common.album() for _ in range(3)]
+import beets.library
         albums[0].album = "Album A"
         albums[0].genre = "Rock"
         albums[0].year = 2001

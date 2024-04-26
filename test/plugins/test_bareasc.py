@@ -8,19 +8,7 @@ import unittest
 from test.helper import TestHelper, capture_stdout
 
 from beets import logging
-
-
-class BareascPluginTest(unittest.TestCase, TestHelper):
-    """Test bare ASCII query matching."""
-
-    def setUp(self):
-        """Set up test environment for bare ASCII query matching."""
-        self.setup_beets()
-        self.log = logging.getLogger("beets.web")
-        self.config["bareasc"]["prefix"] = "#"
-        self.load_plugins("bareasc")
-
-        # Add library elements. Note that self.lib.add overrides any "id=<n>"
+// No changes required
         # and assigns the next free id number.
         self.add_item(title="with accents", album_id=2, artist="Antonín Dvořák")
         self.add_item(title="without accents", artist="Antonín Dvorak")

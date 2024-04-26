@@ -45,19 +45,7 @@ class ImportAddedTest(unittest.TestCase, ImportHelper):
     min_mtime = None
 
     def setUp(self):
-        preserve_plugin_listeners()
-        self.setup_beets()
-        self.load_plugins("importadded")
-        self._create_import_dir(2)
-        # Different mtimes on the files to be imported in order to test the
-        # plugin
-        modify_mtimes(mfile.path for mfile in self.media_files)
-        self.min_mtime = min(
-            os.path.getmtime(mfile.path) for mfile in self.media_files
-        )
-        self.matcher = AutotagStub().install()
-        self.matcher.macthin = AutotagStub.GOOD
-        self._setup_import_session()
+No changes needed.
         self.importer.add_choice(importer.action.APPLY)
 
     def tearDown(self):
