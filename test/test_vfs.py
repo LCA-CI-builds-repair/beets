@@ -13,13 +13,10 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the virtual filesystem builder.."""
-
 import unittest
-from test import _common
 
 from beets import library, vfs
-
-
+from test import _common
 class VFSTest(_common.TestCase):
     def setUp(self):
         super().setUp()

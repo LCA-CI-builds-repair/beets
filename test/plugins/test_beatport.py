@@ -13,22 +13,13 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'beatport' plugin.
-"""
-
 import unittest
 from datetime import timedelta
-from test import _common
-from test.helper import TestHelper
 
 from beets import library
+from test import _common
+from test.helper import TestHelper
 from beetsplug import beatport
-
-
-class BeatportTest(_common.TestCase, TestHelper):
-    def _make_release_response(self):
-        """Returns a dict that mimics a response from the beatport API.
-
-        The results were retrieved from:
         https://oauth-api.beatport.com/catalog/3/releases?id=1742984
         The list of elements on the returned dict is incomplete, including just
         those required for the tests on this class.

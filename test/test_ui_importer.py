@@ -13,19 +13,12 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests the TerminalImportSession. The tests are the same as in the
-
-test_importer module. But here the test importer inherits from
-``TerminalImportSession``. So we test this class, too.
-"""
-
 import unittest
-from test import test_importer
-from test._common import DummyIO
 
 from beets import config, importer
 from beets.ui.commands import TerminalImportSession
-
-
+from test import test_importer
+from test._common import DummyIO
 class TerminalImportSessionFixture(TerminalImportSession):
     def __init__(self, *args, **kwargs):
         self.io = kwargs.pop("io")

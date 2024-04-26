@@ -13,7 +13,6 @@
 # included in all copies or substantial portions of the Software.
 
 """Some common functionality for beets' test cases."""
-
 import os
 import shutil
 import sys
@@ -22,18 +21,15 @@ import time
 import unittest
 from contextlib import contextmanager
 
+from beets import importer, logging, library, util
+from beets.ui import commands
+from beets.util import bytestring_path, syspath
+import beets
+import beets.library
+import beetsplug
+
 # Mangle the search path to include the beets sources.
 sys.path.insert(0, "..")
-import beets  # noqa: E402
-import beets.library  # noqa: E402
-
-# Make sure the development versions of the plugins are used
-import beetsplug  # noqa: E402
-from beets import util  # noqa: E402
-from beets import importer, logging  # noqa: E402
-from beets.ui import commands  # noqa: E402
-from beets.util import bytestring_path, syspath  # noqa: E402
-
 beetsplug.__path__ = [
     os.path.abspath(os.path.join(__file__, "..", "..", "beetsplug"))
 ]
@@ -176,16 +172,16 @@ class Assertions:
 
 
 # A test harness for all beets tests.
+        )
+
+
+# A test harness for all beets tests.
 # Provides temporary, isolated configuration.
 class TestCase(unittest.TestCase, Assertions):
     """A unittest.TestCase subclass that saves and restores beets'
     global configuration. This allows tests to make temporary
     modifications that will then be automatically removed when the test
     completes. Also provides some additional assertion methods, a
-    temporary directory, and a DummyIO.
-    """
-
-    def setUp(self):
         # A "clean" source list including only the defaults.
         beets.config.sources = []
         beets.config.read(user=False, defaults=True)

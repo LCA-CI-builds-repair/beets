@@ -1,29 +1,13 @@
 """Tests for the 'web' plugin"""
-
-
 import json
 import os.path
-import platform
 import shutil
 import unittest
-from test import _common
 
 from beets import logging
 from beets.library import Album, Item
 from beetsplug import web
-
-
-class WebPluginTest(_common.LibTestCase):
-    def setUp(self):
-        super().setUp()
-        self.log = logging.getLogger("beets.web")
-
-        if platform.system() == "Windows":
-            self.path_prefix = "C:"
-        else:
-            self.path_prefix = ""
-
-        # Add fixtures
+from test import _common
         for track in self.lib.items():
             track.remove()
 

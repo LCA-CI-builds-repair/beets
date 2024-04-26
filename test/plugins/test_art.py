@@ -13,13 +13,9 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the album art fetchers."""
-
-
 import os
 import shutil
 import unittest
-from test import _common
-from test.helper import capture_log
 from unittest.mock import patch
 
 import confuse
@@ -31,9 +27,10 @@ from beets.util import syspath
 from beets.util.artresizer import ArtResizer
 from beetsplug import fetchart
 
+from test import _common
+from test.helper import capture_log
+
 logger = logging.getLogger("beets.test_art")
-
-
 class Settings:
     """Used to pass settings to the ArtSources when the plugin isn't fully
     instantiated.

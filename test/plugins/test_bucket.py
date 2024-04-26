@@ -13,24 +13,11 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'bucket' plugin."""
-
-
 import unittest
-from test.helper import TestHelper
 
 from beets import config, ui
 from beetsplug import bucket
-
-
-class BucketPluginTest(unittest.TestCase, TestHelper):
-    def setUp(self):
-        self.setup_beets()
-        self.plugin = bucket.BucketPlugin()
-
-    def tearDown(self):
-        self.teardown_beets()
-
-    def _setup_config(
+from test.helper import TestHelper
         self,
         bucket_year=[],
         bucket_alpha=[],
