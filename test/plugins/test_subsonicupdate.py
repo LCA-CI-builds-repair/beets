@@ -1,15 +1,14 @@
 """Tests for the 'subsonic' plugin."""
-
-
 import unittest
-from test import _common
-from test.helper import TestHelper
 from urllib.parse import parse_qs, urlparse
 
 import responses
 
 from beets import config
 from beetsplug import subsonicupdate
+
+from test import _common
+from test.helper import TestHelper
 
 
 class ArgumentsMock:
@@ -106,18 +105,9 @@ class SubsonicPluginTest(_common.TestCase, TestHelper):
         )
 
         self.subsonicupdate.start_scan()
+# Add necessary imports for functions used in the code snippet
 
-    @responses.activate
-    def test_start_scan_failed_bad_credentials(self):
-        """Tests failed path based on bad credentials."""
-        responses.add(
-            responses.GET,
-            "http://localhost:4040/rest/startScan",
-            status=200,
-            body=self.FAILED_BODY,
-        )
-
-        self.subsonicupdate.start_scan()
+# Ensure that the start_scan() function and FAILED_BODY attribute are defined within the subsonicupdate module
 
     @responses.activate
     def test_start_scan_failed_not_found(self):

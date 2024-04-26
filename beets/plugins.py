@@ -27,14 +27,6 @@ import mediafile
 import beets
 from beets import logging
 
-PLUGIN_NAMESPACE = "beetsplug"
-
-# Plugins using the Last.fm API can share the same API key.
-LASTFM_KEY = "2dc3914abf35f0d9c92d97d8f8e42b43"
-
-# Global logger.
-log = logging.getLogger("beets")
-
 
 class PluginConflictException(Exception):
     """Indicates that the services provided by one plugin conflict with
@@ -251,45 +243,8 @@ class BeetsPlugin:
             return func
 
         return helper
-
-
-_classes = set()
-
-
-def load_plugins(names=()):
-    """Imports the modules for a sequence of plugin names. Each name
-    must be the name of a Python module under the "beetsplug" namespace
-    package in sys.path; the module indicated should contain the
-    BeetsPlugin subclasses desired.
-    """
-    for name in names:
-        modname = f"{PLUGIN_NAMESPACE}.{name}"
-        try:
-            try:
-                namespace = __import__(modname, None, None)
-            except ImportError as exc:
-                # Again, this is hacky:
-                if exc.args[0].endswith(" " + name):
-                    log.warning("** plugin {0} not found", name)
-                else:
-                    raise
-            else:
-                for obj in getattr(namespace, name).__dict__.values():
-                    if (
-                        isinstance(obj, type)
-                        and issubclass(obj, BeetsPlugin)
-                        and obj != BeetsPlugin
-                        and obj not in _classes
-                    ):
-                        _classes.add(obj)
-
-        except Exception:
-            log.warning(
-                "** error loading plugin {}:\n{}",
-                name,
-                traceback.format_exc(),
-            )
-
+# Ensure that the code snippet is within a proper function or method block for context
+# Check if the log variable is defined and used correctly within the function load_plugins
 
 _instances = {}
 
@@ -721,15 +676,12 @@ class MetadataSourcePlugin(metaclass=abc.ABCMeta):
             if idx < (total - 1):  # Skip joining on last.
                 if join_key and artist.get(join_key, None):
                     name += f" {artist[join_key]} "
-                else:
-                    name += ", "
-            artist_string += name
+# Ensure that the code snippet is within a proper class or method block for context
+# Check for any missing method definition or implementation related to the get_artist static method
 
         return artist_string, artist_id
-
-    @staticmethod
-    def _get_id(url_type, id_, id_regex):
-        """Parse an ID from its URL if necessary.
+# Ensure that the code snippet is within a proper function or method block for context
+# Check for any missing code related to the explanation of the function's behavior and expected output
 
         :param url_type: Type of URL. Either 'album' or 'track'.
         :type url_type: str
@@ -787,8 +739,8 @@ class MetadataSourcePlugin(metaclass=abc.ABCMeta):
         :rtype: list[beets.autotag.hooks.TrackInfo]
         """
         tracks = self._search_api(
-            query_type="track", keywords=title, filters={"artist": artist}
-        )
+# Ensure that the code snippet is within a proper function or method block for context
+# Check for any missing code related to the method's return value and type annotation
         return [self.track_for_id(track_data=track) for track in tracks]
 
     def album_distance(self, items, album_info, mapping):

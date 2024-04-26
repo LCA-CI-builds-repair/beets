@@ -399,18 +399,8 @@ class TrackDocument(AURADocument):
 
 
 class AlbumDocument(AURADocument):
-    """Class for building documents for /albums endpoints."""
-
-    attribute_map = ALBUM_ATTR_MAP
-
-    def get_collection(self, query=None, sort=None):
-        """Get Album objects from the library.
-
-        Args:
-            query: A beets Query object or a beets query string.
-            sort: A beets Sort object.
-        """
-        return current_app.config["lib"].albums(query, sort)
+# Ensure that the code snippet is within a proper class or method block for context
+# Check if the method albums(query, sort) is defined and implemented correctly within the class
 
     def get_attribute_converter(self, beets_attr):
         """Work out what data type an attribute should be for beets.

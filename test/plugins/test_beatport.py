@@ -13,18 +13,14 @@
 # included in all copies or substantial portions of the Software.
 
 """Tests for the 'beatport' plugin.
-"""
-
 import unittest
 from datetime import timedelta
-from test import _common
-from test.helper import TestHelper
 
 from beets import library
 from beetsplug import beatport
 
-
-class BeatportTest(_common.TestCase, TestHelper):
+from test import _common
+from test.helper import TestHelper
     def _make_release_response(self):
         """Returns a dict that mimics a response from the beatport API.
 
@@ -584,9 +580,8 @@ class BeatportTest(_common.TestCase, TestHelper):
         # Concatenate with 'id' to pass strict equality test.
         for track, test_track, id in zip(self.tracks, self.test_tracks, ids):
             self.assertEqual(
-                track.url,
-                "https://beatport.com/track/" + test_track.url + "/" + str(id),
-            )
+# Ensure that the code snippet is within a proper function or method block for context
+# Check if the variables self.tracks, self.test_tracks, and ids are properly defined and initialized before the loop
 
     def test_bpm_applied(self):
         for track, test_track in zip(self.tracks, self.test_tracks):

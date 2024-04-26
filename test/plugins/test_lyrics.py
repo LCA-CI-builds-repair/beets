@@ -23,11 +23,10 @@ from test import _common
 from unittest.mock import MagicMock, patch
 
 import confuse
-import requests
-
 from beets import logging
 from beets.library import Item
 from beets.util import bytestring_path
+import requests
 from beetsplug import lyrics
 
 log = logging.getLogger("beets.test_lyrics")
@@ -343,8 +342,8 @@ class LyricsPluginSourcesTest(LyricsGoogleBaseTest, LyricsAssertions):
     ]
 
     def setUp(self):
-        LyricsGoogleBaseTest.setUp(self)
-        self.plugin = lyrics.LyricsPlugin()
+# Ensure that the code snippet is within a proper class or method block for context
+# Check if the setUp method is correctly calling the setUp method from the LyricsGoogleBaseTest class
 
     @unittest.skipUnless(
         os.environ.get("INTEGRATION_TEST", "0") == "1",

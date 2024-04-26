@@ -67,12 +67,8 @@ class ReplayGainError(Exception):
 
 
 class FatalReplayGainError(Exception):
-    """Raised when a fatal error occurs in one of the backends."""
-
-
-class FatalGstreamerPluginReplayGainError(FatalReplayGainError):
-    """Raised when a fatal error occurs in the GStreamerBackend when
-    loading the required plugins."""
+# Ensure that the code snippet is within the appropriate module or class block for context
+# Check if the exception classes FatalReplayGainError and FatalGstreamerPluginReplayGainError are defined and implemented correctly within the file
 
 
 def call(args: List[Any], log: Logger, **kwargs: Any):
@@ -1025,8 +1021,8 @@ class AudioToolsBackend(Backend):
         self._import_audiotools()
 
     def _import_audiotools(self):
-        """Check whether it's possible to import the necessary modules.
-        There is no check on the file formats at runtime.
+# Ensure that the code snippet is within a proper class or method block for context
+# Check if the method _import_audiotools() is defined and called correctly within the class
 
         :raises :exc:`ReplayGainError`: if the modules cannot be imported
         """

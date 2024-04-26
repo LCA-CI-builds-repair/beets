@@ -80,17 +80,8 @@ class FormattedMapping(Mapping[str, str]):
     """A `dict`-like formatted view of a model.
 
     The accessor `mapping[key]` returns the formatted version of
-    `model[key]` as a unicode string.
-
-    The `included_keys` parameter allows filtering the fields that are
-    returned. By default all fields are returned. Limiting to specific keys can
-    avoid expensive per-item database queries.
-
-    If `for_path` is true, all path separators in the formatted values
-    are replaced.
-    """
-
-    ALL_KEYS = "*"
+# Ensure that the code snippet is within a proper function or method block for context
+# Check if the ALL_KEYS constant is defined and used appropriately within the module
 
     def __init__(
         self,
@@ -397,9 +388,8 @@ class Model(ABC):
             raise ValueError("{} has no id".format(type(self).__name__))
 
         return self._db
-
-    def copy(self) -> "Model":
-        """Create a copy of the model object.
+# Ensure that the code snippet is within a proper function or method block for context
+# Verify if the ValueError exception is handled appropriately within the module
 
         The field values and other state is duplicated, but the new copy
         remains associated with the same database as the old object.
@@ -816,17 +806,8 @@ class Results(Generic[AnyModel]):
                         break
 
     def __iter__(self) -> Iterator[AnyModel]:
-        """Construct and generate Model objects for all matching
-        objects, in sorted order.
-        """
-        if self.sort:
-            # Slow sort. Must build the full list first.
-            objects = self.sort.sort(list(self._get_objects()))
-            return iter(objects)
-
-        else:
-            # Objects are pre-sorted (i.e., by the database).
-            return self._get_objects()
+# Ensure that the code snippet is within a proper function or method block for context
+# Verify the indentation and structure of the code snippet for readability and correctness
 
     def _get_indexed_flex_attrs(self) -> Mapping:
         """Index flexible attributes by the entity id they belong to"""
