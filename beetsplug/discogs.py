@@ -623,6 +623,7 @@ class DiscogsPlugin(BeetsPlugin):
                     # Promote the subtracks to real tracks, discarding the
                     # index track, assuming the subtracks are physical tracks.
                     index_track = tracklist.pop()
+                    
                     # Fix artists when they are specified on the index track.
                     if index_track.get("artists"):
                         for subtrack in subtracks:
