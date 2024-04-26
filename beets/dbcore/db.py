@@ -781,7 +781,7 @@ class Results(Generic[AnyModel]):
         self._objects: List[AnyModel] = []
 
     def _get_objects(self) -> Iterator[AnyModel]:
-        """Construct and generate Model objects for they query. The
+        """Construct and generate Model objects for the query. The
         objects are returned in the order emitted from the database; no
         slow sort is applied.
 
@@ -791,7 +791,7 @@ class Results(Generic[AnyModel]):
         first.
         """
 
-        # Index flexible attributes by the item ID, so we have easier access
+        # Index flexible attributes by the item ID for easier access
         flex_attrs = self._get_indexed_flex_attrs()
 
         index = 0  # Position in the materialized objects.

@@ -125,11 +125,11 @@ class Type(ABC, Generic[T, N]):
 
         For fixed fields the type of `value` is determined by the column
         type affinity given in the `sql` property and the SQL to Python
-        mapping of the database adapter. For more information see:
-        https://www.sqlite.org/datatype3.html
-        https://docs.python.org/2/library/sqlite3.html#sqlite-and-python-types
+        mapping of the database adapter. For more information, refer to:
+        [SQLite Data Types](https://www.sqlite.org/datatype3.html)
+        [SQLite and Python Types](https://docs.python.org/2/library/sqlite3.html#sqlite-and-python-types)
 
-        Flexible fields have the type affinity `TEXT`. This means the
+        Flexible fields are assigned the type affinity `TEXT`. This means the
         `sql_value` is either a `memoryview` or a `unicode` object`
         and the method must handle these in addition.
         """

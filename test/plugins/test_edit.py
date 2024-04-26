@@ -31,14 +31,13 @@ class ModifyFileMocker:
     """
 
     def __init__(self, contents=None, replacements=None):
-        """`self.contents` and `self.replacements` are initialized here, in
-        order to keep the rest of the functions of this class with the same
-        signature as `EditPlugin.get_editor()`, making mocking easier.
+        """`self.contents` and `self.replacements` are initialized here to keep
+        the rest of the functions of this class with the same signature as
+        `EditPlugin.get_editor()`, making mocking easier.
             - `contents`: string with the contents of the file to be used for
             `overwrite_contents()`
-            - `replacement`: dict with the in-place replacements to be used for
+            - `replacements`: dict with the in-place replacements to be used for
             `replace_contents()`, in the form {'previous string': 'new string'}
-
         TODO: check if it can be solved more elegantly with a decorator
         """
         self.contents = contents
@@ -110,17 +109,16 @@ class EditMixin:
 
 
 @_common.slow_test()
+@_common.slow_test()
 @patch("beets.library.Item.write")
 class EditCommandTest(unittest.TestCase, TestHelper, EditMixin):
     """Black box tests for `beetsplug.edit`. Command line interaction is
-    simulated using `test.helper.control_stdin()`, and yaml editing via an
+    simulated using `test.helper.control_stdin()`, and YAML editing via an
     external editor is simulated using `ModifyFileMocker`.
     """
 
     ALBUM_COUNT = 1
     TRACK_COUNT = 10
-
-    def setUp(self):
         self.setup_beets()
         self.load_plugins("edit")
         # Add an album, storing the original fields for comparison.

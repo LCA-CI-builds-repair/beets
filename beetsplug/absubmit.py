@@ -39,16 +39,14 @@ class ABSubmitError(Exception):
 def call(args):
     """Execute the command and return its output.
 
-    Raise a AnalysisABSubmitError on failure.
+    Raise an AnalysisABSubmitError on failure.
     """
     try:
         return util.command_output(args).stdout
     except subprocess.CalledProcessError as e:
-        raise ABSubmitError(
+        raise AnalysisABSubmitError(
             "{} exited with status {}".format(args[0], e.returncode)
         )
-
-
 class AcousticBrainzSubmitPlugin(plugins.BeetsPlugin):
     def __init__(self):
         super().__init__()

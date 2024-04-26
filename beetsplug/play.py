@@ -40,13 +40,12 @@ def play(
     keep_open=False,
 ):
     """Play items in paths with command_str and optional arguments. If
-    keep_open, return to beets, otherwise exit once command runs.
+    keep_open is True, return to beets; otherwise, exit once the command runs.
     """
-    # Print number of tracks or albums to be played, log command to be run.
+    # Print the number of tracks or albums to be played and log the command to be run.
     item_type += "s" if len(selection) > 1 else ""
     ui.print_("Playing {} {}.".format(len(selection), item_type))
-    log.debug("executing command: {} {!r}", command_str, open_args)
-
+    log.debug("Executing command: {} {!r}".format(command_str, open_args))
     try:
         if keep_open:
             command = shlex.split(command_str)

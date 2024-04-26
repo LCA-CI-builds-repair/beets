@@ -915,7 +915,7 @@ def command_output(
     If ``shell`` is true, ``cmd`` is assumed to be a string and passed to a
     shell to execute.
 
-    If the process exits with a non-zero return code
+    If the process exits with a non-zero return code,
     ``subprocess.CalledProcessError`` is raised. May also raise
     ``OSError``.
 

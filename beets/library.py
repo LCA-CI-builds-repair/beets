@@ -1010,7 +1010,7 @@ class Item(LibModel):
         By default, the item is stored to the database if it is in the
         database, so any dirty fields prior to the move() call will be written
         as a side effect.
-        If `store` is `False` however, the item won't be stored and it will
+        If `store` is `False`, however, the item won't be stored, and it will
         have to be manually stored after invoking this method.
         """
         self._check_db()

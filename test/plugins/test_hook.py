@@ -64,7 +64,6 @@ class HookTest(_common.TestCase, TestHelper):
         self._add_hook("test_event", 'sh -c "exit 1"')
 
         self.load_plugins("hook")
-
         with capture_log("beets.hook") as logs:
             plugins.send("test_event")
 
