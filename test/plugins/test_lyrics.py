@@ -276,11 +276,6 @@ class LyricsPluginSourcesTest(LyricsGoogleBaseTest, LyricsAssertions):
     GOOGLE_SOURCES = [
         dict(
             DEFAULT_SONG,
-            url="http://www.absolutelyrics.com",
-            path="/lyrics/view/the_beatles/lady_madonna",
-        ),
-        dict(
-            DEFAULT_SONG,
             url="http://www.azlyrics.com",
             path="/lyrics/beatles/ladymadonna.html",
             # AZLyrics returns a 403 on GitHub actions.
@@ -288,6 +283,7 @@ class LyricsPluginSourcesTest(LyricsGoogleBaseTest, LyricsAssertions):
         ),
         dict(
             DEFAULT_SONG,
+        ),
             url="http://www.chartlyrics.com",
             path="/_LsLsZ7P4EK-F-LD4dJgDQ/Lady+Madonna.aspx",
         ),

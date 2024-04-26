@@ -23,7 +23,7 @@
 # If a beets command is found on the command line it completes filenames and
 # the subcommand's options. Otherwise it will complete global options and
 # subcommands. If the previous option on the command line expects an argument,
-# it also completes filenames or directories.  Options are only
+# it also completes filenames or directories. Options are only
 # completed if '-' has already been typed on the command line.
 #
 # Note that completion of plugin commands only works for those plugins

@@ -68,7 +68,7 @@ class HookPlugin(BeetsPlugin):
     def create_and_register_hook(self, event, command):
         def hook_function(**kwargs):
             if command is None or len(command) == 0:
-                self._log.error('invalid command "{0}"', command)
+                self._log.error('invalid command "{}" for event "{}"', command, event)
                 return
 
             # For backwards compatibility, use a string formatter that decodes
@@ -80,7 +80,7 @@ class HookPlugin(BeetsPlugin):
             ]
 
             self._log.debug(
-                'running command "{0}" for event {1}',
+                'running command "{}" for event {}',
                 " ".join(command_pieces),
                 event,
             )

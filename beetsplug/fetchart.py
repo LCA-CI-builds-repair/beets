@@ -852,11 +852,10 @@ class Wikipedia(RemoteArtSource):
                     ):
                         cover_filename = result["title"]
                         break
-            except (ValueError, KeyError):
-                self._log.debug(
-                    "wikipedia: failed to retrieve a cover_filename"
-                )
-                return
+                except (ValueError, KeyError):
+                    self._log.debug(
+                        "wikipedia: failed to retrieve a cover_filename"
+                    )
 
         # Find the absolute url of the cover art on Wikipedia
         try:

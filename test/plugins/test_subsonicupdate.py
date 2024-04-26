@@ -106,7 +106,6 @@ class SubsonicPluginTest(_common.TestCase, TestHelper):
         )
 
         self.subsonicupdate.start_scan()
-
     @responses.activate
     def test_start_scan_failed_bad_credentials(self):
         """Tests failed path based on bad credentials."""

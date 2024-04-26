@@ -14,11 +14,12 @@
 
 """Creates freedesktop.org-compliant .directory files on an album level.
 """
+This plugin provides functionality related to the Freedesktop integration.
 
+"""
 
 from beets import ui
 from beets.plugins import BeetsPlugin
-
 
 class FreedesktopPlugin(BeetsPlugin):
     def commands(self):

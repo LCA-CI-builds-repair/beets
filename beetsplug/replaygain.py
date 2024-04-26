@@ -188,7 +188,7 @@ class RgTask:
             # `track_gains` without throwing FatalReplayGainError
             #  => raise non-fatal exception & continue
             raise ReplayGainError(
-                "ReplayGain backend `{}` failed for track {}".format(
+                "ReplayGain backend '{}' failed for track {}".format(
                     self.backend_name, item
                 )
             )
@@ -1245,7 +1245,7 @@ class ReplayGainPlugin(BeetsPlugin):
 
         if self.backend_name not in BACKENDS:
             raise ui.UserError(
-                "Selected ReplayGain backend {} is not supported. "
+                "Selected ReplayGain backend '{}' is not supported. "
                 "Please select one of: {}".format(
                     self.backend_name, ", ".join(BACKENDS.keys())
                 )
@@ -1256,7 +1256,7 @@ class ReplayGainPlugin(BeetsPlugin):
         peak_method = self.config["peak"].as_str()
         if peak_method not in PeakMethod.__members__:
             raise ui.UserError(
-                "Selected ReplayGain peak method {} is not supported. "
+                "Selected ReplayGain peak method '{}' is not supported. "
                 "Please select one of: {}".format(
                     peak_method, ", ".join(PeakMethod.__members__)
                 )
