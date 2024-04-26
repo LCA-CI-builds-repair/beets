@@ -133,11 +133,13 @@ class AcousticPlugin(plugins.BeetsPlugin):
 
     def _get_data(self, mbid):
         if not self.base_url:
-            raise ui.UserError(
-                "This plugin is deprecated since AcousticBrainz has shut "
-                "down. See the base_url configuration option."
-            )
-        data = {}
+try:
+    raise ui.UserError(
+        "This plugin is deprecated since AcousticBrainz has shut "
+        "down. See the base_url configuration option."
+    )
+except ui.UserError as exc:
+    data = {}
         for url in _generate_urls(self.base_url, mbid):
             self._log.debug("fetching URL: {}", url)
 
