@@ -50,12 +50,12 @@ def _is_hidden_win(path):
     # Ensure we have valid attributes and compare them against the mask.
     return attrs >= 0 and attrs & hidden_mask
 
-
 def _is_hidden_dot(path):
     """Return whether or not a file starts with a dot.
 
     Files starting with a dot are seen as "hidden" files on Unix-based OSes.
     """
+    import os
     return os.path.basename(path).startswith(b".")
 
 

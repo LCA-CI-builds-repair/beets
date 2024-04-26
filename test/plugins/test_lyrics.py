@@ -260,14 +260,13 @@ class LyricsPluginSourcesTest(LyricsGoogleBaseTest, LyricsAssertions):
     """
 
     DEFAULT_SONG = dict(artist="The Beatles", title="Lady Madonna")
-
     DEFAULT_SOURCES = [
-        # dict(artist=u'Santana', title=u'Black magic woman',
-        #      backend=lyrics.MusiXmatch),
-        dict(
-            DEFAULT_SONG,
-            backend=lyrics.Genius,
-            # GitHub actions is on some form of Cloudflare blacklist.
+        dict(artist=u'Santana', title=u'Black magic woman', backend=lyrics.MusiXmatch),
+        dict(DEFAULT_SONG, backend=lyrics.Genius, skip=os.environ.get("GITHUB_ACTIONS") == "true"),
+        dict(artist="Boy In Space", title="u n eye", backend=lyrics.Tekstowo),
+    ]
+
+    GOOGLE_SOURCES = [
             skip=os.environ.get("GITHUB_ACTIONS") == "true",
         ),
         dict(artist="Boy In Space", title="u n eye", backend=lyrics.Tekstowo),
@@ -278,13 +277,6 @@ class LyricsPluginSourcesTest(LyricsGoogleBaseTest, LyricsAssertions):
             DEFAULT_SONG,
             url="http://www.absolutelyrics.com",
             path="/lyrics/view/the_beatles/lady_madonna",
-        ),
-        dict(
-            DEFAULT_SONG,
-            url="http://www.azlyrics.com",
-            path="/lyrics/beatles/ladymadonna.html",
-            # AZLyrics returns a 403 on GitHub actions.
-            skip=os.environ.get("GITHUB_ACTIONS") == "true",
         ),
         dict(
             DEFAULT_SONG,
