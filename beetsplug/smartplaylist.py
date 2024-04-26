@@ -170,7 +170,7 @@ class SmartPlaylistPlugin(BeetsPlugin):
         More precisely
         - it will be NullSort when a playlist query ('query' or 'album_query')
           is a single item or a list with 1 element
-        - it will be None when there are multiple items i a query
+        - it will be None when there are multiple items in a query
         """
         self._unmatched_playlists = set()
         self._matched_playlists = set()

@@ -536,12 +536,13 @@ class DiscogsPlugin(BeetsPlugin):
                 index_tracks[index + 1] = track["title"]
 
         # Fix up medium and medium_index for each track. Discogs position is
-        # unreliable, but tracks are in order.
         medium = None
-        medium_count, index_count, side_count = 0, 0, 0
+        medium_count = 0
+        index_count = 0
+        side_count = 0
         sides_per_medium = 1
 
-        # If a medium has two sides (ie. vinyl or cassette), each pair of
+        # If a medium has two sides (i.e., vinyl or cassette), each pair of
         # consecutive sides should belong to the same medium.
         if all([track.medium is not None for track in tracks]):
             m = sorted({track.medium.lower() for track in tracks})

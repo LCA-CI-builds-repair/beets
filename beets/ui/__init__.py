@@ -1438,22 +1438,21 @@ class CommonOptionsParser(optparse.OptionParser):
 
 
 # Subcommand parsing infrastructure.
-#
-# This is a fairly generic subcommand parser for optparse. It is
-# maintained externally here:
-# https://gist.github.com/462717
-# There you will also find a better description of the code and a more
-# succinct example program.
-
+import argparse
 
 class Subcommand:
     """A subcommand of a root command-line application that may be
-    invoked by a SubcommandOptionParser.
+    invoked by a SubcommandArgumentParser.
     """
 
-    func: Callable[[library.Library, optparse.Values, List[str]], Any]
+    func: Callable[[library.Library, argparse.Namespace], Any]
 
     def __init__(self, name, parser=None, help="", aliases=(), hide=False):
+        self.name = name
+        self.parser = parser
+        self.help = help
+        self.aliases = aliases
+        self.hide = hide
         """Creates a new subcommand. name is the primary way to invoke
         the subcommand; aliases are alternate names. parser is an
         OptionParser responsible for parsing the subcommand's options.

@@ -34,12 +34,10 @@ def logsafe(val):
     explicitly uses `displayable_path` for them, but better be safe and prevent
     any crashes that are solely due to log formatting.
     """
-    # Bytestring: Needs decoding to be safe for substitution in format strings.
+    # Bytestring: Decode with UTF-8 for safe substitution in format strings.
     if isinstance(val, bytes):
-        # Blindly convert with UTF-8. Eventually, it would be nice to
-        # (a) only do this for paths, if they can be given a distinct
-        # type, and (b) warn the developer if they do this for other
-        # bytestrings.
+        # Decode the bytestring using UTF-8 to ensure safe substitution
+        # Eventually, consider handling this specifically for paths and warn if used for other bytestrings.
         return val.decode("utf-8", "replace")
 
     # Other objects are used as-is so field access, etc., still works in

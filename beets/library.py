@@ -1010,16 +1010,15 @@ class Item(LibModel):
         By default, the item is stored to the database if it is in the
         database, so any dirty fields prior to the move() call will be written
         as a side effect.
-        If `store` is `False` however, the item won't be stored and it will
-        have to be manually stored after invoking this method.
+        If `store` is `False`, the item won't be stored, and manual storage will be required after invoking this method.
         """
         self._check_db()
         dest = self.destination(basedir=basedir)
 
-        # Create necessary ancestry for the move.
+        # Create necessary directories for the move.
         util.mkdirall(dest)
 
-        # Perform the move and store the change.
+        # Perform the move and store the change if `store` is True.
         old_path = self.path
         self.move_file(dest, operation)
         if store:
