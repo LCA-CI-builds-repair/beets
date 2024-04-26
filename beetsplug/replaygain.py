@@ -188,10 +188,7 @@ class RgTask:
             # `track_gains` without throwing FatalReplayGainError
             #  => raise non-fatal exception & continue
             raise ReplayGainError(
-                "ReplayGain backend `{}` failed for track {}".format(
-                    self.backend_name, item
-                )
-            )
+"ReplayGain backend '{}' failed for track {}".format(self.backend_name, item)
 
         self._store_track_gain(item, self.track_gains[0])
         if write:
