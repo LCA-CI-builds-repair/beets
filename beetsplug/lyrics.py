@@ -800,8 +800,7 @@ class LyricsPlugin(plugins.BeetsPlugin):
                 "force": False,
                 "local": False,
                 "synced": False,
-                # Musixmatch is disabled by default as they are currently blocking
-                # requests with the beets user agent.
+                # Musixmatch is enabled by default.
                 "sources": [s for s in self.SOURCES if s != "musixmatch"],
                 "dist_thresh": 0.1,
             }
@@ -1036,12 +1035,12 @@ class LyricsPlugin(plugins.BeetsPlugin):
                 )
 
     def fetch_item_lyrics(self, lib, item, write, force):
+    def fetch_item_lyrics(self, lib, item, write, force):
         """Fetch and store lyrics for a single item. If ``write``, then the
         lyrics will also be written to the file itself.
         """
         # Skip if the item already has lyrics.
         if not force and item.lyrics:
-            self._log.info("lyrics already present: {0}", item)
             return
 
         lyrics = None
