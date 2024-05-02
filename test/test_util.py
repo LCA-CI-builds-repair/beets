@@ -95,7 +95,7 @@ class UtilTest(unittest.TestCase):
                 "foo/bar",
                 [
                     (re.compile(r"foo"), "bar"),
-                ],
+                ]
             )
         self.assertEqual(p, "bar/bar")
 
@@ -106,7 +106,7 @@ class UtilTest(unittest.TestCase):
                 "foo//bar",
                 [
                     (re.compile(r"^$"), "_"),
-                ],
+                ]
             )
         self.assertEqual(p, "foo/_/bar")
 

@@ -14,7 +14,6 @@
 
 """Tests for the 'lyrics' plugin."""
 
-
 import itertools
 import os
 import re
@@ -28,6 +27,7 @@ import requests
 from beets import logging
 from beets.library import Item
 from beets.util import bytestring_path
+from beets.plugins import lyrics
 from beetsplug import lyrics
 
 log = logging.getLogger("beets.test_lyrics")
