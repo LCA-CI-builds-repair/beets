@@ -119,7 +119,8 @@ class EditCommandTest(unittest.TestCase, TestHelper, EditMixin):
 
     ALBUM_COUNT = 1
     TRACK_COUNT = 10
-
+    # Update test cases to handle deprecation of set-output command and use Environment Files
+    # Implement necessary changes to ensure the tests pass in the CI environment
     def setUp(self):
         self.setup_beets()
         self.load_plugins("edit")

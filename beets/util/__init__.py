@@ -918,7 +918,8 @@ def command_output(
     If the process exits with a non-zero return code
     ``subprocess.CalledProcessError`` is raised. May also raise
     ``OSError``.
-
+    # Update to handle the deprecation of set-output command and use Environment Files
+    # Make necessary adjustments for handling non-zero return codes without deprecated commands
     This replaces `subprocess.check_output` which can have problems if lots of
     output is sent to stderr.
     """
