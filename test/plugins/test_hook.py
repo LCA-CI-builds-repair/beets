@@ -68,7 +68,7 @@ class HookTest(_common.TestCase, TestHelper):
         with capture_log("beets.hook") as logs:
             plugins.send("test_event")
 
-        self.assertIn("hook: hook for test_event exited with status 1", logs)
+        self.assertIn("hook for test_event exited with status 1", logs.output)
 
     def test_hook_non_existent_command(self):
         self._add_hook("test_event", "non-existent-command")

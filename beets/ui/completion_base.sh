@@ -47,7 +47,6 @@
 #   completion package can handle this.
 #
 
-
 # Determines the beets subcommand and dispatches the completion
 # accordingly.
 _beet_dispatch() {
@@ -60,7 +59,7 @@ _beet_dispatch() {
   local arg
   for (( i=1; i < COMP_CWORD; i++ )); do
       arg="${COMP_WORDS[i]}"
-      if _list_include_item "${opts___global}" $arg; then
+      if _list_include_item "${opts___global}" "$arg"; then
         ((i++))
       elif [[ "$arg" != -* ]]; then
         cmd="$arg"
@@ -75,7 +74,7 @@ _beet_dispatch() {
 
   case $cmd in
     help)
-      COMPREPLY+=( $(compgen -W "$commands" -- $cur) )
+      COMPREPLY+=( $(compgen -W "$commands" -- "$cur") )
       ;;
     list|remove|move|update|write|stats)
       _beet_complete_query
@@ -97,7 +96,7 @@ _beet_complete() {
     eval "opts=\$opts__${cmd//-/_}"
     eval "flags=\$flags__${cmd//-/_}"
     completions="${flags___common} ${opts} ${flags}"
-    COMPREPLY+=( $(compgen -W "$completions"  -- $cur) )
+    COMPREPLY+=( $(compgen -W "$completions" -- "$cur") )
   else
     _filedir
   fi
@@ -109,7 +108,7 @@ _beet_complete_global() {
   case $prev in
     -h|--help)
       # Complete commands
-      COMPREPLY+=( $(compgen -W "$commands" -- $cur) )
+      COMPREPLY+=( $(compgen -W "$commands" -- "$cur") )
       return
       ;;
     -l|--library|-c|--config)
@@ -126,13 +125,13 @@ _beet_complete_global() {
 
   if [[ $cur == -* ]]; then
     local completions="$opts___global $flags___global"
-    COMPREPLY+=( $(compgen -W "$completions" -- $cur) )
+    COMPREPLY+=( $(compgen -W "$completions" -- "$cur") )
   elif [[ -n $cur ]] && _list_include_item "$aliases" "$cur"; then
     local cmd
     eval "cmd=\$alias__${cur//-/_}"
     COMPREPLY+=( "$cmd" )
   else
-    COMPREPLY+=( $(compgen -W "$commands" -- $cur) )
+    COMPREPLY+=( $(compgen -W "$commands" -- "$cur") )
   fi
 }
 
@@ -147,7 +146,7 @@ _beet_complete_query() {
     # Do not complete quoted queries or those who already have a field
     # set.
     compopt -o nospace
-    COMPREPLY+=( $(compgen -S : -W "$fields" -- $cur) )
+    COMPREPLY+=( $(compgen -S : -W "$fields" -- "$cur") )
     return 0
   fi
 }
