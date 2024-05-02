@@ -1264,7 +1264,6 @@ class ReplayGainPlugin(BeetsPlugin):
         # This only applies to plain old rg tags, r128 doesn't store peak
         # values.
         self.peak_method = PeakMethod[peak_method]
-
         # On-import analysis.
         if self.config["auto"]:
             self.register_listener("import_begin", self.import_begin)

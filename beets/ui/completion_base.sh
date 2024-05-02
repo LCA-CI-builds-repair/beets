@@ -45,9 +45,6 @@
 #
 # * Support long options with `=`, e.g. `--config=file`. Debian's bash
 #   completion package can handle this.
-#
-
-
 # Determines the beets subcommand and dispatches the completion
 # accordingly.
 _beet_dispatch() {
@@ -142,7 +139,7 @@ _beet_complete_query() {
 
   if [[ $cur == -* ]] || _list_include_item "$opts" "$prev"; then
     _beet_complete
-  elif [[ $cur != \'* && $cur != \"* &&
+  elif [[ $cur != '*' && $cur != "*" &&
           $cur != *:* ]]; then
     # Do not complete quoted queries or those who already have a field
     # set.

@@ -318,6 +318,11 @@ def ghrelease():
     Reads the changelog to upload from `changelog.md`. Uploads the
     tarball from the `dist` directory.
     """
+    import os
+    from utils import get_version
+    
+    BASE = '/path/to/base/directory'
+    
     version = get_version(1)
     tag = "v" + version
 
