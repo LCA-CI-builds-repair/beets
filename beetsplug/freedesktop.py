@@ -26,6 +26,7 @@ class FreedesktopPlugin(BeetsPlugin):
             "freedesktop",
             help="Print a message to redirect to thumbnails --dolphin",
         )
+        return [deprecated]
         deprecated.func = self.deprecation_message
         return [deprecated]
 
