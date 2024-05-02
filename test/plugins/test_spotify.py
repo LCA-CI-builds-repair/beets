@@ -9,7 +9,7 @@ from urllib.parse import parse_qs, urlparse
 
 import responses
 
-from beets import config
+from beets.plugins import BeetsPlugin
 from beets.library import Item
 from beetsplug import spotify
 
