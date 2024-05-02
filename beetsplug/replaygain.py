@@ -191,12 +191,11 @@ class RgTask:
                 "ReplayGain backend `{}` failed for track {}".format(
                     self.backend_name, item
                 )
-            )
 
         self._store_track_gain(item, self.track_gains[0])
         if write:
             item.try_write()
-        self._log.debug("done analyzing {0}", item)
+        self._log.debug("done analyzing {0}".format(item))
 
     def _store_album(self, write: bool):
         """Store track/album gains for all tracks of the task in the database."""

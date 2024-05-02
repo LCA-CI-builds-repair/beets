@@ -139,8 +139,7 @@ class AcousticPlugin(plugins.BeetsPlugin):
             )
         data = {}
         for url in _generate_urls(self.base_url, mbid):
-            self._log.debug("fetching URL: {}", url)
-
+            self._log.debug("fetching URL: {}".format(url))
             try:
                 res = requests.get(url)
             except requests.RequestException as exc:
