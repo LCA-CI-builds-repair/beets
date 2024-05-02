@@ -128,7 +128,6 @@ class Type(ABC, Generic[T, N]):
         mapping of the database adapter. For more information see:
         https://www.sqlite.org/datatype3.html
         https://docs.python.org/2/library/sqlite3.html#sqlite-and-python-types
-
         Flexible fields have the type affinity `TEXT`. This means the
         `sql_value` is either a `memoryview` or a `unicode` object`
         and the method must handle these in addition.
