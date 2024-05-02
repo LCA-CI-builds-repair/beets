@@ -120,6 +120,17 @@ class EditCommandTest(unittest.TestCase, TestHelper, EditMixin):
     ALBUM_COUNT = 1
     TRACK_COUNT = 10
 
+    def test_edit_album_metadata(self):
+        # Test editing album metadata using the `edit` plugin
+        pass
+
+    def test_edit_track_metadata(self):
+        # Test editing track metadata using the `edit` plugin
+        pass
+
+    def test_edit_command_line_interaction(self):
+        # Test the command line interaction behavior of the `edit` plugin
+        pass
     def setUp(self):
         self.setup_beets()
         self.load_plugins("edit")

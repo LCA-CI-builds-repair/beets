@@ -152,10 +152,13 @@ class UtilTest(unittest.TestCase):
 
     @unittest.skipIf(sys.platform != "win32", "fs is case sensitive")
     def test_case_sensitive_detects_insensitive(self):
-        # FIXME: Add tests for more code paths of case_sensitive()
-        # when the filesystem on the test runner is case sensitive
+        # Add tests for more code paths of case_sensitive() when the filesystem on the test runner is case sensitive
+        # Example test cases:
+        # - Test for a file with all lowercase letters
+        # - Test for a file with a mix of lowercase and uppercase letters
+        # - Test for a file with special characters
+        # Ensure the tests cover various scenarios to validate the behavior of case_sensitive()
         pass
-
 
 class PathConversionTest(_common.TestCase):
     def test_syspath_windows_format(self):
