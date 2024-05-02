@@ -70,13 +70,16 @@ class HookTest(_common.TestCase, TestHelper):
 
         self.assertIn("hook: hook for test_event exited with status 1", logs)
 
-    def test_hook_non_existent_command(self):
-        self._add_hook("test_event", "non-existent-command")
+import beets.hook as hook
+from beets import plugins
 
-        self.load_plugins("hook")
+def test_hook_non_existent_command(self):
+    self._add_hook("test_event", "non-existent-command")
 
-        with capture_log("beets.hook") as logs:
-            plugins.send("test_event")
+    self.load_plugins("hook")
+
+    with hook.capture_log("beets.hook") as logs:
+        plugins.send("test_event")
 
         self.assertTrue(
             any(

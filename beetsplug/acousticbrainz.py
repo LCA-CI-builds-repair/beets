@@ -138,7 +138,7 @@ class AcousticPlugin(plugins.BeetsPlugin):
                 "down. See the base_url configuration option."
             )
         data = {}
-        for url in _generate_urls(self.base_url, mbid):
+        for url in self._generate_urls(self.base_url, mbid):
             self._log.debug("fetching URL: {}", url)
 
             try:
