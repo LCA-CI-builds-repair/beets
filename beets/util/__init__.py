@@ -918,7 +918,6 @@ def command_output(
     If the process exits with a non-zero return code
     ``subprocess.CalledProcessError`` is raised. May also raise
     ``OSError``.
-
     This replaces `subprocess.check_output` which can have problems if lots of
     output is sent to stderr.
     """

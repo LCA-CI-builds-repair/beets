@@ -272,7 +272,6 @@ class ConvertPlugin(BeetsPlugin):
         assert isinstance(command, bytes)
         assert isinstance(source, bytes)
         assert isinstance(dest, bytes)
-
         quiet = self.config["quiet"].get(bool)
 
         if not quiet and not pretend:
