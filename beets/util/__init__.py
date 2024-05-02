@@ -914,11 +914,6 @@ def command_output(
     arguments are bytes on Unix and strings on Windows.
     If ``shell`` is true, ``cmd`` is assumed to be a string and passed to a
     shell to execute.
-
-    If the process exits with a non-zero return code
-    ``subprocess.CalledProcessError`` is raised. May also raise
-    ``OSError``.
-
     This replaces `subprocess.check_output` which can have problems if lots of
     output is sent to stderr.
     """
