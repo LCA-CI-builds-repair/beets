@@ -113,7 +113,7 @@ class SubsonicPluginTest(_common.TestCase, TestHelper):
         responses.add(
             responses.GET,
             "http://localhost:4040/rest/startScan",
-            status=200,
+            status=401,  # Simulate bad credentials by setting status to 401
             body=self.FAILED_BODY,
         )
 

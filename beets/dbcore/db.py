@@ -745,9 +745,9 @@ class Results(Generic[AnyModel]):
         model_class: Type[AnyModel],
         rows: List[Mapping],
         db: "Database",
-        flex_rows,
+        flex_rows: Any,  # Add type annotation for the flex_rows parameter
         query: Optional[Query] = None,
-        sort=None,
+        sort: Any = None,  # Provide a default value for the sort parameter
     ):
         """Create a result set that will construct objects of type
         `model_class`.
