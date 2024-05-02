@@ -1659,6 +1659,7 @@ class EncodingTest(_common.TestCase):
     def in_encoding_overridden(self):
         config["terminal_encoding"] = "fake_encoding"
         self.assertEqual(ui._in_encoding(), "fake_encoding")
+        self.assertEqual(ui._in_encoding(), "fake_encoding")
 
     def out_encoding_default_utf8(self):
         with patch("sys.stdout") as stdout:

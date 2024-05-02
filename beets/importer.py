@@ -376,7 +376,6 @@ class ImportSession:
             return True
         if self.config["incremental"] and tuple(paths) in self.history_dirs:
             return True
-
         return False
 
     @property
