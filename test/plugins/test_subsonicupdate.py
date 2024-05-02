@@ -1,15 +1,14 @@
 """Tests for the 'subsonic' plugin."""
 
-
 import unittest
-from test import _common
-from test.helper import TestHelper
 from urllib.parse import parse_qs, urlparse
 
 import responses
 
 from beets import config
 from beetsplug import subsonicupdate
+from test import _common
+from test.helper import TestHelper
 
 
 class ArgumentsMock:
@@ -20,7 +19,6 @@ class ArgumentsMock:
         self.mode = mode
         self.show_failures = show_failures
         self.verbose = 1
-
 
 def _params(url):
     """Get the query parameters from a URL."""
