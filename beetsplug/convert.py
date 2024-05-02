@@ -268,6 +268,11 @@ class ConvertPlugin(BeetsPlugin):
         Raises `subprocess.CalledProcessError` if the command exited with a
         non-zero status code.
         """
+        # Convert the paths and arguments to bytes.
+        command = command.encode('utf-8')
+        source = source.encode('utf-8')
+        dest = dest.encode('utf-8')
+        
         # The paths and arguments must be bytes.
         assert isinstance(command, bytes)
         assert isinstance(source, bytes)

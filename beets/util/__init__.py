@@ -911,13 +911,13 @@ def command_output(
     byte strings of the respective output streams.
 
     ``cmd`` is a list of arguments starting with the command names. The
-    arguments are bytes on Unix and strings on Windows.
+    arguments should be bytes on Unix and strings on Windows.
     If ``shell`` is true, ``cmd`` is assumed to be a string and passed to a
     shell to execute.
 
-    If the process exits with a non-zero return code
-    ``subprocess.CalledProcessError`` is raised. May also raise
-    ``OSError``.
+    If the process exits with a non-zero return code,
+    ``subprocess.CalledProcessError`` is raised. The function may also raise
+    ``OSError`` in certain cases.
 
     This replaces `subprocess.check_output` which can have problems if lots of
     output is sent to stderr.
