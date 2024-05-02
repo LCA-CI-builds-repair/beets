@@ -45,9 +45,6 @@
 #
 # * Support long options with `=`, e.g. `--config=file`. Debian's bash
 #   completion package can handle this.
-#
-
-
 # Determines the beets subcommand and dispatches the completion
 # accordingly.
 _beet_dispatch() {

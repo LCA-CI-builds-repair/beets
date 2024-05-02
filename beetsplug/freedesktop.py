@@ -21,12 +21,16 @@ from beets.plugins import BeetsPlugin
 
 
 class FreedesktopPlugin(BeetsPlugin):
+    def deprecation_message(self, lib, opts, args):
+        ui.print_("Print a message to redirect to thumbnails --dolphin")
+    
     def commands(self):
         deprecated = ui.Subcommand(
             "freedesktop",
             help="Print a message to redirect to thumbnails --dolphin",
         )
         deprecated.func = self.deprecation_message
+        return [deprecated]
         return [deprecated]
 
     def deprecation_message(self, lib, opts, args):

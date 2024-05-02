@@ -76,7 +76,6 @@ class PlayPlugin(BeetsPlugin):
         self.register_listener(
             "before_choose_candidate", self.before_choose_candidate_listener
         )
-
     def commands(self):
         play_command = Subcommand(
             "play", help="send music to a player as a playlist"
