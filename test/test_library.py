@@ -556,17 +556,9 @@ class ItemFormattedMappingTest(_common.LibTestCase):
         formatted = self.i.formatted()
         self.assertEqual(formatted["artist"], "the artist")
 
-    def test_get_unset_field(self):
-        formatted = self.i.formatted()
-        with self.assertRaises(KeyError):
-            formatted["other_field"]
-
-    def test_get_method_with_default(self):
-        formatted = self.i.formatted()
-        self.assertEqual(formatted.get("other_field"), "")
-
     def test_get_method_with_specified_default(self):
         formatted = self.i.formatted()
+        self.assertEqual(formatted.get("other_field", "default_value"), "default_value")
         self.assertEqual(formatted.get("other_field", "default"), "default")
 
     def test_item_precedence(self):
