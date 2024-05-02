@@ -20,15 +20,16 @@ from test import _common
 from test.helper import TestHelper
 from unittest.mock import Mock
 
+from beets.testing import unittest
+from beets.testing import TestHelper
 from beets import config
 from beetsplug import lastgenre
 
-
 class LastGenrePluginTest(unittest.TestCase, TestHelper):
     def setUp(self):
+        super().setUp()
         self.setup_beets()
         self.plugin = lastgenre.LastGenrePlugin()
-
     def tearDown(self):
         self.teardown_beets()
 
