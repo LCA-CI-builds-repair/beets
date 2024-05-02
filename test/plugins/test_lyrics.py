@@ -15,14 +15,8 @@
 """Tests for the 'lyrics' plugin."""
 
 
-import itertools
-import os
-import re
-import unittest
-from test import _common
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
-import confuse
 import requests
 
 from beets import logging
