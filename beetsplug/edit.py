@@ -23,7 +23,7 @@ from tempfile import NamedTemporaryFile
 
 import yaml
 
-from beets import plugins, ui, util, config
+from beets import plugins, ui, util
 from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
@@ -155,8 +155,6 @@ class EditPlugin(plugins.BeetsPlugin):
             }
         )
 
-        self.has_shown_ui = False
-
         self.register_listener(
             "before_choose_candidate", self.before_choose_candidate_listener
         )
@@ -238,23 +236,11 @@ class EditPlugin(plugins.BeetsPlugin):
         # Get the content to edit as raw data structures.
         old_data = [flatten(o, fields) for o in objs]
 
-        # take set fields into account
-        set_fields = config["import"]["set_fields"]
-        if set_fields and not self.has_shown_ui:
-            old_str = "\n\n# note: the following fields will be reset to their current values:\n"
-            for key in set_fields:
-                old_str += f"# - {key}\n"
-            for obj in old_data:
-                # those values will be enforced later anyway
-                obj.update({k:v.get() for k,v in set_fields.items()})
-        else:
-            old_str = ""
-
         # Set up a temporary file with the initial data for editing.
         new = NamedTemporaryFile(
             mode="w", suffix=".yaml", delete=False, encoding="utf-8"
         )
-        old_str = dump(old_data) + old_str
+        old_str = dump(old_data)
         new.write(old_str)
         new.close()
 
@@ -263,7 +249,6 @@ class EditPlugin(plugins.BeetsPlugin):
             while True:
                 # Ask the user to edit the data.
                 edit(new.name, self._log)
-                self.has_shown_ui = True
 
                 # Read the data back after editing and check whether anything
                 # changed.
