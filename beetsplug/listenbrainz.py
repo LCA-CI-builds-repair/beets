@@ -1,5 +1,6 @@
 """Adds Listenbrainz support to Beets."""
 
+import time
 import datetime
 
 import musicbrainzngs
@@ -24,6 +25,8 @@ class ListenBrainzPlugin(BeetsPlugin):
         self.AUTH_HEADER = {"Authorization": f"Token {self.token}"}
         config["listenbrainz"]["token"].redact = True
 
+        self.MAX_ATTEMPTS = 3
+
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
         lbupdate_cmd = ui.Subcommand(
@@ -38,15 +41,26 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def _lbupdate(self, lib, log):
         """Obtain view count from Listenbrainz."""
+        attempts = 0
         found_total = 0
         unknown_total = 0
-        ls = self.get_listens()
-        tracks = self.get_tracks_from_listens(ls)
-        log.info(f"Found {len(ls)} listens")
-        if tracks:
-            found, unknown = process_tracks(lib, tracks, log)
-            found_total += found
-            unknown_total += unknown
+
+        while attempts < self.MAX_ATTEMPTS:
+            try:
+                ls = self.get_listens()
+                tracks = self.get_tracks_from_listens(ls)
+                log.info(f"Found {len(ls)} listens")
+                if tracks:
+                    found, unknown = process_tracks(lib, tracks, log)
+                    found_total += found
+                    unknown_total += unknown
+                break
+            except Exception as e:
+                attempts += 1
+                if attempts == self.MAX_ATTEMPTS:
+                    log.error(f"Failed to update ListenBrainz after {self.MAX_ATTEMPTS} attempts: {e}")
+                else:
+                    log.warning(f"Error occurred during ListenBrainz update, retrying... (attempt {attempts}/{self.MAX_ATTEMPTS})")
         log.info("... done!")
         log.info("{0} unknown play-counts", unknown_total)
         log.info("{0} play-counts imported", found_total)
@@ -60,8 +74,10 @@ class ListenBrainzPlugin(BeetsPlugin):
                 timeout=10,
                 params=params,
             )
-            response.raise_for_status()
-            return response.json()
+            if response.status_code == 429:  # Rate limit reached, wait and retry
+                time.sleep(int(response.headers.get('Retry-After', 30)))
+                return self._make_request(url, params)
+            response.raise_for_status()  # Raise exception for any other error
         except requests.exceptions.RequestException as e:
             self._log.debug(f"Invalid Search Error: {e}")
             return None
