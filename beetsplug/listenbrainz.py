@@ -43,7 +43,12 @@ class ListenBrainzPlugin(BeetsPlugin):
         ls = self.get_listens()
         tracks = self.get_tracks_from_listens(ls)
         log.info(f"Found {len(ls)} listens")
-        if tracks:
+        if not tracks:
+            log.info("No tracks found in Listenbrainz listens")
+        else:
+            try:
+                found, unknown = process_tracks(lib, tracks, log)
+            except Exception as e:
             found, unknown = process_tracks(lib, tracks, log)
             found_total += found
             unknown_total += unknown
