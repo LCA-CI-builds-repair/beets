@@ -151,6 +151,14 @@ class SmartPlaylistTest(_common.TestCase):
         spl.matches.side_effect = lambda _, q, __: q == "q1"
         spl.db_change(None, "matches 3")
         self.assertEqual(spl._matched_playlists, {pl1, pl3})
+
+    def test_db_changes_with_initial_unmatched(self):
+        spl = SmartPlaylistPlugin()
+        spl._unmatched_playlists = {("foo", "query", (None, None))}
+        spl.matches = Mock(return_value=False)
+        spl.db_change(None, "nothing")
+        self.assertEqual(spl._unmatched_playlists, {("foo", "query", (None, None))})
+        self.assertEqual(spl._matched_playlists, set())
         self.assertEqual(spl._unmatched_playlists, {pl2})
 
     def test_playlist_update(self):
