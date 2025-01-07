@@ -96,7 +96,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         }
         response = self._make_request(url, params)
 
-        if response is not None:
+        if response and "payload" in response and "listens" in response["payload"]:
             return response["payload"]["listens"]
         else:
             return None
@@ -131,13 +131,19 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def get_mb_recording_id(self, track):
         """Returns the MusicBrainz recording ID for a track."""
-        resp = musicbrainzngs.search_recordings(
-            query=track["track_metadata"].get("track_name"),
-            release=track["track_metadata"].get("release_name"),
-            strict=True,
-        )
-        if resp.get("recording-count") == "1":
-            return resp.get("recording-list")[0].get("id")
+        try:
+            resp = musicbrainzngs.search_recordings(
+                query=track["track_metadata"].get("track_name"),
+                release=track["track_metadata"].get("release_name"),
+                strict=True,
+            )
+            if resp.get("recording-count") == "1":
+                return resp.get("recording-list")[0].get("id")
+            else:
+                return None
+        except musicbrainzngs.WebServiceError as e:
+            self._log.error(f"Error getting MusicBrainz recording ID: {e}")
+            return None
         else:
             return None
 
