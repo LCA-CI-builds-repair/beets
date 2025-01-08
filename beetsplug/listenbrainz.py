@@ -179,15 +179,14 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def get_tracks_from_playlist(self, playlist):
         """This function returns a list of tracks in the playlist."""
-        tracks = []
-        for track in playlist.get("playlist").get("track"):
-            tracks.append(
-                {
-                    "artist": track.get("creator"),
-                    "identifier": track.get("identifier").split("/")[-1],
-                    "title": track.get("title"),
-                }
-            )
+        tracks = [
+            {
+                "artist": track.get("creator"),
+                "identifier": track.get("identifier").split("/")[-1],
+                "title": track.get("title"),
+            }
+            for track in playlist.get("playlist").get("track")
+        ]
         return self.get_track_info(tracks)
 
     def get_track_info(self, tracks):
