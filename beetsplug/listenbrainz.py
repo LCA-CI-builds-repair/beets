@@ -192,6 +192,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         tracks = []
         for track in playlist.get("playlist").get("track"):
             tracks.append(
+
                 {
                     "artist": track.get("creator"),
                     "identifier": track.get("identifier").split("/")[-1],
