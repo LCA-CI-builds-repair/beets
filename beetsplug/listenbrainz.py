@@ -1,7 +1,6 @@
 """Adds Listenbrainz support to Beets."""
 
 import datetime
-
 import musicbrainzngs
 import requests
 
