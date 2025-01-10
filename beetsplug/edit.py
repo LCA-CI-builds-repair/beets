@@ -33,6 +33,22 @@ from beets.ui.commands import PromptChoice, _do_query
 SAFE_TYPES = (types.BaseFloat, types.BaseInteger, types.Boolean)
 
 
+class InputError(Exception):
+    """The user input is invalid. The user should be offered a chance to
+    fix the error.
+    """
+
+
+def validate_input(inp, log):
+    """Validate the user input for the two numbers."""
+    try:
+        x, y = map(float, inp.split())
+        return x, y
+    except ValueError:
+        log.error("Invalid input, please enter two numbers separated by a space.")
+        raise InputError("Invalid input")
+
+
 class ParseError(Exception):
     """The modified file is unreadable. The user should be offered a chance to
     fix the error.
@@ -141,6 +157,17 @@ def apply_(obj, data):
             obj.set_parse(key, str(value))
 
 
+def process_calculation(operation, x, y, log):
+    try:
+        return operation(x, y)
+    except ZeroDivisionError:
+        log.error("Division by zero")
+        raise InputError("Division by zero")
+    except (ValueError, TypeError):
+        log.error("Inputs must be numbers")
+        raise InputError("Inputs must be numbers")
+
+
 class EditPlugin(plugins.BeetsPlugin):
     def __init__(self):
         super().__init__()
@@ -156,6 +183,8 @@ class EditPlugin(plugins.BeetsPlugin):
         )
 
         self.has_shown_ui = False
+
+        self.retry_limit = self.config.get("retry_limit", 3)
 
         self.register_listener(
             "before_choose_candidate", self.before_choose_candidate_listener
@@ -214,7 +243,7 @@ class EditPlugin(plugins.BeetsPlugin):
 
         return set(fields)
 
-    def edit(self, album, objs, fields):
+    def edit(self, album, objs, fields, log):
         """The core editor function.
 
         - `album`: A flag indicating whether we're editing Items or Albums.
