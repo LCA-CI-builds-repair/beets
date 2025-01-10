@@ -1,6 +1,7 @@
 """Adds Listenbrainz support to Beets."""
 
 import datetime
+import time
 
 import musicbrainzngs
 import requests
@@ -19,9 +20,11 @@ class ListenBrainzPlugin(BeetsPlugin):
     def __init__(self):
         """Initialize the plugin."""
         super().__init__()
+        self.MAX_ATTEMPTS = 3
         self.token = self.config["token"].get()
         self.username = self.config["username"].get()
         self.AUTH_HEADER = {"Authorization": f"Token {self.token}"}
+        self.last_successful_request = 0
         config["listenbrainz"]["token"].redact = True
 
     def commands(self):
@@ -38,6 +41,7 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def _lbupdate(self, lib, log):
         """Obtain view count from Listenbrainz."""
+        attempts = 0
         found_total = 0
         unknown_total = 0
         ls = self.get_listens()
@@ -52,17 +56,30 @@ class ListenBrainzPlugin(BeetsPlugin):
         log.info("{0} play-counts imported", found_total)
 
     def _make_request(self, url, params=None):
-        """Makes a request to the ListenBrainz API."""
-        try:
-            response = requests.get(
-                url=url,
-                headers=self.AUTH_HEADER,
-                timeout=10,
-                params=params,
-            )
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
+        """Makes a request to the ListenBrainz API with retry logic."""
+        attempts = 0
+        while attempts < self.MAX_ATTEMPTS:
+            try:
+                # Check if we need to wait before making the request
+                now = time.time()
+                if now - self.last_successful_request < 10:
+                    time.sleep(10 - (now - self.last_successful_request))
+                response = requests.get(
+                    url=url,
+                    headers=self.AUTH_HEADER,
+                    timeout=10,
+                    params=params,
+                )
+                response.raise_for_status()
+                self.last_successful_request = time.time()
+                return response.json()
+            except requests.exceptions.RequestException as e:
+                attempts += 1
+                if attempts == self.MAX_ATTEMPTS:
+                    self._log.error(f"Failed to make request to ListenBrainz after {self.MAX_ATTEMPTS} attempts.")
+                    return None
+                self._log.warning(f"Request to ListenBrainz failed, retrying... (attempt {attempts}/{self.MAX_ATTEMPTS})")
+                time.sleep(5)  # Wait for 5 seconds before retrying
             self._log.debug(f"Invalid Search Error: {e}")
             return None
 
