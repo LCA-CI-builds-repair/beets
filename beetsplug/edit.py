@@ -22,8 +22,8 @@ import subprocess
 from tempfile import NamedTemporaryFile
 
 import yaml
-
-from beets import plugins, ui, util, config
+from beets import config
+from beets import plugins, ui, util
 from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
