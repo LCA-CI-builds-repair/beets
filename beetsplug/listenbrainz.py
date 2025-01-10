@@ -111,7 +111,11 @@ class ListenBrainzPlugin(BeetsPlugin):
                 continue
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
             # print(json.dumps(track, indent=4, sort_keys=True))
-            if mbid_mapping.get("recording_mbid") is None:
+            if not mbid_mapping or mbid_mapping.get("recording_mbid") is None:
+                # Some tracks may not have MBID information, skip them
+                self._log.debug(
+                    f"Skipping track '{track['track_metadata'].get('track_name')}' due to missing MBID information"
+                )
                 # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
@@ -135,10 +139,14 @@ class ListenBrainzPlugin(BeetsPlugin):
         resp = musicbrainzngs.search_recordings(
             query=track["track_metadata"].get("track_name"),
             release=track["track_metadata"].get("release_name"),
-            strict=True,
+            strict=False,
         )
         if resp.get("recording-count") == "1":
             return resp.get("recording-list")[0].get("id")
+        elif resp.get("recording-count") > 1:
+            self._log.debug(
+                f"Multiple recordings found for '{track['track_metadata'].get('track_name')}', using the first one"
+            )
         else:
             return None
 
