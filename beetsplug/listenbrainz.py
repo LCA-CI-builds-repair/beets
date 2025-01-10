@@ -40,9 +40,9 @@ class ListenBrainzPlugin(BeetsPlugin):
         """Obtain view count from Listenbrainz."""
         found_total = 0
         unknown_total = 0
-        ls = self.get_listens()
-        tracks = self.get_tracks_from_listens(ls)
-        log.info(f"Found {len(ls)} listens")
+        listens = self.get_listens()
+        tracks = self.get_tracks_from_listens(listens)
+        log.info(f"Found {len(listens)} listens")
         if tracks:
             found, unknown = process_tracks(lib, tracks, log)
             found_total += found
