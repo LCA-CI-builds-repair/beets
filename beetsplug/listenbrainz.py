@@ -155,7 +155,7 @@ class ListenBrainzPlugin(BeetsPlugin):
 
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
-            if playlist_info.get("creator") == "listenbrainz":
+            if playlist_info.get("creator") == self.data_source.lower():
                 title = playlist_info.get("title")
                 playlist_type = (
                     "Exploration" if "Exploration" in title else "Jams"
@@ -166,9 +166,9 @@ class ListenBrainzPlugin(BeetsPlugin):
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
-                id = identifier.split("/")[-1]
+                playlist_id = identifier.split("/")[-1]
                 listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                    {"type": playlist_type, "date": date, "identifier": playlist_id}
                 )
         return listenbrainz_playlists
 
