@@ -27,9 +27,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
         lbupdate_cmd = ui.Subcommand(
-            "lbimport", help=f"Import {self.data_source} history"
-        )
-
+            "lbimport", help=f"Import {self.data_source} history")
         def func(lib, opts, args):
             self._lbupdate(lib, self._log)
 
@@ -97,7 +95,6 @@ class ListenBrainzPlugin(BeetsPlugin):
             if v is not None
         }
         response = self._make_request(url, params)
-
         if response is not None:
             return response["payload"]["listens"]
         else:
@@ -117,13 +114,10 @@ class ListenBrainzPlugin(BeetsPlugin):
             tracks.append(
                 {
                     "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
+                        "name": track["track_metadata"].get("release_name")},
                     "name": track["track_metadata"].get("track_name"),
-                    "artist": {
-                        "name": track["track_metadata"].get("artist_name")
-                    },
-                    "mbid": mbid,
+                    "artist": {"name": track["track_metadata"].get("artist_name")},
+                    "mbid": mbid,  # type: ignore
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
                 }
@@ -177,9 +171,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
-                    listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
-                    )
+                    listenbrainz_playlists.append({"type": playlist_type, "date": date, "identifier": id})
         return listenbrainz_playlists
 
     def get_playlist(self, identifier):
@@ -238,8 +230,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         """Returns a list of weekly playlists based on the index."""
         playlists = self.get_listenbrainz_playlists()
         playlist = self.get_playlist(playlists[index].get("identifier"))
-        return self.get_tracks_from_playlist(playlist)
-
+        return self.get_tracks_from_playlist(playlist) # type: ignore
     def get_weekly_exploration(self):
         """Returns a list of weekly exploration."""
         return self.get_weekly_playlist(0)
