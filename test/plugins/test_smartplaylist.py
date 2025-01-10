@@ -17,7 +17,7 @@ import unittest
 from os import path, remove
 from shutil import rmtree
 from tempfile import mkdtemp
-from test import _common
+import test._common as _common
 from test.helper import TestHelper
 from unittest.mock import MagicMock, Mock, PropertyMock
 
