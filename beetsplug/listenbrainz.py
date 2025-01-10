@@ -13,7 +13,7 @@ from beetsplug.lastimport import process_tracks
 class ListenBrainzPlugin(BeetsPlugin):
     """A Beets plugin for interacting with ListenBrainz."""
 
-    data_source = "ListenBrainz"
+    data_source = "ListenBrainz" 
     ROOT = "http://api.listenbrainz.org/1/"
 
     def __init__(self):
@@ -41,7 +41,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         found_total = 0
         unknown_total = 0
         ls = self.get_listens()
-        tracks = self.get_tracks_from_listens(ls)
+        tracks = self.get_tracks_from_listens(ls) 
         log.info(f"Found {len(ls)} listens")
         if tracks:
             found, unknown = process_tracks(lib, tracks, log)
@@ -53,14 +53,14 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def _make_request(self, url, params=None):
         """Makes a request to the ListenBrainz API."""
-        try:
+        try: 
             response = requests.get(
                 url=url,
                 headers=self.AUTH_HEADER,
                 timeout=10,
                 params=params,
             )
-            response.raise_for_status()
+            response.raise_for_status() 
             return response.json()
         except requests.exceptions.RequestException as e:
             self._log.debug(f"Invalid Search Error: {e}")
@@ -90,19 +90,19 @@ class ListenBrainzPlugin(BeetsPlugin):
         params = {
             k: v
             for k, v in {
-                "min_ts": min_ts,
+                "min_ts": min_ts, 
                 "max_ts": max_ts,
-                "count": count,
+                "count": count, 
             }.items()
             if v is not None
         }
-        response = self._make_request(url, params)
+        response = self._make_request(url, params) 
 
         if response is not None:
             return response["payload"]["listens"]
         else:
             return None
-
+    
     def get_tracks_from_listens(self, listens):
         """Returns a list of tracks from a list of listens."""
         tracks = []
@@ -126,7 +126,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
-                }
+                } 
             )
         return tracks
 
@@ -134,12 +134,12 @@ class ListenBrainzPlugin(BeetsPlugin):
         """Returns the MusicBrainz recording ID for a track."""
         resp = musicbrainzngs.search_recordings(
             query=track["track_metadata"].get("track_name"),
-            release=track["track_metadata"].get("release_name"),
+            release=track["track_metadata"].get("release_name"), 
             strict=True,
         )
         if resp.get("recording-count") == "1":
             return resp.get("recording-list")[0].get("id")
-        else:
+        else: 
             return None
 
     def get_playlists_createdfor(self, username):
@@ -161,7 +161,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 match = re.search(r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title)
                 if "Exploration" in title:
                     playlist_type = "Exploration"
-                elif "Jams" in title:
+                elif "Jams" in title: 
                     playlist_type = "Jams"
                 elif match:
                     playlist_type = match.group(1)
@@ -247,7 +247,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_weekly_jams(self):
         """Returns a list of weekly jams."""
         return self.get_weekly_playlist(1)
-
+    
     def get_last_weekly_exploration(self):
         """Returns a list of weekly exploration."""
         return self.get_weekly_playlist(3)
