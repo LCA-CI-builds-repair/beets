@@ -41,7 +41,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         found_total = 0
         unknown_total = 0
         ls = self.get_listens()
-        tracks = self.get_tracks_from_listens(ls)
+        tracks = self._get_tracks_from_listens(ls)
         log.info(f"Found {len(ls)} listens")
         if tracks:
             found, unknown = process_tracks(lib, tracks, log)
@@ -103,7 +103,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         else:
             return None
 
-    def get_tracks_from_listens(self, listens):
+    def _get_tracks_from_listens(self, listens):
         """Returns a list of tracks from a list of listens."""
         tracks = []
         for track in listens:
@@ -112,17 +112,12 @@ class ListenBrainzPlugin(BeetsPlugin):
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
             # print(json.dumps(track, indent=4, sort_keys=True))
             if mbid_mapping.get("recording_mbid") is None:
-                # search for the track using title and release
-                mbid = self.get_mb_recording_id(track)
+                mbid = self._get_mb_recording_id(track)  # search for the track using title and release
             tracks.append(
                 {
-                    "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
+                    "album": {"name": track["track_metadata"].get("release_name")},
                     "name": track["track_metadata"].get("track_name"),
-                    "artist": {
-                        "name": track["track_metadata"].get("artist_name")
-                    },
+                    "artist": {"name": track["track_metadata"].get("artist_name")},
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
@@ -130,12 +125,10 @@ class ListenBrainzPlugin(BeetsPlugin):
             )
         return tracks
 
-    def get_mb_recording_id(self, track):
+    def _get_mb_recording_id(self, track):
         """Returns the MusicBrainz recording ID for a track."""
         resp = musicbrainzngs.search_recordings(
-            query=track["track_metadata"].get("track_name"),
-            release=track["track_metadata"].get("release_name"),
-            strict=True,
+            query=track["track_metadata"].get("track_name"), release=track["track_metadata"].get("release_name"), strict=True,
         )
         if resp.get("recording-count") == "1":
             return resp.get("recording-list")[0].get("id")
@@ -156,7 +149,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
-                title = playlist_info.get("title")
+                title = playlist_info["title"]
                 playlist_type = (
                     "Exploration" if "Exploration" in title else "Jams"
                 )
@@ -182,11 +175,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         tracks = []
         for track in playlist.get("playlist").get("track"):
             tracks.append(
-                {
-                    "artist": track.get("creator"),
-                    "identifier": track.get("identifier").split("/")[-1],
-                    "title": track.get("title"),
-                }
+                {"artist": track.get("creator"), "identifier": track.get("identifier").split("/")[-1], "title": track.get("title")}
             )
         return self.get_track_info(tracks)
 
@@ -232,16 +221,16 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def get_weekly_exploration(self):
         """Returns a list of weekly exploration."""
-        return self.get_weekly_playlist(0)
+        return self._get_weekly_playlist(0)
 
     def get_weekly_jams(self):
         """Returns a list of weekly jams."""
-        return self.get_weekly_playlist(1)
+        return self._get_weekly_playlist(1)
 
     def get_last_weekly_exploration(self):
         """Returns a list of weekly exploration."""
-        return self.get_weekly_playlist(3)
+        return self._get_weekly_playlist(3)
 
     def get_last_weekly_jams(self):
         """Returns a list of weekly jams."""
-        return self.get_weekly_playlist(3)
+        return self._get_weekly_playlist(3)
