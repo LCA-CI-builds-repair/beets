@@ -1,9 +1,9 @@
 """ Adds Listenbrainz support to Beets. """
 
 import datetime
+import requests
 
 import musicbrainzngs
-import requests
 from beets import config, ui
 from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
