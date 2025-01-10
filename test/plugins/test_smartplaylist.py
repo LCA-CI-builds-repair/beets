@@ -238,7 +238,7 @@ class SmartPlaylistTest(_common.TestCase):
             content,
             b"#EXTM3U\n"
             + b"#EXTINF:300,fake artist - fake title\n"
-            + b"http://beets:8337/files/tagada.mp3\n",
+            + b"http://beets:8337/files/tagada.mp3\n"
         )
 
 
@@ -325,7 +325,5 @@ class SmartPlaylistCLITest(_common.TestCase, TestHelper):
 
 def suite():
     return unittest.TestLoader().loadTestsFromName(__name__)
-
-
 if __name__ == "__main__":
     unittest.main(defaultTest="suite")
