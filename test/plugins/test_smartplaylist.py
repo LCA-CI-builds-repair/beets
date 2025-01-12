@@ -190,7 +190,6 @@ class SmartPlaylistTest(_common.TestCase):
         rmtree(syspath(dir))
 
         self.assertEqual(content, b"/tagada.mp3\n")
-
     def test_playlist_update_extm3u(self):
         spl = SmartPlaylistPlugin()
 
@@ -240,7 +239,6 @@ class SmartPlaylistTest(_common.TestCase):
             + b"#EXTINF:300,fake artist - fake title\n"
             + b"http://beets:8337/files/tagada.mp3\n",
         )
-
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
