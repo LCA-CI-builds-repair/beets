@@ -1,7 +1,6 @@
 """Adds Listenbrainz support to Beets."""
 
 import datetime
-
 import musicbrainzngs
 import requests
 
@@ -86,16 +85,8 @@ class ListenBrainzPlugin(BeetsPlugin):
             A ValueError if the JSON in the response is invalid.
             An IndexError if the JSON is not structured as expected.
         """
-        url = f"{self.ROOT}/user/{self.username}/listens"
-        params = {
-            k: v
-            for k, v in {
-                "min_ts": min_ts,
-                "max_ts": max_ts,
-                "count": count,
-            }.items()
-            if v is not None
-        }
+        url = f"{self.ROOT}/user/{self.username}/listens" 
+        params = {k: v for k, v in {"min_ts": min_ts, "max_ts": max_ts, "count": count}.items() if v is not None}
         response = self._make_request(url, params)
 
         if response is not None:
@@ -150,10 +141,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_listenbrainz_playlists(self):
         """Returns a list of playlists created by ListenBrainz."""
         import re
-        resp = self.get_playlists_createdfor(self.username)
-        playlists = resp.get("playlists")
-        listenbrainz_playlists = []
-
+        resp = self.get_playlists_createdfor(self.username); playlists = resp.get("playlists"); listenbrainz_playlists = []
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
@@ -169,10 +157,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     playlist_type = None
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(
-                        date_str, "%Y-%m-%d"
-                    ).date()
-                else:
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()                else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
@@ -205,10 +190,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         track_info = []
         for track in tracks:
             identifier = track.get("identifier")
-            resp = musicbrainzngs.get_recording_by_id(
-                identifier, includes=["releases", "artist-credits"]
-            )
-            recording = resp.get("recording")
+            resp = musicbrainzngs.get_recording_by_id(identifier, includes=["releases", "artist-credits"]); recording = resp.get("recording")
             title = recording.get("title")
             artist_credit = recording.get("artist-credit", [])
             if artist_credit:
