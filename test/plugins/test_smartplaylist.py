@@ -12,7 +12,6 @@
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 
-
 import unittest
 from os import path, remove
 from shutil import rmtree
@@ -95,9 +94,7 @@ class SmartPlaylistTest(_common.TestCase):
         asseq(sorts["no_sort"], NullSort())
         asseq(sorts["one_sort"], sort("year"))
         asseq(sorts["only_empty_sorts"], None)
-        asseq(sorts["one_non_empty_sort"], sort("year"))
-        asseq(
-            sorts["multiple_sorts"],
+        asseq(sorts["one_non_empty_sort"], sort("year")) asseq(sorts["multiple_sorts"],
             MultipleSort([sort("year"), sort("genre", False)]),
         )
         asseq(
@@ -241,7 +238,6 @@ class SmartPlaylistTest(_common.TestCase):
             + b"http://beets:8337/files/tagada.mp3\n",
         )
 
-
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
 
@@ -263,7 +259,8 @@ class SmartPlaylistTest(_common.TestCase):
         spl._matched_playlists = [pl]
 
         dir = bytestring_path(mkdtemp())
-        config["smartplaylist"]["uri_template"] = "http://beets:8337/item/$id/file"
+        config["smartplaylist"]["uri_template"] = (
+            "http://beets:8337/item/$id/file")
         config["smartplaylist"]["playlist_dir"] = py3_path(dir)
         try:
             spl.update_playlists(lib)
@@ -281,7 +278,6 @@ class SmartPlaylistTest(_common.TestCase):
         rmtree(syspath(dir))
 
         self.assertEqual(content, b"http://beets:8337/item/3/file\n")
-
 
 class SmartPlaylistCLITest(_common.TestCase, TestHelper):
     def setUp(self):
