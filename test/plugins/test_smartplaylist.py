@@ -16,7 +16,9 @@
 import unittest
 from os import path, remove
 from shutil import rmtree
+
 from tempfile import mkdtemp
+
 from test import _common
 from test.helper import TestHelper
 from unittest.mock import MagicMock, Mock, PropertyMock
@@ -96,8 +98,7 @@ class SmartPlaylistTest(_common.TestCase):
         asseq(sorts["one_sort"], sort("year"))
         asseq(sorts["only_empty_sorts"], None)
         asseq(sorts["one_non_empty_sort"], sort("year"))
-        asseq(
-            sorts["multiple_sorts"],
+        asseq(sorts["multiple_sorts"],
             MultipleSort([sort("year"), sort("genre", False)]),
         )
         asseq(
@@ -240,7 +241,6 @@ class SmartPlaylistTest(_common.TestCase):
             + b"#EXTINF:300,fake artist - fake title\n"
             + b"http://beets:8337/files/tagada.mp3\n",
         )
-
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
