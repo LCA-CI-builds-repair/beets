@@ -116,7 +116,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
                 {
-                    "album": {
+                    "album": track["track_metadata"].get("release_name"),
                         "name": track["track_metadata"].get("release_name")
                     },
                     "name": track["track_metadata"].get("track_name"),
