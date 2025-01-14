@@ -157,9 +157,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
-                playlist_type = (
-                    "Exploration" if "Exploration" in title else "Jams"
-                )
+                playlist_type = "Exploration" if "Exploration" in title else "Jams"
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
                     date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
