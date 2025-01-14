@@ -12,7 +12,6 @@
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 
-
 import unittest
 from os import path, remove
 from shutil import rmtree
@@ -241,7 +240,6 @@ class SmartPlaylistTest(_common.TestCase):
             + b"http://beets:8337/files/tagada.mp3\n",
         )
 
-
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
 
@@ -282,7 +280,6 @@ class SmartPlaylistTest(_common.TestCase):
 
         self.assertEqual(content, b"http://beets:8337/item/3/file\n")
 
-
 class SmartPlaylistCLITest(_common.TestCase, TestHelper):
     def setUp(self):
         self.setup_beets()
@@ -321,7 +318,6 @@ class SmartPlaylistCLITest(_common.TestCase, TestHelper):
         for name in (b"my_playlist.m3u", b"all.m3u"):
             with open(path.join(self.temp_dir, name), "rb") as f:
                 self.assertEqual(f.read(), self.item.path + b"\n")
-
 
 def suite():
     return unittest.TestLoader().loadTestsFromName(__name__)
