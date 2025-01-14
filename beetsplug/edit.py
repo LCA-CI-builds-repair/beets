@@ -1,5 +1,5 @@
 # This file is part of beets.
-# Copyright 2016
+# Copyright 2016, Adrian Sampson.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -23,7 +23,12 @@ from tempfile import NamedTemporaryFile
 
 import yaml
 
-from beets import plugins, ui, util, config
+import os
+from tempfile import NamedTemporaryFile
+
+import yaml
+
+from beets import plugins, ui, util
 from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
