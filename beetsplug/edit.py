@@ -19,11 +19,11 @@ import codecs
 import os
 import shlex
 import subprocess
-from tempfile import NamedTemporaryFile
 
 import yaml
+from tempfile import NamedTemporaryFile
 
-from beets import plugins, ui, util, config
+from beets import config, plugins, ui, util
 from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
