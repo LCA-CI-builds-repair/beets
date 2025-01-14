@@ -26,6 +26,9 @@ import yaml
 from beets import plugins, ui, util, config
 from beets.dbcore import types
 from beets.importer import action
+from beets import plugins, ui, util
+from beets.dbcore import types
+from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
 
 # These "safe" types can avoid the format/parse cycle that most fields go
