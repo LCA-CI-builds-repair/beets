@@ -158,7 +158,9 @@ class ListenBrainzPlugin(BeetsPlugin):
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
-                match = re.search(r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title)
+                match = re.search(
+                    r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title
+                )
                 if "Exploration" in title:
                     playlist_type = "Exploration"
                 elif "Jams" in title:
@@ -178,7 +180,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
                     listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                        {"type": playlist_type, "date": date, "identifier": id}
                     )
         return listenbrainz_playlists
 
