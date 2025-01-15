@@ -20,6 +20,14 @@ import os
 import shlex
 import subprocess
 from tempfile import NamedTemporaryFile
+from beets import ui, util
+from beets.dbcore import types
+from beets.importer import action
+from beets.ui.commands import PromptChoice, _do_query
+from beets.library import Album, Item
+from beets.plugins import BeetsPlugin
+from beets import plugins
+from beets import config
 
 import yaml
 
