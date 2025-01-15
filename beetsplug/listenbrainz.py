@@ -64,7 +64,25 @@ class ListenBrainzPlugin(BeetsPlugin):
             return response.json()
         except requests.exceptions.RequestException as e:
             self._log.debug(f"Invalid Search Error: {e}")
-            return None
+            raise ValueError("No track found in MusicBrainz")
+    resp = musicbrainzngs.get_recording_by_id(
+        identifier, includes=["releases", "artist-credits"]
+    )
+    recording = resp.get("recording")
+    title = recording.get("title")
+    artist_credit = recording.get("artist-credit", [])
+    if artist_credit:
+        artist = artist_credit[0].get("artist", {}).get("name")
+    else:
+        artist = None
+    releases = recording.get("release-list", [])
+    if releases:
+        album = releases[0].get("title")
+        date = releases[0].get("date")
+        year = date.split("-")[0] if date else None
+    else:
+        album = None
+        year = None
 
     def get_listens(self, min_ts=None, max_ts=None, count=None):
         """Gets the listen history of a given user.
