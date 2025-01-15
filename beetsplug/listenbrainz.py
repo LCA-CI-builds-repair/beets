@@ -26,8 +26,7 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
-        lbupdate_cmd = ui.Subcommand(
-            "lbimport", help=f"Import {self.data_source} history"
+        lbupdate_cmd = ui.Subcommand("lbimport", help=f"Import {self.data_source} history"
         )
 
         def func(lib, opts, args):
@@ -150,6 +149,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_listenbrainz_playlists(self):
         """Returns a list of playlists created by ListenBrainz."""
         import re
+
         resp = self.get_playlists_createdfor(self.username)
         playlists = resp.get("playlists")
         listenbrainz_playlists = []
@@ -169,19 +169,16 @@ class ListenBrainzPlugin(BeetsPlugin):
                     playlist_type = None
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(
-                        date_str, "%Y-%m-%d"
-                    ).date()
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
                     listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                        {"type": playlist_type, "date": date, "identifier": id}
                     )
         return listenbrainz_playlists
-
     def get_playlist(self, identifier):
         """Returns a playlist."""
         url = f"{self.ROOT}/playlist/{identifier}"
