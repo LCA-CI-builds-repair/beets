@@ -2,7 +2,8 @@ Changelog
 =========
 
 1.6.1 (in development)
-----------------------
+Changelog
+=========--------------------
 
 Changelog goes here! Please add your entry to the bottom of one of the lists below!
 
