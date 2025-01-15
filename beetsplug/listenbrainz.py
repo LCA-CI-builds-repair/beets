@@ -27,7 +27,8 @@ class ListenBrainzPlugin(BeetsPlugin):
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
         lbupdate_cmd = ui.Subcommand(
-            "lbimport", help=f"Import {self.data_source} history"
+            "lbimport",
+            help=f"Import {self.data_source} history",
         )
 
         def func(lib, opts, args):
@@ -48,8 +49,8 @@ class ListenBrainzPlugin(BeetsPlugin):
             found_total += found
             unknown_total += unknown
         log.info("... done!")
-        log.info("{0} unknown play-counts", unknown_total)
-        log.info("{0} play-counts imported", found_total)
+        log.info(f"{unknown_total} unknown play-counts")
+        log.info(f"{found_total} play-counts imported")
 
     def _make_request(self, url, params=None):
         """Makes a request to the ListenBrainz API."""
