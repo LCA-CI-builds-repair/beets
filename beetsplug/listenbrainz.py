@@ -48,8 +48,8 @@ class ListenBrainzPlugin(BeetsPlugin):
             found_total += found
             unknown_total += unknown
         log.info("... done!")
-        log.info("{0} unknown play-counts", unknown_total)
-        log.info("{0} play-counts imported", found_total)
+        log.info(f"{unknown_total} unknown play-counts")
+        log.info(f"{found_total} play-counts imported")
 
     def _make_request(self, url, params=None):
         """Makes a request to the ListenBrainz API."""
@@ -131,7 +131,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         return tracks
 
     def get_mb_recording_id(self, track):
-        """Returns the MusicBrainz recording ID for a track."""
+        """Returns the MusicBrainz recording ID for a track."""  # Fix comment indentation
         resp = musicbrainzngs.search_recordings(
             query=track["track_metadata"].get("track_name"),
             release=track["track_metadata"].get("release_name"),
