@@ -13,7 +13,7 @@
 # included in all copies or substantial portions of the Software.
 
 
-import unittest
+import unittest2 as unittest
 from os import path, remove
 from shutil import rmtree
 from tempfile import mkdtemp
