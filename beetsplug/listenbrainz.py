@@ -218,7 +218,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     "year": year,
                 }
             )
-        return track_info
+        return self.get_track_info([track])
 
     def get_weekly_playlist(self, index):
         """Returns a list of weekly playlists based on the index."""
@@ -236,7 +236,7 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def get_last_weekly_exploration(self):
         """Returns a list of weekly exploration."""
-        return self.get_weekly_playlist(3)
+        return self.get_weekly_playlist(1)
 
     def get_last_weekly_jams(self):
         """Returns a list of weekly jams."""
