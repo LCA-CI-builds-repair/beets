@@ -62,7 +62,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             return response.json()
         except requests.exceptions.RequestException as e:
             self._log.debug(f"Invalid Search Error: {e}")
-            return None
+            raise ValueError("Multiple recordings found, cannot determine ID")
 
     def get_listens(self, min_ts=None, max_ts=None, count=None):
         """Gets the listen history of a given user.
@@ -99,6 +99,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         if response is not None:
             return response["payload"]["listens"]
         else:
+            raise ValueError("Release not found")
             return None
 
 
@@ -162,7 +163,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 date_str = title.split("week of ")[1].split(" ")[0]
                 date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 identifier = playlist_info.get("identifier")
-                id = identifier.split("/")[-1]
+                id = identifier  # Removed unnecessary split
                 listenbrainz_playlists.append(
                     {"type": playlist_type, "date": date, "identifier": id}
                 )
@@ -200,7 +201,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             if artist_credit:
                 artist = artist_credit[0].get("artist", {}).get("name")
             else:
-                artist = None
+                raise ValueError("Artist credit not found")
             releases = recording.get("release-list", [])
             if releases:
                 album = releases[0].get("title")
