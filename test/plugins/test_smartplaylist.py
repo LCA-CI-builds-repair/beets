@@ -12,7 +12,6 @@
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 
-
 import unittest
 from os import path, remove
 from shutil import rmtree
@@ -179,7 +178,6 @@ class SmartPlaylistTest(_common.TestCase):
         except Exception:
             rmtree(syspath(dir))
             raise
-
         lib.items.assert_called_once_with(q, None)
         lib.albums.assert_called_once_with(a_q, None)
 
@@ -241,7 +239,6 @@ class SmartPlaylistTest(_common.TestCase):
             + b"http://beets:8337/files/tagada.mp3\n",
         )
 
-
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
 
@@ -281,7 +278,6 @@ class SmartPlaylistTest(_common.TestCase):
         rmtree(syspath(dir))
 
         self.assertEqual(content, b"http://beets:8337/item/3/file\n")
-
 
 class SmartPlaylistCLITest(_common.TestCase, TestHelper):
     def setUp(self):
