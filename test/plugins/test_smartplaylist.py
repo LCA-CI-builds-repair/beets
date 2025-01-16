@@ -96,14 +96,8 @@ class SmartPlaylistTest(_common.TestCase):
         asseq(sorts["one_sort"], sort("year"))
         asseq(sorts["only_empty_sorts"], None)
         asseq(sorts["one_non_empty_sort"], sort("year"))
-        asseq(
-            sorts["multiple_sorts"],
-            MultipleSort([sort("year"), sort("genre", False)]),
-        )
-        asseq(
-            sorts["mixed"],
-            MultipleSort([sort("year"), sort("genre"), sort("id", False)]),
-        )
+        asseq(sorts["multiple_sorts"], MultipleSort([sort("year"), sort("genre", False)]))
+        asseq(sorts["mixed"], MultipleSort([sort("year"), sort("genre"), sort("id", False)]))
 
     def test_matches(self):
         spl = SmartPlaylistPlugin()
@@ -159,6 +153,7 @@ class SmartPlaylistTest(_common.TestCase):
         i = Mock(path=b"/tagada.mp3")
         i.evaluate_template.side_effect = lambda pl, _: pl.replace(
             b"$title", b"ta:ga:da"
+        ).decode()
         ).decode()
 
         lib = Mock()
