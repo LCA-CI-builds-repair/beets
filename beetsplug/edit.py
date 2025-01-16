@@ -110,8 +110,13 @@ def flatten(obj, fields):
     for key in obj.keys():
         value = obj[key]
         if _safe_value(obj, key, value):
-            # A safe value that is faithfully representable in YAML.
             d[key] = value
+            # A safe value that is faithfully representable in YAML; check the `id` field first.
+            if key == "id":
+                # The `id` field is a unique identifier and should not be edited.
+                raise ParseError("Cannot edit the `id` field")
+            else:
+                d[key] = value
         else:
             # A value that should be edited as a string.
             d[key] = obj.formatted()[key]
