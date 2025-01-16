@@ -89,11 +89,9 @@ class ListenBrainzPlugin(BeetsPlugin):
         url = f"{self.ROOT}/user/{self.username}/listens"
         params = {
             k: v
-            for k, v in {
-                "min_ts": min_ts,
+            for k, v in {"min_ts": min_ts,
                 "max_ts": max_ts,
-                "count": count,
-            }.items()
+                "count": count}.items()
             if v is not None
         }
         response = self._make_request(url, params)
@@ -150,8 +148,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_listenbrainz_playlists(self):
         """Returns a list of playlists created by ListenBrainz."""
         import re
-        resp = self.get_playlists_createdfor(self.username)
-        playlists = resp.get("playlists")
+        playlists = self.get_playlists_createdfor(self.username).get("playlists")
         listenbrainz_playlists = []
 
         for playlist in playlists:
@@ -169,17 +166,13 @@ class ListenBrainzPlugin(BeetsPlugin):
                     playlist_type = None
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(
-                        date_str, "%Y-%m-%d"
-                    ).date()
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
-                    listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
-                    )
+                    listenbrainz_playlists.append({"type": playlist_type, "date": date, "identifier": id})
         return listenbrainz_playlists
 
     def get_playlist(self, identifier):
