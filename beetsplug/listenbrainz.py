@@ -13,7 +13,7 @@ from beetsplug.lastimport import process_tracks
 class ListenBrainzPlugin(BeetsPlugin):
     """A Beets plugin for interacting with ListenBrainz."""
 
-    data_source = "ListenBrainz"
+    data_source = 'ListenBrainz'
     ROOT = "http://api.listenbrainz.org/1/"
 
     def __init__(self):
@@ -25,8 +25,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         config["listenbrainz"]["token"].redact = True
 
     def commands(self):
-        """Add beet UI commands to interact with ListenBrainz."""
-        lbupdate_cmd = ui.Subcommand(
+        lbupdate_cmd = ui.Subcommand( 
             "lbimport", help=f"Import {self.data_source} history"
         )
 
@@ -81,12 +80,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         Returns:
             A list of listen info dictionaries if there's an OK status.
 
-        Raises:
-            An HTTPError if there's a failure.
-            A ValueError if the JSON in the response is invalid.
-            An IndexError if the JSON is not structured as expected.
         """
-        url = f"{self.ROOT}/user/{self.username}/listens"
         params = {
             k: v
             for k, v in {
@@ -96,6 +90,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             }.items()
             if v is not None
         }
+        url = f"{self.ROOT}/user/{self.username}/listens"
         response = self._make_request(url, params)
 
         if response is not None:
@@ -112,9 +107,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
             # print(json.dumps(track, indent=4, sort_keys=True))
             if mbid_mapping.get("recording_mbid") is None:
-                # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
-            tracks.append(
                 {
                     "album": {
                         "name": track["track_metadata"].get("release_name")
@@ -127,7 +120,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
                 }
-            )
+            tracks.append(mbid)
         return tracks
 
     def get_mb_recording_id(self, track):
@@ -198,19 +191,16 @@ class ListenBrainzPlugin(BeetsPlugin):
             resp = musicbrainzngs.get_recording_by_id(
                 identifier, includes=["releases", "artist-credits"]
             )
-            recording = resp.get("recording")
-            title = recording.get("title")
-            artist_credit = recording.get("artist-credit", [])
+            recording = resp.get("recording", {})
+            title = recording.get("title", "")
+            artist_credit = recording.get("artist-credit", [{}])
             if artist_credit:
                 artist = artist_credit[0].get("artist", {}).get("name")
             else:
                 artist = None
             releases = recording.get("release-list", [])
             if releases:
-                album = releases[0].get("title")
-                date = releases[0].get("date")
-                year = date.split("-")[0] if date else None
-            else:
+                album, date = releases[0].get("title"), releases[0].get("date")
                 album = None
                 year = None
             track_info.append(
