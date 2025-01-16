@@ -103,7 +103,7 @@ def flatten(obj, fields):
     otherwise, include everything.
 
     The resulting dictionary's keys are strings and the values are
-    safely YAML-serializable types.
+    safely YAML-serializable types. Sort keys first.
     """
     # Format each value.
     d = {}
