@@ -101,11 +101,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         if response is not None:
             return response["payload"]["listens"]
         else:
-            return None
-
-    def get_tracks_from_listens(self, listens):
-        """Returns a list of tracks from a list of listens."""
-        tracks = []
+            return None def get_tracks_from_listens(self, listens): """Returns a list of tracks from a list of listens.""" tracks = []
         for track in listens:
             if track["track_metadata"].get("release_name") is None:
                 continue
@@ -116,12 +112,8 @@ class ListenBrainzPlugin(BeetsPlugin):
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
                 {
-                    "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
-                    "name": track["track_metadata"].get("track_name"),
-                    "artist": {
-                        "name": track["track_metadata"].get("artist_name")
+                    "album": {"name": track["track_metadata"].get("release_name")},
+                    "name": track["track_metadata"].get("track_name"), "artist": {"name": track["track_metadata"].get("artist_name")
                     },
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
@@ -158,8 +150,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
                 playlist_type = (
-                    "Exploration" if "Exploration" in title else "Jams"
-                )
+                    "Exploration" if "Exploration" in title else "Jams")
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
                     date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
@@ -219,8 +210,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     "title": title,
                     "artist": artist,
                     "album": album,
-                    "year": year,
-                }
+                    "year": year,})
             )
         return track_info
 
