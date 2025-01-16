@@ -116,13 +116,9 @@ class ListenBrainzPlugin(BeetsPlugin):
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
                 {
-                    "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
+                    "album": {"name": track["track_metadata"].get("release_name")},
                     "name": track["track_metadata"].get("track_name"),
-                    "artist": {
-                        "name": track["track_metadata"].get("artist_name")
-                    },
+                    "artist": {"name": track["track_metadata"].get("artist_name")},
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
@@ -150,7 +146,9 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_listenbrainz_playlists(self):
         """Returns a list of playlists created by ListenBrainz."""
         import re
+
         resp = self.get_playlists_createdfor(self.username)
+
         playlists = resp.get("playlists")
         listenbrainz_playlists = []
 
@@ -158,7 +156,9 @@ class ListenBrainzPlugin(BeetsPlugin):
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
-                match = re.search(r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title)
+                match = re.search(
+                    r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title
+                )
                 if "Exploration" in title:
                     playlist_type = "Exploration"
                 elif "Jams" in title:
@@ -169,17 +169,16 @@ class ListenBrainzPlugin(BeetsPlugin):
                     playlist_type = None
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(
-                        date_str, "%Y-%m-%d"
-                    ).date()
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
                     listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                        {"type": playlist_type, "date": date, "identifier": id}
                     )
+
         return listenbrainz_playlists
 
     def get_playlist(self, identifier):
