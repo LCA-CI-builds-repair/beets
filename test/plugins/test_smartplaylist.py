@@ -68,7 +68,7 @@ class SmartPlaylistTest(_common.TestCase):
             },
         )
 
-    def test_build_queries_with_sorts(self):
+    def test_build_queries_with_sorts(self) -> None:
         spl = SmartPlaylistPlugin()
         config["smartplaylist"]["playlists"].set(
             [
@@ -105,7 +105,7 @@ class SmartPlaylistTest(_common.TestCase):
             MultipleSort([sort("year"), sort("genre"), sort("id", False)]),
         )
 
-    def test_matches(self):
+    def test_matches(self) -> None:
         spl = SmartPlaylistPlugin()
 
         a = MagicMock(Album)
@@ -127,7 +127,7 @@ class SmartPlaylistTest(_common.TestCase):
         self.assertTrue(spl.matches(i, query, a_query))
         self.assertTrue(spl.matches(a, query, a_query))
 
-    def test_db_changes(self):
+    def test_db_changes(self) -> None:
         spl = SmartPlaylistPlugin()
 
         nones = None, None
@@ -153,7 +153,7 @@ class SmartPlaylistTest(_common.TestCase):
         self.assertEqual(spl._matched_playlists, {pl1, pl3})
         self.assertEqual(spl._unmatched_playlists, {pl2})
 
-    def test_playlist_update(self):
+    def test_playlist_update(self) -> None:
         spl = SmartPlaylistPlugin()
 
         i = Mock(path=b"/tagada.mp3")
@@ -191,7 +191,7 @@ class SmartPlaylistTest(_common.TestCase):
 
         self.assertEqual(content, b"/tagada.mp3\n")
 
-    def test_playlist_update_extm3u(self):
+    def test_playlist_update_extm3u(self) -> None:
         spl = SmartPlaylistPlugin()
 
         i = MagicMock()
@@ -242,7 +242,7 @@ class SmartPlaylistTest(_common.TestCase):
         )
 
 
-    def test_playlist_update_uri_template(self):
+    def test_playlist_update_uri_template(self) -> None:
         spl = SmartPlaylistPlugin()
 
         i = MagicMock()
@@ -301,7 +301,7 @@ class SmartPlaylistCLITest(_common.TestCase, TestHelper):
         self.unload_plugins()
         self.teardown_beets()
 
-    def test_splupdate(self):
+    def test_splupdate(self) -> None:
         with self.assertRaises(UserError):
             self.run_with_output("splupdate", "tagada")
 
