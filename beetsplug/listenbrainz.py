@@ -174,6 +174,16 @@ class ListenBrainzPlugin(BeetsPlugin):
         return self._make_request(url)
 
     def get_tracks_from_playlist(self, playlist):
+    try:
+        for track in playlist.get("playlist").get("track"):
+            identifier = track.get("identifier")
+            resp = musicbrainzngs.get_recording_by_id(identifier, includes=["releases", "artist-credits"])
+            recording = resp.get("recording")
+            if recording:
+                # ... rest of the code remains the same ...
+            else:
+                print(f"Error: Unable to retrieve track information from MusicBrainz for {identifier}")
+        return self.get_track_info(tracks)
         """This function returns a list of tracks in the playlist."""
         tracks = []
         for track in playlist.get("playlist").get("track"):
@@ -232,11 +242,19 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def get_weekly_jams(self):
         """Returns a list of weekly jams."""
+    try:
         return self.get_weekly_playlist(1)
+    except IndexError:
+        print("Error: Unable to retrieve weekly jams from MusicBrainz")
+        return []
 
     def get_last_weekly_exploration(self):
         """Returns a list of weekly exploration."""
+    try:
         return self.get_weekly_playlist(3)
+    except IndexError:
+        print("Error: Unable to retrieve last weekly exploration from MusicBrainz")
+        return []
 
     def get_last_weekly_jams(self):
         """Returns a list of weekly jams."""
