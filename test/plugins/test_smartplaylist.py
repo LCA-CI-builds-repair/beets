@@ -12,7 +12,6 @@
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 
-
 import unittest
 from os import path, remove
 from shutil import rmtree
@@ -76,19 +75,15 @@ class SmartPlaylistTest(_common.TestCase):
                 {"name": "one_sort", "query": "foo year+"},
                 {"name": "only_empty_sorts", "query": ["foo", "bar"]},
                 {"name": "one_non_empty_sort", "query": ["foo year+", "bar"]},
-                {
-                    "name": "multiple_sorts",
-                    "query": ["foo year+", "bar genre-"],
-                },
-                {
-                    "name": "mixed",
-                    "query": ["foo year+", "bar", "baz genre+ id-"],
-                },
+                {"name": "multiple_sorts", "query": ["foo year+", "bar genre-"]},
+                {"name": "mixed", "query": ["foo year+", "bar", "baz genre+ id-"]},
             ]
         )
 
         spl.build_queries()
-        sorts = {name: sort for name, (_, sort), _ in spl._unmatched_playlists}
+        sorts = {
+            name: sort for name, (_, sort), _ in spl._unmatched_playlists
+        }
 
         asseq = self.assertEqual  # less cluttered code
         sort = FixedFieldSort  # short cut since we're only dealing with this
@@ -96,12 +91,8 @@ class SmartPlaylistTest(_common.TestCase):
         asseq(sorts["one_sort"], sort("year"))
         asseq(sorts["only_empty_sorts"], None)
         asseq(sorts["one_non_empty_sort"], sort("year"))
-        asseq(
-            sorts["multiple_sorts"],
-            MultipleSort([sort("year"), sort("genre", False)]),
-        )
-        asseq(
-            sorts["mixed"],
+        asseq(sorts["multiple_sorts"], MultipleSort([sort("year"), sort("genre", False)]))
+        asseq(sorts["mixed"],
             MultipleSort([sort("year"), sort("genre"), sort("id", False)]),
         )
 
@@ -157,8 +148,7 @@ class SmartPlaylistTest(_common.TestCase):
         spl = SmartPlaylistPlugin()
 
         i = Mock(path=b"/tagada.mp3")
-        i.evaluate_template.side_effect = lambda pl, _: pl.replace(
-            b"$title", b"ta:ga:da"
+        i.evaluate_template.side_effect = lambda pl, _: pl.replace(b"$title", b"ta:ga:da"
         ).decode()
 
         lib = Mock()
@@ -199,9 +189,7 @@ class SmartPlaylistTest(_common.TestCase):
         type(i).title = PropertyMock(return_value="fake title")
         type(i).length = PropertyMock(return_value=300.123)
         type(i).path = PropertyMock(return_value=b"/tagada.mp3")
-        i.evaluate_template.side_effect = lambda pl, _: pl.replace(
-            b"$title",
-            b"ta:ga:da",
+        i.evaluate_template.side_effect = lambda pl, _: pl.replace(b"$title", b"ta:ga:da"
         ).decode()
 
         lib = Mock()
@@ -240,14 +228,12 @@ class SmartPlaylistTest(_common.TestCase):
             + b"#EXTINF:300,fake artist - fake title\n"
             + b"http://beets:8337/files/tagada.mp3\n",
         )
-
-
+        
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
 
         i = MagicMock()
         type(i).id = PropertyMock(return_value=3)
-        type(i).path = PropertyMock(return_value=b"/tagada.mp3")
         i.evaluate_template.side_effect = lambda pl, _: pl.replace(
             b"$title", b"ta:ga:da"
         ).decode()
@@ -290,8 +276,7 @@ class SmartPlaylistCLITest(_common.TestCase, TestHelper):
         self.item = self.add_item()
         config["smartplaylist"]["playlists"].set(
             [
-                {"name": "my_playlist.m3u", "query": self.item.title},
-                {"name": "all.m3u", "query": ""},
+                {"name": "my_playlist.m3u", "query": self.item.title}, {"name": "all.m3u", "query": ""}
             ]
         )
         config["smartplaylist"]["playlist_dir"].set(py3_path(self.temp_dir))
