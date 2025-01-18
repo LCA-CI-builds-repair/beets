@@ -55,11 +55,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         """Makes a request to the ListenBrainz API."""
         try:
             response = requests.get(
-                url=url,
-                headers=self.AUTH_HEADER,
-                timeout=10,
-                params=params,
-            )
+                url=url, headers=self.AUTH_HEADER, timeout=10, params=params)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -98,10 +94,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         }
         response = self._make_request(url, params)
 
-        if response is not None:
-            return response["payload"]["listens"]
-        else:
-            return None
+        return response["payload"]["listens"] if response is not None else None
 
     def get_tracks_from_listens(self, listens):
         """Returns a list of tracks from a list of listens."""
@@ -150,6 +143,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_listenbrainz_playlists(self):
         """Returns a list of playlists created by ListenBrainz."""
         import re
+
         resp = self.get_playlists_createdfor(self.username)
         playlists = resp.get("playlists")
         listenbrainz_playlists = []
@@ -169,16 +163,14 @@ class ListenBrainzPlugin(BeetsPlugin):
                     playlist_type = None
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(
-                        date_str, "%Y-%m-%d"
-                    ).date()
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
                     listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                        {"type": playlist_type, "date": date, "identifier": id}
                     )
         return listenbrainz_playlists
 
