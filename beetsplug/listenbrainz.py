@@ -56,7 +56,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         try:
             response = requests.get(
                 url=url,
-                headers=self.AUTH_HEADER,
+                headers=self.AUTH_HEADER,  # Add a space after the comma for consistency
                 timeout=10,
                 params=params,
             )
