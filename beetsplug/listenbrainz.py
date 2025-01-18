@@ -16,12 +16,11 @@ class ListenBrainzPlugin(BeetsPlugin):
     data_source = "ListenBrainz"
     ROOT = "http://api.listenbrainz.org/1/"
 
-    def __init__(self):
-        """Initialize the plugin."""
+    def __init__(self) -> None:
         super().__init__()
-        self.token = self.config["token"].get()
-        self.username = self.config["username"].get()
-        self.AUTH_HEADER = {"Authorization": f"Token {self.token}"}
+        self.token: str = self.config["token"].get()
+        self.username: str = self.config["username"].get()
+        self.AUTH_HEADER: dict[str, str] = {"Authorization": f"Token {self.token}"}
         config["listenbrainz"]["token"].redact = True
 
     def commands(self):
@@ -36,23 +35,21 @@ class ListenBrainzPlugin(BeetsPlugin):
         lbupdate_cmd.func = func
         return [lbupdate_cmd]
 
-    def _lbupdate(self, lib, log):
-        """Obtain view count from Listenbrainz."""
-        found_total = 0
-        unknown_total = 0
-        ls = self.get_listens()
-        tracks = self.get_tracks_from_listens(ls)
+    def _lbupdate(self, lib, log) -> None:
+        found_total: int = 0
+        unknown_total: int = 0
+        ls: list = self.get_listens()
+        tracks: list = self.get_tracks_from_listens(ls)
         log.info(f"Found {len(ls)} listens")
         if tracks:
             found, unknown = process_tracks(lib, tracks, log)
             found_total += found
             unknown_total += unknown
         log.info("... done!")
-        log.info("{0} unknown play-counts", unknown_total)
-        log.info("{0} play-counts imported", found_total)
+        log.info(f"{unknown_total} unknown play-counts")
+        log.info(f"{found_total} play-counts imported")
 
-    def _make_request(self, url, params=None):
-        """Makes a request to the ListenBrainz API."""
+    def _make_request(self, url: str, params: dict | None = None) -> dict | None:
         try:
             response = requests.get(
                 url=url,
