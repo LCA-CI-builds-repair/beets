@@ -26,9 +26,7 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
-        lbupdate_cmd = ui.Subcommand(
-            "lbimport", help=f"Import {self.data_source} history"
-        )
+        lbupdate_cmd = ui.Subcommand("lbimport", help=f"Import {self.data_source} history")
 
         def func(lib, opts, args):
             self._lbupdate(lib, self._log)
@@ -114,11 +112,8 @@ class ListenBrainzPlugin(BeetsPlugin):
             if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
-            tracks.append(
-                {
-                    "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
+            tracks.append({
+                    "album": {"name": track["track_metadata"].get("release_name")},
                     "name": track["track_metadata"].get("track_name"),
                     "artist": {
                         "name": track["track_metadata"].get("artist_name")
@@ -157,9 +152,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
-                playlist_type = (
-                    "Exploration" if "Exploration" in title else "Jams"
-                )
+                playlist_type = "Exploration" if "Exploration" in title else "Jams"
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
                     date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
