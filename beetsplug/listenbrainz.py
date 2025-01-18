@@ -2,11 +2,11 @@
 
 import datetime
 
-import musicbrainzngs
-import requests
-from beets import config, ui
-from beets.plugins import BeetsPlugin
-from beetsplug.lastimport import process_tracks
+import musicbrainzngs  # noqa
+import requests  # noqa
+from beets import config, ui  # noqa
+from beets.plugins import BeetsPlugin  # noqa
+from beetsplug.lastimport import process_tracks  # noqa
 
 
 class ListenBrainzPlugin(BeetsPlugin):
