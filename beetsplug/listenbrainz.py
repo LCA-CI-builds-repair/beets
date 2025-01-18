@@ -54,12 +54,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def _make_request(self, url, params=None):
         """Makes a request to the ListenBrainz API."""
         try:
-            response = requests.get(
-                url=url,
-                headers=self.AUTH_HEADER,
-                timeout=10,
-                params=params,
-            )
+            response = requests.get(url=url, headers=self.AUTH_HEADER, timeout=10, params=params)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -87,13 +82,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             An IndexError if the JSON is not structured as expected.
         """
         url = f"{self.ROOT}/user/{self.username}/listens"
-        params = {
-            k: v
-            for k, v in {
-                "min_ts": min_ts,
-                "max_ts": max_ts,
-                "count": count,
-            }.items()
+        params = {k: v for k, v in {"min_ts": min_ts, "max_ts": max_ts, "count": count}.items()
             if v is not None
         }
         response = self._make_request(url, params)
@@ -114,9 +103,8 @@ class ListenBrainzPlugin(BeetsPlugin):
             if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
-            tracks.append(
-                {
-                    "album": {
+            tracks.append({
+                "album": {
                         "name": track["track_metadata"].get("release_name")
                     },
                     "name": track["track_metadata"].get("track_name"),
@@ -125,8 +113,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     },
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
-                    "listened_at": track.get("listened_at"),
-                }
+                    "listened_at": track.get("listened_at")}
             )
         return tracks
 
@@ -157,15 +144,11 @@ class ListenBrainzPlugin(BeetsPlugin):
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
-                playlist_type = (
-                    "Exploration" if "Exploration" in title else "Jams"
-                )
+                playlist_type = "Exploration" if "Exploration" in title else "Jams"
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
                     date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
-                else:
-                    date = None
-                identifier = playlist_info.get("identifier")
+                else: date = None
                 id = identifier.split("/")[-1]
                 listenbrainz_playlists.append(
                     {"type": playlist_type, "date": date, "identifier": id}
