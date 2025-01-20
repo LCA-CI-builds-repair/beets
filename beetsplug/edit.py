@@ -15,6 +15,8 @@
 """Open metadata information in a text editor to let the user edit it.
 """
 
+import importlib
+importlib.import_module('isort')
 import codecs
 import os
 import shlex
