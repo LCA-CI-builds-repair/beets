@@ -42,11 +42,7 @@ class SmartPlaylistTest(_common.TestCase):
         self.assertEqual(spl._unmatched_playlists, set())
 
         config["smartplaylist"]["playlists"].set(
-            [
-                {"name": "foo", "query": "FOO foo"},
-                {"name": "bar", "album_query": ["BAR bar1", "BAR bar2"]},
-                {"name": "baz", "query": "BAZ baz", "album_query": "BAZ baz"},
-            ]
+            [{"name": "foo", "query": "FOO foo"}, {"name": "bar", "album_query": ["BAR bar1", "BAR bar2"]}, {"name": "baz", "query": "BAZ baz", "album_query": "BAZ baz"}]
         )
         spl.build_queries()
         self.assertEqual(spl._matched_playlists, set())
@@ -71,20 +67,7 @@ class SmartPlaylistTest(_common.TestCase):
     def test_build_queries_with_sorts(self):
         spl = SmartPlaylistPlugin()
         config["smartplaylist"]["playlists"].set(
-            [
-                {"name": "no_sort", "query": "foo"},
-                {"name": "one_sort", "query": "foo year+"},
-                {"name": "only_empty_sorts", "query": ["foo", "bar"]},
-                {"name": "one_non_empty_sort", "query": ["foo year+", "bar"]},
-                {
-                    "name": "multiple_sorts",
-                    "query": ["foo year+", "bar genre-"],
-                },
-                {
-                    "name": "mixed",
-                    "query": ["foo year+", "bar", "baz genre+ id-"],
-                },
-            ]
+            [{"name": "no_sort", "query": "foo"}, {"name": "one_sort", "query": "foo year+"}, {"name": "only_empty_sorts", "query": ["foo", "bar"]}, {"name": "one_non_empty_sort", "query": ["foo year+", "bar"]}, {"name": "multiple_sorts", "query": ["foo year+", "bar genre-"]}, {"name": "mixed", "query": ["foo year+", "bar", "baz genre+ id-"]}]
         )
 
         spl.build_queries()
