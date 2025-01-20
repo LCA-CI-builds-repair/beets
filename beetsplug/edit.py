@@ -15,10 +15,10 @@
 """Open metadata information in a text editor to let the user edit it.
 """
 
-import codecs
 import os
 import shlex
 import subprocess
+import codecs
 from tempfile import NamedTemporaryFile
 
 import yaml
