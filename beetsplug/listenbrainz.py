@@ -4,9 +4,13 @@ import datetime
 
 import musicbrainzngs
 import requests
+import datetime
+
 from beets import config, ui
 from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
+import musicbrainzngs
+import requests
 
 
 class ListenBrainzPlugin(BeetsPlugin):
