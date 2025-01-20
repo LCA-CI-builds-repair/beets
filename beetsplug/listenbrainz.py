@@ -138,7 +138,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             strict=True,
         )
         if resp.get("recording-count") == "1":
-            return resp.get("recording-list")[0].get("id")
+            return resp.get("recording-list", [])[0].get("id")
         else:
             return None
 
