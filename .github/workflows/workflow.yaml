@@ -1,0 +1,23 @@
+name: formatting_check
+run-name: Check code formatting
+on: push
+jobs:
+  formatting_check:
+    runs-on: ubuntu-latest
+    services:
+      pypi_wayback:
+        image: ghcr.io/waleko/pypi-wayback
+        ports:
+        - 8629:8080
+    steps:
+    - name: Install dependencies
+      uses: actions/checkout@v3
+
+    - name: Run formatting check
+      uses: paolorechia/pox@v1.0.1
+      with:
+        tox_env: format_check
+
+env:
+  PIP_INDEX_URL: http://localhost:8629/2023-12-22
+  UV_INDEX_URL: http://localhost:8629/2023-12-22
