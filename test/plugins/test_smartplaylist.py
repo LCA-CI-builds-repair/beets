@@ -33,8 +33,8 @@ from beetsplug.smartplaylist import SmartPlaylistPlugin
 class SmartPlaylistTest(_common.TestCase):
     def test_build_queries(self):
         spl = SmartPlaylistPlugin()
-        self.assertEqual(spl._matched_playlists, None)
-        self.assertEqual(spl._unmatched_playlists, None)
+        assert spl._matched_playlists is None
+        assert spl._unmatched_playlists is None
 
         config["smartplaylist"]["playlists"].set([])
         spl.build_queries()
@@ -323,7 +323,7 @@ class SmartPlaylistCLITest(_common.TestCase, TestHelper):
                 self.assertEqual(f.read(), self.item.path + b"\n")
 
 
-def suite():
+def suite() -> unittest.TestSuite:
     return unittest.TestLoader().loadTestsFromName(__name__)
 
 
