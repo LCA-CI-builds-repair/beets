@@ -111,8 +111,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 continue
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
             # print(json.dumps(track, indent=4, sort_keys=True))
-            if mbid_mapping.get("recording_mbid") is None:
-                # search for the track using title and release
+            if "recording_mbid" not in mbid_mapping:
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
                 {
@@ -156,7 +155,7 @@ class ListenBrainzPlugin(BeetsPlugin):
 
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
-            if playlist_info.get("creator") == "listenbrainz":
+            if playlist_info["creator"] == "listenbrainz":
                 title = playlist_info.get("title")
                 match = re.search(r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title)
                 if "Exploration" in title:
@@ -200,7 +199,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             )
         return self.get_track_info(tracks)
 
-    def get_track_info(self, tracks):
+    def get_track_info(self, tracks: list) -> list:
         """Returns a list of track info."""
         track_info = []
         for track in tracks:
