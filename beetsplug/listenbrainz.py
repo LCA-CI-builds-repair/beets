@@ -2,8 +2,8 @@
 
 import datetime
 
-import musicbrainzngs
 import requests
+import musicbrainzngs
 from beets import config, ui
 from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
