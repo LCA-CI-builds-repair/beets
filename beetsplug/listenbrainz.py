@@ -149,10 +149,11 @@ class ListenBrainzPlugin(BeetsPlugin):
 
     def get_listenbrainz_playlists(self):
         """Returns a list of playlists created by ListenBrainz."""
-        import re
         resp = self.get_playlists_createdfor(self.username)
         playlists = resp.get("playlists")
         listenbrainz_playlists = []
+
+        import re
 
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
