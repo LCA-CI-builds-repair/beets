@@ -51,7 +51,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         log.info("{0} unknown play-counts", unknown_total)
         log.info("{0} play-counts imported", found_total)
 
-    def _make_request(self, url, params=None):
+    def _make_request(self, url: str, params: dict | None = None):
         """Makes a request to the ListenBrainz API."""
         try:
             response = requests.get(
@@ -130,7 +130,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             )
         return tracks
 
-    def get_mb_recording_id(self, track):
+    def get_mb_recording_id(self, track: dict) -> str | None:
         """Returns the MusicBrainz recording ID for a track."""
         resp = musicbrainzngs.search_recordings(
             query=track["track_metadata"].get("track_name"),
@@ -200,7 +200,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             )
         return self.get_track_info(tracks)
 
-    def get_track_info(self, tracks):
+    def get_track_info(self, tracks: list[dict]) -> list[dict]:
         """Returns a list of track info."""
         track_info = []
         for track in tracks:
