@@ -10,7 +10,7 @@ from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
 
 
-class ListenBrainzPlugin(BeetsPlugin):
+class ListenBrainzPlugin(BeetsPlugin):  # noqa: E501
     """A Beets plugin for interacting with ListenBrainz."""
 
     data_source = "ListenBrainz"
@@ -51,7 +51,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         log.info("{0} unknown play-counts", unknown_total)
         log.info("{0} play-counts imported", found_total)
 
-    def _make_request(self, url, params=None):
+    def _make_request(self, url: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
         """Makes a request to the ListenBrainz API."""
         try:
             response = requests.get(
@@ -130,7 +130,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             )
         return tracks
 
-    def get_mb_recording_id(self, track):
+    def get_mb_recording_id(self, track: Dict[str, Any]) -> Optional[str]:
         """Returns the MusicBrainz recording ID for a track."""
         resp = musicbrainzngs.search_recordings(
             query=track["track_metadata"].get("track_name"),
@@ -190,7 +190,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             )
         return self.get_track_info(tracks)
 
-    def get_track_info(self, tracks):
+    def get_track_info(self, tracks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Returns a list of track info."""
         track_info = []
         for track in tracks:
@@ -224,7 +224,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             )
         return track_info
 
-    def get_weekly_playlist(self, index):
+    def get_weekly_playlist(self, index: int) -> List[Dict[str, Any]]:
         """Returns a list of weekly playlists based on the index."""
         playlists = self.get_listenbrainz_playlists()
         playlist = self.get_playlist(playlists[index].get("identifier"))
