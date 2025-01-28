@@ -4,6 +4,7 @@ Changelog
 1.6.1 (in development)
 ----------------------
 
+* Fixed import order in `beetsplug/edit.py` using isort to address formatting issues.
 Changelog goes here! Please add your entry to the bottom of one of the lists below!
 
 With this release, beets now requires Python 3.7 or later (it removes support

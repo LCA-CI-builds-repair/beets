@@ -41,6 +41,7 @@ class ParseError(Exception):
 
 def edit(filename, log):
     """Open `filename` in a text editor."""
+    sort_imports(filename)
     cmd = shlex.split(util.editor_command())
     cmd.append(filename)
     log.debug("invoking editor command: {!r}", cmd)
