@@ -11,6 +11,12 @@ from beetsplug.lastimport import process_tracks
 
 
 class ListenBrainzPlugin(BeetsPlugin):
+    def __init__(self):
+        super().__init__()
+        self.token = self.config["token"].get()
+        self.username = self.config["username"].get()
+        self.AUTH_HEADER = {"Authorization": f"Token {self.token}"}
+        config["listenbrainz"]["token"].redact = True
     """A Beets plugin for interacting with ListenBrainz."""
 
     data_source = "ListenBrainz"
@@ -52,6 +58,18 @@ class ListenBrainzPlugin(BeetsPlugin):
         log.info("{0} play-counts imported", found_total)
 
     def _make_request(self, url, params=None):
+    try:
+        response = requests.get(
+            url=url,
+            headers=self.AUTH_HEADER,
+            timeout=10,
+            params=params,
+        )
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        self._log.debug(f"Invalid Search Error: {e}")
+        return None
         """Makes a request to the ListenBrainz API."""
         try:
             response = requests.get(
@@ -148,6 +166,37 @@ class ListenBrainzPlugin(BeetsPlugin):
         return self._make_request(url)
 
     def get_listenbrainz_playlists(self):
+    import re
+    resp = self.get_playlists_createdfor(self.username)
+    playlists = resp.get("playlists")
+    listenbrainz_playlists = []
+    for playlist in playlists:
+        playlist_info = playlist.get("playlist")
+        if playlist_info.get("creator") == "listenbrainz":
+            title = playlist_info.get("title")
+            match = re.search(r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title)
+            if "Exploration" in title:
+                playlist_type = "Exploration"
+            elif "Jams" in title:
+                playlist_type = "Jams"
+            elif match:
+                playlist_type = match.group(1)
+            else:
+                playlist_type = None
+            if "week of " in title:
+                date_str = title.split("week of ")[1].split(" ")[0]
+                date = datetime.datetime.strptime(
+                    date_str, "%Y-%m-%d"
+                ).date()
+            else:
+                date = None
+            identifier = playlist_info.get("identifier")
+            id = identifier.split("/")[-1]
+            if playlist_type in ["Jams", "Exploration"]:
+                listenbrainz_playlists.append(
+                    {"type": playlist_type, "date": date, "identifier": id}
+                )
+    return listenbrainz_playlists
         """Returns a list of playlists created by ListenBrainz."""
         import re
         resp = self.get_playlists_createdfor(self.username)
@@ -201,6 +250,37 @@ class ListenBrainzPlugin(BeetsPlugin):
         return self.get_track_info(tracks)
 
     def get_track_info(self, tracks):
+    track_info = []
+    for track in tracks:
+        identifier = track.get("identifier")
+        resp = musicbrainzngs.get_recording_by_id(
+            identifier, includes=["releases", "artist-credits"]
+        )
+        recording = resp.get("recording")
+        title = recording.get("title")
+        artist_credit = recording.get("artist-credit", [])
+        if artist_credit:
+            artist = artist_credit[0].get("artist", {}).get("name")
+        else:
+            artist = None
+        releases = recording.get("release-list", [])
+        if releases:
+            album = releases[0].get("title")
+            date = releases[0].get("date")
+            year = date.split("-")[0] if date else None
+        else:
+            album = None
+            year = None
+        track_info.append(
+            {
+                "identifier": identifier,
+                "title": title,
+                "artist": artist,
+                "album": album,
+                "year": year,
+            }
+        )
+    return track_info
         """Returns a list of track info."""
         track_info = []
         for track in tracks:
