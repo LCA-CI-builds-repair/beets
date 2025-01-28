@@ -184,7 +184,7 @@ class SmartPlaylistTest(_common.TestCase):
         lib.albums.assert_called_once_with(a_q, None)
 
         m3u_filepath = path.join(dir, b"ta_ga_da-my_playlist_.m3u")
-        self.assertExists(m3u_filepath)
+        self.assertTrue(path.exists(syspath(m3u_filepath)))
         with open(syspath(m3u_filepath), "rb") as f:
             content = f.read()
         rmtree(syspath(dir))
@@ -229,7 +229,7 @@ class SmartPlaylistTest(_common.TestCase):
         lib.albums.assert_called_once_with(a_q, None)
 
         m3u_filepath = path.join(dir, b"ta_ga_da-my_playlist_.m3u")
-        self.assertExists(m3u_filepath)
+        self.assertTrue(path.exists(syspath(m3u_filepath)))
         with open(syspath(m3u_filepath), "rb") as f:
             content = f.read()
         rmtree(syspath(dir))
@@ -275,7 +275,7 @@ class SmartPlaylistTest(_common.TestCase):
         lib.albums.assert_called_once_with(a_q, None)
 
         m3u_filepath = path.join(dir, b"ta_ga_da-my_playlist_.m3u")
-        self.assertExists(m3u_filepath)
+        self.assertTrue(path.exists(syspath(m3u_filepath)))
         with open(syspath(m3u_filepath), "rb") as f:
             content = f.read()
         rmtree(syspath(dir))
