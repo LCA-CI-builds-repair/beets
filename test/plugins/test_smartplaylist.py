@@ -54,10 +54,8 @@ class SmartPlaylistTest(_common.TestCase):
         baz_baz = parse_query_string("BAZ baz", Item)
         baz_baz2 = parse_query_string("BAZ baz", Album)
         bar_bar = OrQuery(
-            (
-                parse_query_string("BAR bar1", Album)[0],
-                parse_query_string("BAR bar2", Album)[0],
-            )
+            (parse_query_string("BAR bar1", Album)[0],
+             parse_query_string("BAR bar2", Album)[0])
         )
         self.assertEqual(
             spl._unmatched_playlists,
@@ -96,9 +94,7 @@ class SmartPlaylistTest(_common.TestCase):
         asseq(sorts["one_sort"], sort("year"))
         asseq(sorts["only_empty_sorts"], None)
         asseq(sorts["one_non_empty_sort"], sort("year"))
-        asseq(
-            sorts["multiple_sorts"],
-            MultipleSort([sort("year"), sort("genre", False)]),
+        asseq(sorts["multiple_sorts"], MultipleSort([sort("year"), sort("genre", False)]),
         )
         asseq(
             sorts["mixed"],
@@ -168,6 +164,7 @@ class SmartPlaylistTest(_common.TestCase):
 
         q = Mock()
         a_q = Mock()
+
         pl = b"$title-my<playlist>.m3u", (q, None), (a_q, None)
         spl._matched_playlists = [pl]
 
@@ -199,9 +196,7 @@ class SmartPlaylistTest(_common.TestCase):
         type(i).title = PropertyMock(return_value="fake title")
         type(i).length = PropertyMock(return_value=300.123)
         type(i).path = PropertyMock(return_value=b"/tagada.mp3")
-        i.evaluate_template.side_effect = lambda pl, _: pl.replace(
-            b"$title",
-            b"ta:ga:da",
+        i.evaluate_template.side_effect = lambda pl, _: pl.replace(b"$title", b"ta:ga:da"
         ).decode()
 
         lib = Mock()
@@ -237,10 +232,9 @@ class SmartPlaylistTest(_common.TestCase):
         self.assertEqual(
             content,
             b"#EXTM3U\n"
-            + b"#EXTINF:300,fake artist - fake title\n"
-            + b"http://beets:8337/files/tagada.mp3\n",
+            b"#EXTINF:300,fake artist - fake title\n"
+            b"http://beets:8337/files/tagada.mp3\n",
         )
-
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
