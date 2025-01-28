@@ -14,6 +14,8 @@ class ListenBrainzPlugin(BeetsPlugin):
     """A Beets plugin for interacting with ListenBrainz."""
 
     data_source = "ListenBrainz"
+    MAX_RETRIES = 3
+    RETRY_DELAY = 5  # seconds
     ROOT = "http://api.listenbrainz.org/1/"
 
     def __init__(self):
@@ -52,8 +54,42 @@ class ListenBrainzPlugin(BeetsPlugin):
         log.info("{0} play-counts imported", found_total)
 
     def _make_request(self, url, params=None):
-        """Makes a request to the ListenBrainz API."""
-        try:
+        """Makes a request to the ListenBrainz API with retry logic."""
+        retries = 0
+        while retries < self.MAX_RETRIES:
+            try:
+                response = requests.get(
+                    url=url,
+                    headers=self.AUTH_HEADER,
+                    timeout=10,
+                    params=params,
+                )
+                response.raise_for_status()
+                return response.json()
+            except requests.exceptions.RequestException as e:
+                retries += 1
+                self._log.debug(f"Request failed (attempt {retries}/{self.MAX_RETRIES}): {e}")
+                if retries < self.MAX_RETRIES:
+                    self._log.info(f"Retrying in {self.RETRY_DELAY} seconds...")
+                    import time
+                    time.sleep(self.RETRY_DELAY)
+                else:
+                    self._log.error("Maximum number of retries reached. Aborting.")
+                    return None
+        else:
+            return None
+
+    def get_listens(self, min_ts=None, max_ts=None, count=None):
+        """Gets the listen history of a given user with retry logic."""
+        response = self._make_request(
+            f"{self.ROOT}/user/{self.username}/listens",
+            {k: v for k, v in {"min_ts": min_ts, "max_ts": max_ts, "count": count}.items() if v is not None},
+        )
+        if response is not None:
+            return response["payload"]["listens"]
+        else:
+            return []
+
             response = requests.get(
                 url=url,
                 headers=self.AUTH_HEADER,
