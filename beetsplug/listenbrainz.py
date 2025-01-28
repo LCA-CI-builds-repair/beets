@@ -131,9 +131,8 @@ class ListenBrainzPlugin(BeetsPlugin):
         return tracks
 
     def get_mb_recording_id(self, track):
-        """Returns the MusicBrainz recording ID for a track."""
         resp = musicbrainzngs.search_recordings(
-            query=track["track_metadata"].get("track_name"),
+            query=track["track_metadata"]["track_name"],
             release=track["track_metadata"].get("release_name"),
             strict=True,
         )
@@ -178,7 +177,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
                     listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                        {"type": playlist_type, "date": date, "identifier": id}
                     )
         return listenbrainz_playlists
 
