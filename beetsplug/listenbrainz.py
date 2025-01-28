@@ -196,7 +196,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     "artist": track.get("creator"),
                     "identifier": track.get("identifier").split("/")[-1],
                     "title": track.get("title"),
-                }
+                },
             )
         return self.get_track_info(tracks)
 
