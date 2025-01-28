@@ -323,7 +323,7 @@ class SmartPlaylistCLITest(_common.TestCase, TestHelper):
                 self.assertEqual(f.read(), self.item.path + b"\n")
 
 
-def suite():
+def suite() -> unittest.TestSuite:
     return unittest.TestLoader().loadTestsFromName(__name__)
 
 
