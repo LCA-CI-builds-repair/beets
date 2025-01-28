@@ -54,12 +54,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def _make_request(self, url, params=None):
         """Makes a request to the ListenBrainz API."""
         try:
-            response = requests.get(
-                url=url,
-                headers=self.AUTH_HEADER,
-                timeout=10,
-                params=params,
-            )
+            response = requests.get(url=url, headers=self.AUTH_HEADER, timeout=10, params=params)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -110,19 +105,14 @@ class ListenBrainzPlugin(BeetsPlugin):
             if track["track_metadata"].get("release_name") is None:
                 continue
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
-            # print(json.dumps(track, indent=4, sort_keys=True))
             if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
                 {
-                    "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
+                    "album": {"name": track["track_metadata"].get("release_name")},
                     "name": track["track_metadata"].get("track_name"),
-                    "artist": {
-                        "name": track["track_metadata"].get("artist_name")
-                    },
+                    "artist": {"name": track["track_metadata"].get("artist_name")},
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
@@ -157,9 +147,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
-                playlist_type = (
-                    "Exploration" if "Exploration" in title else "Jams"
-                )
+                playlist_type = "Exploration" if "Exploration" in title else "Jams"
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
                     date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
@@ -241,7 +229,6 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_last_weekly_exploration(self):
         """Returns a list of weekly exploration."""
         return self.get_weekly_playlist(3)
-
     def get_last_weekly_jams(self):
         """Returns a list of weekly jams."""
         return self.get_weekly_playlist(3)
