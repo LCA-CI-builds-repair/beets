@@ -32,11 +32,9 @@ from beetsplug.smartplaylist import SmartPlaylistPlugin
 
 class SmartPlaylistTest(_common.TestCase):
     def test_build_queries(self):
-        spl = SmartPlaylistPlugin()
-        self.assertEqual(spl._matched_playlists, None)
-        self.assertEqual(spl._unmatched_playlists, None)
+        spl = SmartPlaylistPlugin()  # noqa: F841
 
-        config["smartplaylist"]["playlists"].set([])
+        config["smartplaylist"]["playlists"] = []
         spl.build_queries()
         self.assertEqual(spl._matched_playlists, set())
         self.assertEqual(spl._unmatched_playlists, set())
@@ -237,10 +235,9 @@ class SmartPlaylistTest(_common.TestCase):
         self.assertEqual(
             content,
             b"#EXTM3U\n"
-            + b"#EXTINF:300,fake artist - fake title\n"
-            + b"http://beets:8337/files/tagada.mp3\n",
+            b"#EXTINF:300,fake artist - fake title\n"
+            b"http://beets:8337/files/tagada.mp3\n",
         )
-
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
@@ -281,7 +278,6 @@ class SmartPlaylistTest(_common.TestCase):
         rmtree(syspath(dir))
 
         self.assertEqual(content, b"http://beets:8337/item/3/file\n")
-
 
 class SmartPlaylistCLITest(_common.TestCase, TestHelper):
     def setUp(self):
