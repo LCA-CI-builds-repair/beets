@@ -13,7 +13,7 @@
 # included in all copies or substantial portions of the Software.
 
 
-import unittest
+from unittest import TestCase, main
 from os import path, remove
 from shutil import rmtree
 from tempfile import mkdtemp
@@ -30,7 +30,7 @@ from beets.util import CHAR_REPLACE, bytestring_path, py3_path, syspath
 from beetsplug.smartplaylist import SmartPlaylistPlugin
 
 
-class SmartPlaylistTest(_common.TestCase):
+class TestSmartPlaylist(TestCase):
     def test_build_queries(self):
         spl = SmartPlaylistPlugin()
         self.assertEqual(spl._matched_playlists, None)
@@ -283,7 +283,7 @@ class SmartPlaylistTest(_common.TestCase):
         self.assertEqual(content, b"http://beets:8337/item/3/file\n")
 
 
-class SmartPlaylistCLITest(_common.TestCase, TestHelper):
+class TestSmartPlaylistCLI(TestCase, TestHelper):
     def setUp(self):
         self.setup_beets()
 
