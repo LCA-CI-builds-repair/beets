@@ -24,7 +24,7 @@ from tempfile import NamedTemporaryFile
 import yaml
 
 from beets import plugins, ui, util, config
-from beets.dbcore import types
+from beets.dbcore import types, query
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
 
@@ -186,6 +186,9 @@ class EditPlugin(plugins.BeetsPlugin):
         query = ui.decargs(args)
         items, albums = _do_query(lib, query, opts.album, False)
         objs = albums if opts.album else items
+       if not objs:
+           ui.print_("No objects matched your query.")
+           return
         if not objs:
             ui.print_("Nothing to edit.")
             return
