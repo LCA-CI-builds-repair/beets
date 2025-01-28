@@ -27,8 +27,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
         lbupdate_cmd = ui.Subcommand(
-            "lbimport", help=f"Import {self.data_source} history"
-        )
+            "lbimport", help=f"Import {self.data_source} history")
 
         def func(lib, opts, args):
             self._lbupdate(lib, self._log)
