@@ -54,12 +54,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def _make_request(self, url, params=None):
         """Makes a request to the ListenBrainz API."""
         try:
-            response = requests.get(
-                url=url,
-                headers=self.AUTH_HEADER,
-                timeout=10,
-                params=params,
-            )
+            response = requests.get(url=url, headers=self.AUTH_HEADER, timeout=10, params=params)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -87,13 +82,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             An IndexError if the JSON is not structured as expected.
         """
         url = f"{self.ROOT}/user/{self.username}/listens"
-        params = {
-            k: v
-            for k, v in {
-                "min_ts": min_ts,
-                "max_ts": max_ts,
-                "count": count,
-            }.items()
+        params = {k: v for k, v in {"min_ts": min_ts, "max_ts": max_ts, "count": count}.items()
             if v is not None
         }
         response = self._make_request(url, params)
@@ -117,9 +106,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             tracks.append(
                 {
                     "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
-                    "name": track["track_metadata"].get("track_name"),
+                        "name": track["track_metadata"].get("release_name")},
                     "artist": {
                         "name": track["track_metadata"].get("artist_name")
                     },
@@ -157,13 +144,8 @@ class ListenBrainzPlugin(BeetsPlugin):
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
-                playlist_type = (
-                    "Exploration" if "Exploration" in title else "Jams"
-                )
-                if "week of " in title:
-                    date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
-                else:
+                playlist_type = "Exploration" if "Exploration" in title else "Jams"
+                if "week of " in title: date_str = title.split("week of ")[1].split(" ")[0]; date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
