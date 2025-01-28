@@ -86,15 +86,22 @@ class ListenBrainzPlugin(BeetsPlugin):
             A ValueError if the JSON in the response is invalid.
             An IndexError if the JSON is not structured as expected.
         """
+        if min_ts is not None and max_ts is not None:
+            raise ValueError("Cannot use both min_ts and max_ts")
+        if count is not None and count <= 0:
+            raise ValueError("Count must be a positive number")
+
         url = f"{self.ROOT}/user/{self.username}/listens"
         params = {
             k: v
             for k, v in {
                 "min_ts": min_ts,
                 "max_ts": max_ts,
-                "count": count,
+                "count": count if count is not None else None,
             }.items()
-            if v is not None
+            if v is not None and (
+                k != "count" or (k == "count" and count is not None and count > 0)
+            )
         }
         response = self._make_request(url, params)
 
