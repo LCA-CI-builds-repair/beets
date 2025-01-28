@@ -33,6 +33,10 @@ class ListenBrainzPlugin(BeetsPlugin):
         def func(lib, opts, args):
             self._lbupdate(lib, self._log)
 
+
+        def func(lib, opts, args):
+            self._lbupdate(lib, self._log)
+
         lbupdate_cmd.func = func
         return [lbupdate_cmd]
 
