@@ -56,15 +56,13 @@ class ListenBrainzPlugin(BeetsPlugin):
         try:
             response = requests.get(
                 url=url,
-                headers=self.AUTH_HEADER,
-                timeout=10,
-                params=params,
+                headers=self.AUTH_HEADER, timeout=10, params=params,
             )
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
-            self._log.debug(f"Invalid Search Error: {e}")
-            return None
+            self._log.debug(f"Invalid Search Error: {e}") 
+            return None 
 
     def get_listens(self, min_ts=None, max_ts=None, count=None):
         """Gets the listen history of a given user.
@@ -87,14 +85,12 @@ class ListenBrainzPlugin(BeetsPlugin):
             An IndexError if the JSON is not structured as expected.
         """
         url = f"{self.ROOT}/user/{self.username}/listens"
-        params = {
-            k: v
-            for k, v in {
-                "min_ts": min_ts,
-                "max_ts": max_ts,
-                "count": count,
-            }.items()
-            if v is not None
+        params = { 
+            k: v 
+            for k, v in { 
+                "min_ts": min_ts, "max_ts": max_ts, "count": count, 
+            }.items() 
+            if v is not None 
         }
         response = self._make_request(url, params)
 
