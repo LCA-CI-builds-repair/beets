@@ -87,15 +87,9 @@ class ListenBrainzPlugin(BeetsPlugin):
             An IndexError if the JSON is not structured as expected.
         """
         url = f"{self.ROOT}/user/{self.username}/listens"
-        params = {
-            k: v
-            for k, v in {
-                "min_ts": min_ts,
-                "max_ts": max_ts,
-                "count": count,
-            }.items()
-            if v is not None
-        }
+        params = {k: v for k, v in {"min_ts": min_ts, "max_ts": max_ts, "count": count}.items() 
+                 if v is not None}
+
         response = self._make_request(url, params)
 
         if response is not None:
@@ -114,8 +108,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
-            tracks.append(
-                {
+            tracks.append({
                     "album": {
                         "name": track["track_metadata"].get("release_name")
                     },
@@ -125,8 +118,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                     },
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
-                    "listened_at": track.get("listened_at"),
-                }
+                    "listened_at": track.get("listened_at")}
             )
         return tracks
 
@@ -159,8 +151,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             if playlist_info.get("creator") == "listenbrainz":
                 title = playlist_info.get("title")
                 match = re.search(r"(Missed Recordings of \d{4}|Discoveries of \d{4})", title)
-                if "Exploration" in title:
-                    playlist_type = "Exploration"
+                if "Exploration" in title: playlist_type = "Exploration"
                 elif "Jams" in title:
                     playlist_type = "Jams"
                 elif match:
@@ -169,17 +160,13 @@ class ListenBrainzPlugin(BeetsPlugin):
                     playlist_type = None
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(
-                        date_str, "%Y-%m-%d"
-                    ).date()
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
-                    listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
-                    )
+                    listenbrainz_playlists.append({"type": playlist_type, "date": date, "identifier": id})
         return listenbrainz_playlists
 
     def get_playlist(self, identifier):
@@ -224,14 +211,12 @@ class ListenBrainzPlugin(BeetsPlugin):
                 album = None
                 year = None
             track_info.append(
-                {
-                    "identifier": identifier,
+                {"identifier": identifier,
                     "title": title,
                     "artist": artist,
                     "album": album,
                     "year": year,
-                }
-            )
+                })
         return track_info
 
     def get_weekly_playlist(self, index):
