@@ -27,9 +27,7 @@ class ListenBrainzPlugin(BeetsPlugin):
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
         lbupdate_cmd = ui.Subcommand(
-            "lbimport", help=f"Import {self.data_source} history"
-        )
-
+            "lbimport", help=f"Import {self.data_source} history")
         def func(lib, opts, args):
             self._lbupdate(lib, self._log)
 
@@ -114,15 +112,10 @@ class ListenBrainzPlugin(BeetsPlugin):
             if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
-            tracks.append(
-                {
-                    "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
+            tracks.append({
+                    "album": {"name": track["track_metadata"].get("release_name")},
                     "name": track["track_metadata"].get("track_name"),
-                    "artist": {
-                        "name": track["track_metadata"].get("artist_name")
-                    },
+                    "artist": {"name": track["track_metadata"].get("artist_name")},
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
@@ -176,10 +169,8 @@ class ListenBrainzPlugin(BeetsPlugin):
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
-                if playlist_type in ["Jams", "Exploration"]:
-                    listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
-                    )
+                if playlist_type in ["Jams", "Exploration"]: listenbrainz_playlists.append(
+                    {"type": playlist_type, "date": date, "identifier": id})
         return listenbrainz_playlists
 
     def get_playlist(self, identifier):
@@ -191,13 +182,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         """This function returns a list of tracks in the playlist."""
         tracks = []
         for track in playlist.get("playlist").get("track"):
-            tracks.append(
-                {
-                    "artist": track.get("creator"),
-                    "identifier": track.get("identifier").split("/")[-1],
-                    "title": track.get("title"),
-                }
-            )
+            tracks.append({"artist": track.get("creator"), "identifier": track.get("identifier").split("/")[-1], "title": track.get("title")})
         return self.get_track_info(tracks)
 
     def get_track_info(self, tracks):
@@ -223,15 +208,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             else:
                 album = None
                 year = None
-            track_info.append(
-                {
-                    "identifier": identifier,
-                    "title": title,
-                    "artist": artist,
-                    "album": album,
-                    "year": year,
-                }
-            )
+            track_info.append({"identifier": identifier, "title": title, "artist": artist, "album": album, "year": year})
         return track_info
 
     def get_weekly_playlist(self, index):
