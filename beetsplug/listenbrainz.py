@@ -2,10 +2,10 @@
 
 import datetime
 
-import musicbrainzngs
 import requests
-from beets import config, ui
+import musicbrainzngs
 from beets.plugins import BeetsPlugin
+from beets import config, ui
 from beetsplug.lastimport import process_tracks
 
 
