@@ -61,7 +61,7 @@ def dump(arg):
     )
 
 
-def load(s):
+def load(text):
     """Read a sequence of YAML documents back to a list of dictionaries
     with string keys.
 
@@ -69,7 +69,7 @@ def load(s):
     """
     try:
         out = []
-        for d in yaml.safe_load_all(s):
+        for d in yaml.safe_load_all(text):
             if not isinstance(d, dict):
                 raise ParseError(
                     "each entry must be a dictionary; found {}".format(
@@ -87,8 +87,8 @@ def load(s):
 
 
 def _safe_value(obj, key, value):
-    """Check whether the `value` is safe to represent in YAML and trust as
-    returned from parsed YAML.
+    """Checks that `value` can be safely represented in YAML and trusted 
+     when returned from parsed YAML.
 
     This ensures that values do not change their type when the user edits their
     YAML representation.
@@ -103,20 +103,20 @@ def flatten(obj, fields):
     otherwise, include everything.
 
     The resulting dictionary's keys are strings and the values are
-    safely YAML-serializable types.
+    safe to serialize to YAML.
     """
     # Format each value.
     d = {}
     for key in obj.keys():
         value = obj[key]
         if _safe_value(obj, key, value):
-            # A safe value that is faithfully representable in YAML.
+            # Can safely represent the value in YAML
             d[key] = value
         else:
-            # A value that should be edited as a string.
+            # Should edit the value as a string instead
             d[key] = obj.formatted()[key]
 
-    # Possibly filter field names.
+    # Filter fields if specified
     if fields:
         return {k: v for k, v in d.items() if k in fields}
     else:
@@ -125,19 +125,20 @@ def flatten(obj, fields):
 
 def apply_(obj, data):
     """Set the fields of a `dbcore.Model` object according to a
-    dictionary.
+    dictionary `data`.
 
-    This is the opposite of `flatten`. The `data` dictionary should have
+    This is the inverse of `flatten`. The `data` dictionary should have
     strings as values.
     """
     for key, value in data.items():
         if _safe_value(obj, key, value):
-            # A safe value *stayed* represented as a safe type. Assign it
-            # directly.
+            # Safe value stayed as a safe type after editing, so assign it
+            # directly
             obj[key] = value
         else:
             # Either the field was stringified originally or the user changed
-            # it from a safe type to an unsafe one. Parse it as a string.
+            # it from a safe type to an unsafe one. Parse it from a string to
+            # the value type.
             obj.set_parse(key, str(value))
 
 
@@ -147,10 +148,10 @@ class EditPlugin(plugins.BeetsPlugin):
 
         self.config.add(
             {
-                # The default fields to edit.
+                # Default fields to edit.
                 "albumfields": "album albumartist",
                 "itemfields": "track title artist album",
-                # Silently ignore any changes to these fields.
+                # Silently ignore changes to these fields.
                 "ignore_fields": "id path",
             }
         )
@@ -230,10 +231,9 @@ class EditPlugin(plugins.BeetsPlugin):
             self.save_changes(objs)
 
     def edit_objects(self, objs, fields):
-        """Dump a set of Model objects to a file as text, ask the user
-        to edit it, and apply any changes to the objects.
+        """Edit Model objects `objs` with fields `fields` in a text file.
 
-        Return a boolean indicating whether the edit succeeded.
+        Return True if the edit succeeded, False otherwise.
         """
         # Get the content to edit as raw data structures.
         old_data = [flatten(o, fields) for o in objs]
@@ -251,24 +251,24 @@ class EditPlugin(plugins.BeetsPlugin):
             old_str = ""
 
         # Set up a temporary file with the initial data for editing.
-        new = NamedTemporaryFile(
-            mode="w", suffix=".yaml", delete=False, encoding="utf-8"
+        with NamedTemporaryFile(
+            mode='w', suffix='.yaml', delete=False, encoding='utf-8'
         )
-        old_str = dump(old_data) + old_str
-        new.write(old_str)
-        new.close()
+            temp_path = temp_file.name
+            old_str = dump(old_data) + old_str
+            temp_file.write(old_str)
 
         # Loop until we have parseable data and the user confirms.
         try:
             while True:
                 # Ask the user to edit the data.
-                edit(new.name, self._log)
+                edit(temp_path, self._log)
                 self.has_shown_ui = True
 
                 # Read the data back after editing and check whether anything
                 # changed.
-                with codecs.open(new.name, encoding="utf-8") as f:
-                    new_str = f.read()
+                with codecs.open(temp_path, encoding='utf-8') as f:
+                    new_str = f.read().replace('\r\n', '\n')
                 if new_str == old_str:
                     ui.print_("No changes; aborting.")
                     return False
@@ -292,7 +292,7 @@ class EditPlugin(plugins.BeetsPlugin):
                 for obj, obj_old in zip(objs, objs_old):
                     changed |= ui.show_model_changes(obj, obj_old)
                 if not changed:
-                    ui.print_("No changes to apply.")
+                    ui.print_("No changes detected.")
                     return False
 
                 # Confirm the changes.
@@ -310,13 +310,13 @@ class EditPlugin(plugins.BeetsPlugin):
                         (old_obj or obj) for old_obj, obj in zip(objs_old, objs)
                     ]
                     for obj in objs:
-                        if not obj.id < 0:
+                        if obj.id >= 0:
                             obj.load()
                     continue
 
         # Remove the temporary file before returning.
         finally:
-            os.remove(new.name)
+            os.remove(temp_path)
 
     def apply_data(self, objs, old_data, new_data):
         """Take potentially-updated data and apply it to a set of Model
