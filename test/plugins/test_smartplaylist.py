@@ -237,10 +237,9 @@ class SmartPlaylistTest(_common.TestCase):
         self.assertEqual(
             content,
             b"#EXTM3U\n"
-            + b"#EXTINF:300,fake artist - fake title\n"
-            + b"http://beets:8337/files/tagada.mp3\n",
+            b"#EXTINF:300,fake artist - fake title\n"
+            b"http://beets:8337/files/tagada.mp3\n",
         )
-
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
