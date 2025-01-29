@@ -24,9 +24,9 @@ from tempfile import NamedTemporaryFile
 import yaml
 
 from beets import plugins, ui, util, config
-from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
+from beets.dbcore import types
 
 # These "safe" types can avoid the format/parse cycle that most fields go
 # through: they are safe to edit with native YAML types.
