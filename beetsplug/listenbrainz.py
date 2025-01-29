@@ -178,7 +178,11 @@ class ListenBrainzPlugin(BeetsPlugin):
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
                     listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                        {
+                            "type": playlist_type,
+                            "date": date,
+                            "identifier": id,
+                        }
                     )
         return listenbrainz_playlists
 
