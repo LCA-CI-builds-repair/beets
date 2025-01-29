@@ -69,14 +69,9 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_listens(self, min_ts=None, max_ts=None, count=None):
         """Gets the listen history of a given user.
 
-        Args:
-            username: User to get listen history of.
-            min_ts: History before this timestamp will not be returned.
-                    DO NOT USE WITH max_ts.
-            max_ts: History after this timestamp will not be returned.
-                    DO NOT USE WITH min_ts.
-            count: How many listens to return. If not specified,
-                uses a default from the server.
+        Args: username: User to get listen history of. min_ts: History before this timestamp will not be returned. DO NOT USE WITH max_ts.
+        max_ts: History after this timestamp will not be returned. DO NOT USE WITH min_ts. count: How many listens to return. If not
+        specified, uses a default from the server.
 
         Returns:
             A list of listen info dictionaries if there's an OK status.
@@ -112,10 +107,8 @@ class ListenBrainzPlugin(BeetsPlugin):
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
             # print(json.dumps(track, indent=4, sort_keys=True))
             if mbid_mapping.get("recording_mbid") is None:
-                # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
-            tracks.append(
-                {
+            tracks.append({
                     "album": {
                         "name": track["track_metadata"].get("release_name")
                     },
@@ -169,17 +162,13 @@ class ListenBrainzPlugin(BeetsPlugin):
                     playlist_type = None
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(
-                        date_str, "%Y-%m-%d"
-                    ).date()
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
-                    listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
-                    )
+                    listenbrainz_playlists.append({"type": playlist_type, "date": date, "identifier": id})
         return listenbrainz_playlists
 
     def get_playlist(self, identifier):
@@ -205,9 +194,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         track_info = []
         for track in tracks:
             identifier = track.get("identifier")
-            resp = musicbrainzngs.get_recording_by_id(
-                identifier, includes=["releases", "artist-credits"]
-            )
+            resp = musicbrainzngs.get_recording_by_id(identifier, includes=["releases", "artist-credits"])
             recording = resp.get("recording")
             title = recording.get("title")
             artist_credit = recording.get("artist-credit", [])
@@ -223,14 +210,12 @@ class ListenBrainzPlugin(BeetsPlugin):
             else:
                 album = None
                 year = None
-            track_info.append(
-                {
+            track_info.append({
                     "identifier": identifier,
                     "title": title,
                     "artist": artist,
                     "album": album,
-                    "year": year,
-                }
+                    "year": year}
             )
         return track_info
 
