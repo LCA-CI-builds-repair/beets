@@ -27,6 +27,7 @@ from beets import plugins, ui, util, config
 from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
+from beets import util
 
 # These "safe" types can avoid the format/parse cycle that most fields go
 # through: they are safe to edit with native YAML types.
@@ -138,6 +139,9 @@ def apply_(obj, data):
         else:
             # Either the field was stringified originally or the user changed
             # it from a safe type to an unsafe one. Parse it as a string.
+            if isinstance(value, str):
+                # Ensure that string values are properly encoded
+                value = util.text_string(value)
             obj.set_parse(key, str(value))
 
 
