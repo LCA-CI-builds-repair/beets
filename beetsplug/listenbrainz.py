@@ -109,11 +109,9 @@ class ListenBrainzPlugin(BeetsPlugin):
         for track in listens:
             if track["track_metadata"].get("release_name") is None:
                 continue
-            mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
             # print(json.dumps(track, indent=4, sort_keys=True))
-            if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
-                mbid = self.get_mb_recording_id(track)
+            mbid = track["track_metadata"].get("mbid_mapping", {}).get("recording_mbid") or self.get_mb_recording_id(track)
             tracks.append(
                 {
                     "album": {
@@ -124,7 +122,6 @@ class ListenBrainzPlugin(BeetsPlugin):
                         "name": track["track_metadata"].get("artist_name")
                     },
                     "mbid": mbid,
-                    "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
                 }
             )
