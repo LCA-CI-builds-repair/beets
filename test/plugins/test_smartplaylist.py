@@ -76,14 +76,8 @@ class SmartPlaylistTest(_common.TestCase):
                 {"name": "one_sort", "query": "foo year+"},
                 {"name": "only_empty_sorts", "query": ["foo", "bar"]},
                 {"name": "one_non_empty_sort", "query": ["foo year+", "bar"]},
-                {
-                    "name": "multiple_sorts",
-                    "query": ["foo year+", "bar genre-"],
-                },
-                {
-                    "name": "mixed",
-                    "query": ["foo year+", "bar", "baz genre+ id-"],
-                },
+                {"name": "multiple_sorts", "query": ["foo year+", "bar genre-"]},
+                {"name": "mixed", "query": ["foo year+", "bar", "baz genre+ id-"]},
             ]
         )
 
@@ -96,14 +90,8 @@ class SmartPlaylistTest(_common.TestCase):
         asseq(sorts["one_sort"], sort("year"))
         asseq(sorts["only_empty_sorts"], None)
         asseq(sorts["one_non_empty_sort"], sort("year"))
-        asseq(
-            sorts["multiple_sorts"],
-            MultipleSort([sort("year"), sort("genre", False)]),
-        )
-        asseq(
-            sorts["mixed"],
-            MultipleSort([sort("year"), sort("genre"), sort("id", False)]),
-        )
+        asseq(sorts["multiple_sorts"], MultipleSort([sort("year"), sort("genre", False)]))
+        asseq(sorts["mixed"], MultipleSort([sort("year"), sort("genre"), sort("id", False)]))
 
     def test_matches(self):
         spl = SmartPlaylistPlugin()
@@ -240,7 +228,6 @@ class SmartPlaylistTest(_common.TestCase):
             + b"#EXTINF:300,fake artist - fake title\n"
             + b"http://beets:8337/files/tagada.mp3\n",
         )
-
 
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
