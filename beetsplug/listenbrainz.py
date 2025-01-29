@@ -110,9 +110,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             if track["track_metadata"].get("release_name") is None:
                 continue
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
-            # print(json.dumps(track, indent=4, sort_keys=True))
             if mbid_mapping.get("recording_mbid") is None:
-                # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
                 {
@@ -178,8 +176,8 @@ class ListenBrainzPlugin(BeetsPlugin):
                 id = identifier.split("/")[-1]
                 if playlist_type in ["Jams", "Exploration"]:
                     listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
-                    )
+                        {"type": playlist_type, "date": date, "identifier": id}
+                    )  # noqa: E501
         return listenbrainz_playlists
 
     def get_playlist(self, identifier):
