@@ -21,9 +21,9 @@ import shlex
 import subprocess
 from tempfile import NamedTemporaryFile
 
-import yaml
-
-from beets import plugins, ui, util, config
+from beets import config
+from beets import plugins
+from beets import ui, util
 from beets.dbcore import types
 from beets.importer import action
 from beets.ui.commands import PromptChoice, _do_query
@@ -37,6 +37,8 @@ class ParseError(Exception):
     """The modified file is unreadable. The user should be offered a chance to
     fix the error.
     """
+
+import yaml
 
 
 def edit(filename, log):
