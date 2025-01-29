@@ -162,13 +162,18 @@ class ListenBrainzPlugin(BeetsPlugin):
                 )
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
-                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d") \
+                        .date()
                 else:
                     date = None
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                    {
+                        "type": playlist_type,
+                        "date": date,
+                        "identifier": id,
+                    }
                 )
         return listenbrainz_playlists
 
