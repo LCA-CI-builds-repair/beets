@@ -35,9 +35,7 @@ class SmartPlaylistTest(_common.TestCase):
         spl = SmartPlaylistPlugin()
         self.assertEqual(spl._matched_playlists, None)
         self.assertEqual(spl._unmatched_playlists, None)
-
         config["smartplaylist"]["playlists"].set([])
-        spl.build_queries()
         self.assertEqual(spl._matched_playlists, set())
         self.assertEqual(spl._unmatched_playlists, set())
 
@@ -48,16 +46,13 @@ class SmartPlaylistTest(_common.TestCase):
                 {"name": "baz", "query": "BAZ baz", "album_query": "BAZ baz"},
             ]
         )
-        spl.build_queries()
         self.assertEqual(spl._matched_playlists, set())
         foo_foo = parse_query_string("FOO foo", Item)
         baz_baz = parse_query_string("BAZ baz", Item)
         baz_baz2 = parse_query_string("BAZ baz", Album)
         bar_bar = OrQuery(
-            (
-                parse_query_string("BAR bar1", Album)[0],
-                parse_query_string("BAR bar2", Album)[0],
-            )
+            [parse_query_string("BAR bar1", Album)[0],
+             parse_query_string("BAR bar2", Album)[0]]
         )
         self.assertEqual(
             spl._unmatched_playlists,
@@ -87,7 +82,6 @@ class SmartPlaylistTest(_common.TestCase):
             ]
         )
 
-        spl.build_queries()
         sorts = {name: sort for name, (_, sort), _ in spl._unmatched_playlists}
 
         asseq = self.assertEqual  # less cluttered code
@@ -280,7 +274,7 @@ class SmartPlaylistTest(_common.TestCase):
             content = f.read()
         rmtree(syspath(dir))
 
-        self.assertEqual(content, b"http://beets:8337/item/3/file\n")
+        self.assertEqual(content, b"http://beets:8337/item/3/file\n")    
 
 
 class SmartPlaylistCLITest(_common.TestCase, TestHelper):
