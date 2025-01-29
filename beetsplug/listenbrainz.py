@@ -11,9 +11,7 @@ from beetsplug.lastimport import process_tracks
 
 
 class ListenBrainzPlugin(BeetsPlugin):
-    """A Beets plugin for interacting with ListenBrainz."""
-
-    data_source = "ListenBrainz"
+    data_source = "ListenBrainz"  # docstring in init
     ROOT = "http://api.listenbrainz.org/1/"
 
     def __init__(self):
@@ -22,12 +20,14 @@ class ListenBrainzPlugin(BeetsPlugin):
         self.token = self.config["token"].get()
         self.username = self.config["username"].get()
         self.AUTH_HEADER = {"Authorization": f"Token {self.token}"}
+        """A Beets plugin for interacting with ListenBrainz."""
         config["listenbrainz"]["token"].redact = True
 
     def commands(self):
         """Add beet UI commands to interact with ListenBrainz."""
         lbupdate_cmd = ui.Subcommand(
-            "lbimport", help=f"Import {self.data_source} history"
+            "lbimport",
+            help=f"Import {self.data_source} history",
         )
 
         def func(lib, opts, args):
@@ -110,19 +110,14 @@ class ListenBrainzPlugin(BeetsPlugin):
             if track["track_metadata"].get("release_name") is None:
                 continue
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
-            # print(json.dumps(track, indent=4, sort_keys=True))
             if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
                 mbid = self.get_mb_recording_id(track)
             tracks.append(
                 {
-                    "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
+                    "album": {"name": track["track_metadata"].get("release_name")},
                     "name": track["track_metadata"].get("track_name"),
-                    "artist": {
-                        "name": track["track_metadata"].get("artist_name")
-                    },
+                    "artist": {"name": track["track_metadata"].get("artist_name")},
                     "mbid": mbid,
                     "release_mbid": mbid_mapping.get("release_mbid"),
                     "listened_at": track.get("listened_at"),
@@ -155,11 +150,9 @@ class ListenBrainzPlugin(BeetsPlugin):
 
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
-            if playlist_info.get("creator") == "listenbrainz":
-                title = playlist_info.get("title")
-                playlist_type = (
-                    "Exploration" if "Exploration" in title else "Jams"
-                )
+            if playlist_info.get("creator") == "listenbrainz":  # only listenbrainz
+                title = playlist_info.get("title")  # Exploration or Jams
+                playlist_type = "Exploration" if "Exploration" in title else "Jams"
                 if "week of " in title:
                     date_str = title.split("week of ")[1].split(" ")[0]
                     date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
