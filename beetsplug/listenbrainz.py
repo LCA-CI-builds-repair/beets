@@ -93,8 +93,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 "min_ts": min_ts,
                 "max_ts": max_ts,
                 "count": count,
-            }.items()
-            if v is not None
+            }.items() if v is not None
         }
         response = self._make_request(url, params)
 
@@ -117,9 +116,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             tracks.append(
                 {
                     "album": {
-                        "name": track["track_metadata"].get("release_name")
-                    },
-                    "name": track["track_metadata"].get("track_name"),
+                        "name": track["track_metadata"].get("release_name")},
                     "artist": {
                         "name": track["track_metadata"].get("artist_name")
                     },
@@ -156,8 +153,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
             if playlist_info.get("creator") == "listenbrainz":
-                title = playlist_info.get("title")
-                playlist_type = (
+                title = playlist_info.get("title")                playlist_type = (
                     "Exploration" if "Exploration" in title else "Jams"
                 )
                 if "week of " in title:
@@ -168,7 +164,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 identifier = playlist_info.get("identifier")
                 id = identifier.split("/")[-1]
                 listenbrainz_playlists.append(
-                    {"type": playlist_type, "date": date, "identifier": id}
+                    {"type": playlist_type, "date": date, "identifier": id,}
                 )
         return listenbrainz_playlists
 
