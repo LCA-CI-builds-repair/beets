@@ -168,7 +168,7 @@ class ListenBrainzPlugin(BeetsPlugin):
                 else:
                     playlist_type = None
                 if "week of " in title:
-                    date_str = title.split("week of ")[1].split(" ")[0]
+                    date_str = title.split("week of ")[1].split()[0]
                     date = datetime.datetime.strptime(
                         date_str, "%Y-%m-%d"
                     ).date()
