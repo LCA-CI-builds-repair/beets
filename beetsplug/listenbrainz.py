@@ -1,10 +1,9 @@
 """Adds Listenbrainz support to Beets."""
 
 import datetime
-
-import musicbrainzngs
 import requests
 
+import musicbrainzngs
 from beets import config, ui
 from beets.plugins import BeetsPlugin
 from beetsplug.lastimport import process_tracks
@@ -57,8 +56,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             response = requests.get(
                 url=url,
                 headers=self.AUTH_HEADER,
-                timeout=10,
-                params=params,
+                timeout=10, params=params
             )
             response.raise_for_status()
             return response.json()
