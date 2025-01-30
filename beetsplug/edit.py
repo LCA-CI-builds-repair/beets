@@ -19,6 +19,7 @@ import codecs
 import os
 import shlex
 import subprocess
+from unidecode import unidecode
 from tempfile import NamedTemporaryFile
 
 import yaml
@@ -134,7 +135,13 @@ def apply_(obj, data):
         if _safe_value(obj, key, value):
             # A safe value *stayed* represented as a safe type. Assign it
             # directly.
-            obj[key] = value
+            try:
+                obj[key] = value
+            except TypeError:
+                value = str(value)
+                # Handle date/numeric fields that fail to convert back
+                if value:
+                    obj.set_parse(key, value)
         else:
             # Either the field was stringified originally or the user changed
             # it from a safe type to an unsafe one. Parse it as a string.
