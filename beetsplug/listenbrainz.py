@@ -2,10 +2,11 @@
 
 import datetime
 
-import musicbrainzngs
 import requests
+import musicbrainzngs
 from beets import config, ui
 from beets.plugins import BeetsPlugin
+
 from beetsplug.lastimport import process_tracks
 
 
@@ -100,7 +101,6 @@ class ListenBrainzPlugin(BeetsPlugin):
             return response["payload"]["listens"]
         else:
             return None
-
 
     def get_tracks_from_listens(self, listens):
         """Returns a list of tracks from a list of listens."""
