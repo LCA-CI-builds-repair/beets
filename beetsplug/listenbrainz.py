@@ -1,6 +1,7 @@
 """Adds Listenbrainz support to Beets."""
 
 import datetime
+import re
 
 import musicbrainzngs
 import requests
@@ -67,7 +68,7 @@ class ListenBrainzPlugin(BeetsPlugin):
             return None
 
     def get_listens(self, min_ts=None, max_ts=None, count=None):
-        """Gets the listen history of a given user.
+        """Get the listen history of a given user.
 
         Args:
             username: User to get listen history of.
@@ -103,13 +104,14 @@ class ListenBrainzPlugin(BeetsPlugin):
         else:
             return None
 
-    def get_tracks_from_listens(self, listens):
-        """Returns a list of tracks from a list of listens."""
+    def get_tracks_from_listens(self, listens: list) -> list:
+        """Return a list of tracks from a list of listens."""
         tracks = []
         for track in listens:
             if track["track_metadata"].get("release_name") is None:
                 continue
             mbid_mapping = track["track_metadata"].get("mbid_mapping", {})
+
             # print(json.dumps(track, indent=4, sort_keys=True))
             if mbid_mapping.get("recording_mbid") is None:
                 # search for the track using title and release
@@ -131,7 +133,7 @@ class ListenBrainzPlugin(BeetsPlugin):
         return tracks
 
     def get_mb_recording_id(self, track):
-        """Returns the MusicBrainz recording ID for a track."""
+        """Return the MusicBrainz recording ID for a track."""
         resp = musicbrainzngs.search_recordings(
             query=track["track_metadata"].get("track_name"),
             release=track["track_metadata"].get("release_name"),
@@ -255,3 +257,4 @@ class ListenBrainzPlugin(BeetsPlugin):
     def get_last_weekly_jams(self):
         """Returns a list of weekly jams."""
         return self.get_weekly_playlist(3)
+
