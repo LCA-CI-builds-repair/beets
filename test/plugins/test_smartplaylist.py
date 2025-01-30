@@ -241,7 +241,6 @@ class SmartPlaylistTest(_common.TestCase):
             + b"http://beets:8337/files/tagada.mp3\n",
         )
 
-
     def test_playlist_update_uri_template(self):
         spl = SmartPlaylistPlugin()
 
