@@ -155,8 +155,7 @@ class ListenBrainzPlugin(BeetsPlugin):
 
         for playlist in playlists:
             playlist_info = playlist.get("playlist")
-            if playlist_info.get("creator") == "listenbrainz":
-                title = playlist_info.get("title")
+            if playlist_info.get("creator") == "listenbrainz": title = playlist_info.get("title")
                 playlist_type = (
                     "Exploration" if "Exploration" in title else "Jams"
                 )
