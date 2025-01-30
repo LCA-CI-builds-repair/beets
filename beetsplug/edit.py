@@ -18,6 +18,7 @@
 import codecs
 import os
 import shlex
+import re
 import subprocess
 from tempfile import NamedTemporaryFile
 
