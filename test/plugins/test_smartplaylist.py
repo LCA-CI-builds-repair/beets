@@ -199,10 +199,9 @@ class SmartPlaylistTest(_common.TestCase):
         type(i).title = PropertyMock(return_value="fake title")
         type(i).length = PropertyMock(return_value=300.123)
         type(i).path = PropertyMock(return_value=b"/tagada.mp3")
-        i.evaluate_template.side_effect = lambda pl, _: pl.replace(
-            b"$title",
-            b"ta:ga:da",
-        ).decode()
+        i.evaluate_template.side_effect = (
+            lambda pl, _: pl.replace(b"$title", b"ta:ga:da").decode()
+        )
 
         lib = Mock()
         lib.replacements = CHAR_REPLACE
